@@ -1,0 +1,13 @@
+#log4j
+logLevel=DEBUG
+logAppender=stdout
+logFileName=D:/social_batch/socialDataLog.log
+
+# DB url, username, password
+url=dbsafer.tmonc.net:4005/tmon_mobile
+username=headcha
+password=ckwjdgus!
+
+#test
+testData=123
+oneTeamUrl=http://127.0.0.1:8080

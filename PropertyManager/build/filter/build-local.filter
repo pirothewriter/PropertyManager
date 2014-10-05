@@ -1,0 +1,13 @@
+#log4j
+logLevel=DEBUG
+logAppender=stdout
+logFileName=D:/social_batch/socialDataLog.log
+
+# DB url, username, password
+url=10.5.208.35:3306/front_db
+username=headcha
+password=admin
+
+#data.xml
+testData=test
+oneTeamUrl=http://127.0.0.1:8080
