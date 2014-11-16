@@ -63,9 +63,7 @@ h4 {
 				<h2>잘못된 요청입니다.</h2>
 				<p>
 				<center>
-					<button
-						style="margin-top: 50px; margin-left: auto; margin-right: auto;" class="btn btn-primary btn-lg" role="button" onclick="javascript:history.back()">뒤로
-					</button>
+					<button style="margin-top: 50px; margin-left: auto; margin-right: auto;" class="btn btn-primary btn-lg" role="button" onclick="javascript:history.back()">뒤로</button>
 				</center>
 				</p>
 			</div>

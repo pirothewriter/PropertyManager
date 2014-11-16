@@ -3,6 +3,7 @@ package com.tmoncorp.PropertyManager.model;
 public class TestModel {
 	private String name;
 	private int numbering;
+	
 	public String getName() {
 		return name;
 	}
@@ -15,5 +16,4 @@ public class TestModel {
 	public void setNumbering(int numbering) {
 		this.numbering = numbering;
 	}
-	
 }
