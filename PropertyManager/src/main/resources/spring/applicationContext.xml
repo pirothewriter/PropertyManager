@@ -38,7 +38,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations" value="classpath:sql/mappers/*.xml"></property>
 		<property name="typeAliases"
-			value="com.tmoncorp.PropertyManager.model.TestModel"></property>
+			value="com.tmoncorp.PropertyManager.model.EquipmentModel"></property>
 		<property name="typeAliasesPackage"
 			value="com.tmoncorp.PropertyManager.model"></property>
 	</bean>
@@ -47,8 +47,8 @@
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 
-	<bean id="TestMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.tmoncorp.PropertyManager.repository.TestMapper" />
+	<bean id="EquipmentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.tmoncorp.PropertyManager.repository.EquipmentMapper" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 	

@@ -6,6 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>자산정보 입력</title>
 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<link href="css/glDatePicker.flatwhite.css" rel="stylesheet" type="text/css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script src="js/glDatePicker.min.js"></script>
+
 <script type="text/javascript">
 	function getLowerCategory(val){
 		if(val == "monitor"){
@@ -62,15 +68,69 @@
 		
 		else{
 			$("select[name='propertyLowerCategory'] option").remove();
+			$("select[name=propertyLowerCategory]").append("<option value=''>소분류</option>");
 			$("select[name=propertyLowerCategory]").append("<option value='etc'>기타</option>");
-			$("select[name=propertyLowerCategory]").attr("readonly",true);
-			$("select[name=propertyLowerCategory]").attr("disabled",true);
+			$("select[name=propertyLowerCategory]").attr("disabled",false);
+			$("select[name=propertyLowerCategory]").attr("readonly",false);
 		}
+	}
+	
+	function checkIntegrity(){
+		var checker = true;
+		
+		for(var index = 0; index < $("form input").length; index++){
+			if($("form input")[index].value == null)
+				checker = false;
+		}
+		
+		if($("select")[0].value == '' || $("select")[1].value == '')
+			checker = false;
+		
+		return checker;
 	}
 	
 	$(document).ready(function(){
 		$("select[name='propertyUpperCategory']").change(function(){
 			getLowerCategory($("select[name='propertyUpperCategory']").val());			
+		});
+		
+		$("#datepicker_it" ).glDatePicker({
+			cssName: 'flatwhite',
+			dateFormat: 'yy-mm-dd',
+			allowMonthSelect: true,
+		    allowYearSelect: true,
+		    onClick: function(target, cell, date, data) {
+		    	var month = date.getMonth()+1;
+		        target.val(date.getFullYear() + '-' + month + '-' + date.getDate());
+		        if(data != null) {
+		            alert(data.message + '\n' + date);
+		        }
+		    }
+			});
+		
+		$("#datepicker_finance" ).glDatePicker({
+			cssName: 'flatwhite',
+			dateFormat: 'yy-mm-dd',
+			allowMonthSelect: true,
+		    allowYearSelect: true,
+		    onClick: function(target, cell, date, data) {
+		    	var month = date.getMonth()+1;
+		        target.val(date.getFullYear() + '-' + month + '-' + date.getDate());
+
+		        if(data != null) {
+		            alert(data.message + '\n' + date);
+		        }
+		    }
+	        });
+		
+		$("#formSubmit").on("click", function(){
+			var checker = checkIntegrity();
+			if(checker == false){
+				alert("값을 채워주세요!");
+			}
+			else{
+				document.inputForm.submit();
+			}
 		});
 	})
 </script>
@@ -78,7 +138,7 @@
 <body>
 	<div id="wrapper">
 		<div id="list">
-			<form>
+			<form action="/inserting.tmon" method="post" name="inputForm">
 			자산번호 : <input type="text" name="propertyNumber"><br>
 			자산구분 : 
 			<select name="propertyUpperCategory">
@@ -96,18 +156,19 @@
 			</select>
 			<br>
 			자산명 : <input type="text" name="propertyName"><br>
-			자산정보1 : <select name="propertyInfomation"></select><input type="text" name="propertyInformation1"><br>
+			자산정보1 : <input type="text" name="propertyInformation1"><br>
 			자산정보2 : <input type="text" name="propertyInformation2"><br>
-			자산 입고일 : <input type="text" name="propertyIncommingITUnit"><br>
+			자산 입고일 : <input type="text" id="datepicker_it" name="propertyIncommingITUnit"><br>
 			(IT유닛 입고 당일)<br>
-			자산 입고일 : <input type="text" name="propertyIncommingFinance"><br>
+			자산 입고일 : <input type="text" id="datepicker_finance" name="propertyIncommingFinance"><br>
 			(재무팀 월말)<br>
 			<p>
 			자산 제조사 : <input type="text" name="propertyProducted"><br>
 			자산 판매사 : <input type="text" name="propertySeller"><br>
-			자산 구매 단가 : 자산 제조사 : <input type="text" name="propertyProducted"><br>
+			자산 구매 단가 : <input type="text" name="propertyPrice"><br> 
 			
-			유저정보 : <input type="text" value="티켓몬스터" disabled>
+			유저정보 : <input type="text" name="propertyUser" value="티켓몬스터" disabled><p>
+			<button type="button" id="formSubmit">입력</button>
 			</form>
 		</div>
 	</div>

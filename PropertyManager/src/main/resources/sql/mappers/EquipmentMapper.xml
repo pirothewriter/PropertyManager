@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmoncorp.PropertyManager.repository.EquipmentMapper">
+	<resultMap type="EquipmentModel" id="EquipmentResult">
+		<result property="name" column="name" />
+		<result property="upperCategory" column="upper_category" />
+		<result property="lowerCategory" column="lower_category" />
+		<result property="infomation1" column="infomation1" />
+		<result property="infomation2" column="infomation2" />
+		<result property="incommingItUnit" column="incooming_IT_Unit" />
+		<result property="incommingFinance" column="incooming_finance" />
+		<result property="producted" column="producted" />
+		<result property="seller" column="seller" />
+		<result property="price" column="price" />
+		<result property="user" column="user" />
+	</resultMap>
+	
+	<insert id="insertEquipmentInfomation" parameterType="EquipmentModel">
+	INSERT INTO
+		equipment(property_number, name, upper_category, lower_category, infomation1, infomation2, incomming_IT_Unit, incomming_finance, productor, seller, price, user)
+	SELECT
+		#{propertyNumber}, #{name}, #{upperCategory}, #{lowerCategory}, #{infomation1}, #{infomation2}, #{incommingItUnit}, #{incommingFinance}, #{productor}, #{seller}, #{price}, #{user}
+	FROM DUAL WHERE NOT EXISTS
+		(SELECT E.property_number FROM equipment E WHERE E.property_number= #{propertyNumber})
+	</insert>
+</mapper>
