@@ -9,6 +9,6 @@ import com.tmoncorp.PropertyManager.model.EquipmentModel;
  */
 
 public interface EquipmentMapper {
-	public void insertEquipmentInfomation(EquipmentModel equipmentModel);
+	public int insertEquipmentInfomation(EquipmentModel equipmentModel);
 
 }

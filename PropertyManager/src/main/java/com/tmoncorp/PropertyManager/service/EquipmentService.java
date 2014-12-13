@@ -16,8 +16,9 @@ public class EquipmentService {
 	@Autowired
 	private EquipmentRepository equipmentRepository;
 	
-	public void equipmentInsertion(HttpServletRequest request) throws ParseException{
-		equipmentRepository.insertEquipmentInfomation(parsingInsertionParameters(request));
+	public int equipmentInsertion(HttpServletRequest request) throws ParseException{
+		int affectedRows = equipmentRepository.insertEquipmentInfomation(parsingInsertionParameters(request));
+		return affectedRows;
 	}
 
 	private EquipmentModel parsingInsertionParameters(HttpServletRequest request) throws ParseException {
@@ -35,7 +36,7 @@ public class EquipmentService {
 		dataForInsert.setProductor(request.getParameter("propertyProducted"));
 		dataForInsert.setSeller(request.getParameter("propertySeller"));
 		dataForInsert.setPrice(Integer.parseInt(request.getParameter("propertyPrice")));
-		dataForInsert.setUser("Ticketmonster");
+		dataForInsert.setUser("티켓몬스터");
 
 		return dataForInsert;
 	}

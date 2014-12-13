@@ -11,8 +11,9 @@ public class EquipmentRepository {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public void insertEquipmentInfomation(EquipmentModel equipmentModel){
+	public int insertEquipmentInfomation(EquipmentModel equipmentModel){
 		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
-		equipmentMapper.insertEquipmentInfomation(equipmentModel);
+		int result = equipmentMapper.insertEquipmentInfomation(equipmentModel);
+		return result;
 	}
 }

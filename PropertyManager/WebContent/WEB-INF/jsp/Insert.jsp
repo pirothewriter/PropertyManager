@@ -1,7 +1,8 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>자산정보 입력</title>
@@ -116,7 +117,6 @@
 		    onClick: function(target, cell, date, data) {
 		    	var month = date.getMonth()+1;
 		        target.val(date.getFullYear() + '-' + month + '-' + date.getDate());
-
 		        if(data != null) {
 		            alert(data.message + '\n' + date);
 		        }
@@ -125,9 +125,15 @@
 		
 		$("#formSubmit").on("click", function(){
 			var checker = checkIntegrity();
+			var num_regx = /^[0-9]+$/;
 			if(checker == false){
 				alert("값을 채워주세요!");
 			}
+			
+			else if(!num_regx.test($("input")[8].value)){
+				alert("자산단가는 숫자만 들어갈 수 있습니다!");				
+			}
+			
 			else{
 				document.inputForm.submit();
 			}
