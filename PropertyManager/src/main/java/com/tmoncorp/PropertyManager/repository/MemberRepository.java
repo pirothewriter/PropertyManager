@@ -4,7 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.tmoncorp.PropertyManager.model.EquipmentModel;
+import com.tmoncorp.PropertyManager.model.MemberModel;
 
 /**
  * 
@@ -13,13 +13,13 @@ import com.tmoncorp.PropertyManager.model.EquipmentModel;
  */
 
 @Repository
-public class EquipmentRepository {
+public class MemberRepository {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public int insertEquipmentInfomation(EquipmentModel equipmentModel){
-		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
-		int result = equipmentMapper.insertEquipmentInfomation(equipmentModel);
+	public int insertMemberInfomation(MemberModel memberModel){
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		int result = memberMapper.insertMemberInfomation(memberModel);
 		return result;
 	}
 }

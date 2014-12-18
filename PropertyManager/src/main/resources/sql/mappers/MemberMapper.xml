@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmoncorp.PropertyManager.repository.MemberMapper">
+	<resultMap type="MemberModel" id="MembertResult">
+		<result property="memberId" column="member_id" />
+		<result property="memberName" column="member_name" />
+		<result property="upperDivision" column="upper_division" />
+		<result property="lowerDivision" column="lower_division" />
+		<result property="emailAddress" column="email_address" />
+		<result property="officePhoneNumber" column="office_phone_number" />
+	</resultMap>
+
+	<insert id="insertMemberInfomation" parameterType="MemberModel">
+		INSERT INTO
+		member(member_id, member_name, upper_division, lower_division, email_address, office_phone_number)
+		SELECT
+		#{memberId}, #{memberName}, #{upperDivision}, #{lowerDivision}, #{emailAddress}, #{officePhoneNumber} 
+		FROM DUAL WHERE NOT EXISTS
+		(SELECT M.member_id FROM member M WHERE M.member_id = #{memberId})
+	</insert>
+</mapper>

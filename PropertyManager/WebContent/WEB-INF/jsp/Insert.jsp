@@ -14,6 +14,23 @@
 <script src="js/glDatePicker.min.js"></script>
 
 <script type="text/javascript">
+	function getPropertyHeadNumber(upperCategory, lowerCategory){
+		if(upperCategory == 'monitor' || upperCategory == 'desktop' || upperCategory == 'notebook')
+			$("input[name='propertyHeadNumber']").val('PCM');
+		else if(upperCategory == 'network')
+			$("input[name='propertyHeadNumber']").val('NET');
+		else if(upperCategory == 'server')
+			$("input[name='propertyHeadNumber']").val('SVR');
+		else if(upperCategory == 'phone'){
+			if(lowerCategory == 'SIP')
+				$("input[name='propertyHeadNumber']").val('SIP');
+			else
+				$("input[name='propertyHeadNumber']").val('IPT');
+		}
+		else if(upperCategory =='etc')
+			$("input[name='propertyHeadNumber']").val('ETC');
+	}
+	
 	function getLowerCategory(val){
 		if(val == "monitor"){
 			$("select[name='propertyLowerCategory'] option").remove();
@@ -92,7 +109,11 @@
 	
 	$(document).ready(function(){
 		$("select[name='propertyUpperCategory']").change(function(){
-			getLowerCategory($("select[name='propertyUpperCategory']").val());			
+			getLowerCategory($("select[name='propertyUpperCategory']").val());
+			getPropertyHeadNumber($("select[name='propertyUpperCategory']").val(), $("select[name='propertyLowerCategory']").val())
+		});
+		$("select[name='propertyLowerCategory']").change(function(){
+			getPropertyHeadNumber($("select[name='propertyUpperCategory']").val(), $("select[name='propertyLowerCategory']").val())
 		});
 		
 		$("#datepicker_it" ).glDatePicker({
@@ -130,7 +151,11 @@
 				alert("값을 채워주세요!");
 			}
 			
-			else if(!num_regx.test($("input")[8].value)){
+			else if(! num_regx.test($("input")[1].value)){
+				alert("자산번호 뒷자리는 숫자만 들어갈 수 있습니다!");
+			}
+			
+			else if(! num_regx.test($("input")[9].value)){
 				alert("자산단가는 숫자만 들어갈 수 있습니다!");				
 			}
 			
@@ -145,7 +170,7 @@
 	<div id="wrapper">
 		<div id="list">
 			<form action="/inserting.tmon" method="post" name="inputForm">
-			자산번호 : <input type="text" name="propertyNumber"><br>
+			자산번호 : <input type="text" name="propertyHeadNumber" readonly><input type="text" name="propertyNumber"><br>
 			자산구분 : 
 			<select name="propertyUpperCategory">
 				<option value="">대분류</option>

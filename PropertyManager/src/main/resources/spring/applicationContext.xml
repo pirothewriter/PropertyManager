@@ -13,7 +13,7 @@
 	<task:executor id="taskExecutor" pool-size="1" />
 	<task:scheduler id="taskScheduler" />
 
-<!-- DataSource -->
+	<!-- DataSource -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
@@ -31,16 +31,13 @@
 		<property name="maxWait" value="1000"></property>
 		<property name="testWhileIdle" value="true"></property>
 		<property name="timeBetweenEvictionRunsMillis" value="30000"></property>
-
 	</bean>
-	
+
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations" value="classpath:sql/mappers/*.xml"></property>
-		<property name="typeAliases"
-			value="com.tmoncorp.PropertyManager.model.EquipmentModel"></property>
-		<property name="typeAliasesPackage"
-			value="com.tmoncorp.PropertyManager.model"></property>
+		<property name="typeAliases" value="com.tmoncorp.PropertyManager.model.EquipmentModel, com.tmoncorp.PropertyManager.model.MemberModel"></property>
+		<property name="typeAliasesPackage" value="com.tmoncorp.PropertyManager.model"></property>
 	</bean>
 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
@@ -52,6 +49,11 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 	
+	<bean id="MemberMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.tmoncorp.PropertyManager.repository.MemberMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />

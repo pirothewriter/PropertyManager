@@ -15,8 +15,8 @@ import com.tmoncorp.PropertyManager.util.ExchangeDateBetweenString;
 public class EquipmentService {
 	@Autowired
 	private EquipmentRepository equipmentRepository;
-	
-	public int equipmentInsertion(HttpServletRequest request) throws ParseException{
+
+	public int equipmentInsertion(HttpServletRequest request) throws ParseException {
 		int affectedRows = equipmentRepository.insertEquipmentInfomation(parsingInsertionParameters(request));
 		return affectedRows;
 	}
@@ -25,8 +25,8 @@ public class EquipmentService {
 		EquipmentModel dataForInsert = new EquipmentModel();
 		ExchangeDateBetweenString exchangeDateBetweenString = new ExchangeDateBetweenString();
 
-		dataForInsert.setPropertyNumber(request.getParameter("propertyNumber"));
-		dataForInsert.setName(request.getParameter("propertyNumber"));
+		dataForInsert.setPropertyNumber(request.getParameter("propertyHeadNumber") + request.getParameter("propertyNumber"));
+		dataForInsert.setName(request.getParameter("propertyName"));
 		dataForInsert.setUpperCategory(request.getParameter("propertyUpperCategory"));
 		dataForInsert.setLowerCategory(request.getParameter("propertyLowerCategory"));
 		dataForInsert.setInfomation1(request.getParameter("propertyInformation1"));

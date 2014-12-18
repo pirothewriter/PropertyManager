@@ -17,13 +17,18 @@
 		<result property="price" column="price" />
 		<result property="user" column="user" />
 	</resultMap>
-	
+
 	<insert id="insertEquipmentInfomation" parameterType="EquipmentModel">
-	INSERT INTO
-		equipment(property_number, name, upper_category, lower_category, infomation1, infomation2, incomming_IT_Unit, incomming_finance, productor, seller, price, user)
-	SELECT
-		#{propertyNumber}, #{name}, #{upperCategory}, #{lowerCategory}, #{infomation1}, #{infomation2}, #{incommingItUnit}, #{incommingFinance}, #{productor}, #{seller}, #{price}, #{user}
-	FROM DUAL WHERE NOT EXISTS
-		(SELECT E.property_number FROM equipment E WHERE E.property_number= #{propertyNumber})
+		INSERT INTO
+		equipment(property_number, name, upper_category, lower_category,
+		infomation1, infomation2, incomming_IT_Unit, incomming_finance,
+		productor, seller, price, user)
+		SELECT
+		#{propertyNumber}, #{name}, #{upperCategory}, #{lowerCategory},
+		#{infomation1}, #{infomation2}, #{incommingItUnit},
+		#{incommingFinance}, #{productor}, #{seller}, #{price}, #{user}
+		FROM DUAL WHERE NOT EXISTS
+		(SELECT E.property_number FROM equipment E WHERE
+		E.property_number= #{propertyNumber})
 	</insert>
 </mapper>
