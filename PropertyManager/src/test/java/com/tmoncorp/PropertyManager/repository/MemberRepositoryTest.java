@@ -1,5 +1,9 @@
 package com.tmoncorp.PropertyManager.repository;
 
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +33,14 @@ public class MemberRepositoryTest {
 		memberMapper = sqlSession.getMapper(MemberMapper.class);
 		MemberModel sampleMember = generateMember();
 		memberMapper.insertMemberInfomation(sampleMember);
+	}
+	
+	@Test
+	public void 전체_사원정보를_들고오는지_테스트(){
+		memberMapper = sqlSession.getMapper(MemberMapper.class);
+		List<MemberModel> allMembers = memberMapper.selectAllMembers();
+		assertNotNull(allMembers);
+		System.out.println(allMembers.get(0).getMemberId());
 	}
 	
 	private MemberModel generateMember(){

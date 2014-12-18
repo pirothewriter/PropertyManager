@@ -1,5 +1,7 @@
 package com.tmoncorp.PropertyManager.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,10 @@ import com.tmoncorp.PropertyManager.repository.MemberRepository;
 public class MemberService {
 	@Autowired
 	private MemberRepository memberRepository;
+	
+	public List<MemberModel> selectAllMembers(){
+		return memberRepository.selectAllMembers();
+	}
 	
 	public int insertMemberInfomation(HttpServletRequest request){
 		int result = memberRepository.insertMemberInfomation(parsememberInfomation(request));

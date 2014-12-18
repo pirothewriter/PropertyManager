@@ -1,5 +1,7 @@
 package com.tmoncorp.PropertyManager.repository;
 
+import java.util.List;
+
 import com.tmoncorp.PropertyManager.model.MemberModel;
 
 /**
@@ -9,6 +11,7 @@ import com.tmoncorp.PropertyManager.model.MemberModel;
  */
 
 public interface MemberMapper {
-	public int insertMemberInfomation(MemberModel memberModel);
+	int insertMemberInfomation(MemberModel memberModel);
+	List<MemberModel> selectAllMembers();
 
 }
