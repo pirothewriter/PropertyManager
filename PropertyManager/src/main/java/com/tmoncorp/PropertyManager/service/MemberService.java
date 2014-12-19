@@ -37,7 +37,7 @@ public class MemberService {
 		memberModel.setMemberName(request.getParameter("memberName"));
 		memberModel.setUpperDivision(request.getParameter("upperDivision"));
 		memberModel.setLowerDivision(request.getParameter("lowerDivision"));
-		memberModel.setEmailAddress(request.getParameter("emailAddress"));
+		memberModel.setAdAccount(request.getParameter("emailAddress"));
 		memberModel.setOfficePhoneNumber(Integer.parseInt(request.getParameter("officePhoneNumber")));
 		
 		return memberModel;

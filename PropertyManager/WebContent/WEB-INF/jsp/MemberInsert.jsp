@@ -54,7 +54,7 @@
 			사 원 명 : <input type="text" name="memberName"><br>
 			부서명(大) : <input type="text" name="upperDivision"><br>
 			부서명(小) : <input type="text" name="lowerDivision"><br>
-			이메일주소 : <input type="text" name="emailAddress"><br>
+			AD계정 : <input type="text" name="adAccount"><br>
 			내선번호 : <input type="text" name="officePhoneNumber"><br>
 			<button type="button" id="formSubmit">입력</button>
 			</form>

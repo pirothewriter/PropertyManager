@@ -9,22 +9,22 @@
 		<result property="memberName" column="member_name" />
 		<result property="upperDivision" column="upper_division" />
 		<result property="lowerDivision" column="lower_division" />
-		<result property="emailAddress" column="email_address" />
+		<result property="adAccount" column="ad_account" />
 		<result property="officePhoneNumber" column="office_phone_number" />
 	</resultMap>
 
 	<insert id="insertMemberInfomation" parameterType="MemberModel">
 		INSERT INTO
-		member(member_id, member_name, upper_division, lower_division, email_address, office_phone_number)
+		member(member_id, member_name, upper_division, lower_division, ad_account, office_phone_number)
 		SELECT
-		#{memberId}, #{memberName}, #{upperDivision}, #{lowerDivision}, #{emailAddress}, #{officePhoneNumber} 
+		#{memberId}, #{memberName}, #{upperDivision}, #{lowerDivision}, #{adAccount}, #{officePhoneNumber} 
 		FROM DUAL WHERE NOT EXISTS
 		(SELECT M.member_id FROM member M WHERE M.member_id = #{memberId})
 	</insert>
 	
 	<select id="selectAllMembers" resultMap="MembertResult">
 		SELECT
-			member_id, member_name, upper_division, lower_division, email_address, office_phone_number
+			member_id, member_name, upper_division, lower_division, ad_account, office_phone_number
 		FROM
 			member
 	</select>

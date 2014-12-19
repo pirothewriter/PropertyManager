@@ -11,7 +11,7 @@ public class MemberModel {
 	private String memberName;
 	private String upperDivision;
 	private String lowerDivision;
-	private String emailAddress;
+	private String adAccount;
 	private int officePhoneNumber;
 
 	public String getMemberId() {
@@ -46,12 +46,12 @@ public class MemberModel {
 		this.lowerDivision = lowerDivision;
 	}
 
-	public String getEmailAddress() {
-		return emailAddress;
+	public String getAdAccount() {
+		return adAccount;
 	}
 
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+	public void setAdAccount(String adAccount) {
+		this.adAccount = adAccount;
 	}
 
 	public int getOfficePhoneNumber() {

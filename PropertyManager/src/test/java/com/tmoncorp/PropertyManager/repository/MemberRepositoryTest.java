@@ -50,7 +50,7 @@ public class MemberRepositoryTest {
 		memberModel.setMemberName("test");
 		memberModel.setUpperDivision("test");
 		memberModel.setLowerDivision("test");
-		memberModel.setEmailAddress("test");
+		memberModel.setAdAccount("test");
 		memberModel.setOfficePhoneNumber(1234);
 		
 		return memberModel;
