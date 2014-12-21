@@ -12,6 +12,7 @@ import com.tmoncorp.PropertyManager.model.EquipmentModel;
 
 public interface EquipmentMapper {
 	public int insertEquipmentInfomation(EquipmentModel equipmentModel);
+
 	public List<EquipmentModel> selectPropertyOnMember(String memberId);
 
 }

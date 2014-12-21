@@ -18,14 +18,14 @@ import com.tmoncorp.PropertyManager.model.EquipmentModel;
 public class EquipmentRepository {
 	@Autowired
 	private SqlSession sqlSession;
-	
-	public int insertEquipmentInfomation(EquipmentModel equipmentModel){
+
+	public int insertEquipmentInfomation(EquipmentModel equipmentModel) {
 		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
 		int result = equipmentMapper.insertEquipmentInfomation(equipmentModel);
 		return result;
 	}
-	
-	public List<EquipmentModel> selectPropertyOnMember(String memberId){
+
+	public List<EquipmentModel> selectPropertyOnMember(String memberId) {
 		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
 		return equipmentMapper.selectPropertyOnMember(memberId);
 	}

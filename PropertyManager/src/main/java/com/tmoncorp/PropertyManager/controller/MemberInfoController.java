@@ -24,12 +24,12 @@ import com.tmoncorp.PropertyManager.service.MemberService;
 public class MemberInfoController {
 	@Autowired
 	private MemberService memberService;
-	
+
 	@Autowired
 	private EquipmentService equipmentService;
-	
+
 	@RequestMapping("/memberInfo")
-	public ModelAndView showMemberInfo(HttpServletRequest request){
+	public ModelAndView showMemberInfo(HttpServletRequest request) {
 		ModelAndView memberInfoModelAndView = new ModelAndView();
 		MemberModel member = memberService.selectAMember(request.getParameter("memberId"));
 		List<EquipmentModel> properties = equipmentService.selectPropertyOnMember(request.getParameter("memberId"));

@@ -27,11 +27,11 @@ public class EquipmentService {
 		int affectedRows = equipmentRepository.insertEquipmentInfomation(parsingInsertionParameters(request));
 		return affectedRows;
 	}
-	
-	public List<EquipmentModel> selectPropertyOnMember(String memberId){
+
+	public List<EquipmentModel> selectPropertyOnMember(String memberId) {
 		return equipmentRepository.selectPropertyOnMember(memberId);
 	}
-	
+
 	private EquipmentModel parsingInsertionParameters(HttpServletRequest request) throws ParseException {
 		EquipmentModel dataForInsert = new EquipmentModel();
 		ExchangeDateBetweenString exchangeDateBetweenString = new ExchangeDateBetweenString();

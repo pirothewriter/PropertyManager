@@ -34,19 +34,19 @@
 	</insert>
 	
 	<select id="selectPropertyOnMember" resultMap="EquipmentResult">
-	SELECT
-		E.property_number, E.name, E.upper_category, E.lower_category, E.infomation1, E.infomation2, E.incomming_It_Unit, E.incomming_finance, E.productor, E.seller, E.price, E.user
-	FROM
-		equipment E
-	JOIN
-		equipment_map_person L 
-			ON 
-				(E.property_number = L.property_number)
-	JOIN
-		member M
-			ON
-				(L.member_id = M.member_id)
-	WHERE
-		M.member_id = #{memberId}
+		SELECT
+			E.property_number, E.name, E.upper_category, E.lower_category, E.infomation1, E.infomation2, E.incomming_It_Unit, E.incomming_finance, E.productor, E.seller, E.price, E.user
+		FROM
+			equipment E
+		JOIN
+			equipment_map_person L 
+				ON 
+					(E.property_number = L.property_number)
+		JOIN
+			member M
+				ON
+					(L.member_id = M.member_id)
+		WHERE
+			M.member_id = #{memberId}
 	</select>
 </mapper>

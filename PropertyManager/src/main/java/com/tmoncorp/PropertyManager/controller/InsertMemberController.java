@@ -22,9 +22,9 @@ import com.tmoncorp.PropertyManager.service.MemberService;
 public class InsertMemberController {
 	@Autowired
 	private MemberService memberService;
-	
+
 	@RequestMapping("/memberinsert")
-	public ModelAndView insertMember(){
+	public ModelAndView insertMember() {
 		ModelAndView insertMemberModelAndView = new ModelAndView();
 		insertMemberModelAndView.setViewName("MemberInsert");
 		return insertMemberModelAndView;

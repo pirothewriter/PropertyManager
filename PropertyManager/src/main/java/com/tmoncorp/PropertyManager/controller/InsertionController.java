@@ -12,6 +12,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tmoncorp.PropertyManager.service.EquipmentService;
 
+/**
+ * 
+ * @author piro
+ *
+ */
+
 @Controller
 public class InsertionController {
 	@Autowired

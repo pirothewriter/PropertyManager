@@ -18,29 +18,29 @@ import com.tmoncorp.PropertyManager.model.MemberModel;
 public class MemberRepository {
 	@Autowired
 	private SqlSession sqlSession;
-	
-	public List<MemberModel> selectMembers(){
+
+	public List<MemberModel> selectMembers() {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		return memberMapper.selectMembers();
 	}
-	
-	public int insertMemberInfomation(MemberModel memberModel){
+
+	public int insertMemberInfomation(MemberModel memberModel) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		int result = memberMapper.insertMemberInfomation(memberModel);
 		return result;
 	}
-	
-	public List<String> selectUpperDivisions(){
+
+	public List<String> selectUpperDivisions() {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		return memberMapper.selectUpperDivisions();
 	}
-	
-	public List<String> selectLowerDivisions(){
+
+	public List<String> selectLowerDivisions() {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		return memberMapper.selectLowerDivisions();
 	}
-	
-	public MemberModel selectAMember(String memberId){
+
+	public MemberModel selectAMember(String memberId) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		return memberMapper.selectAMember(memberId);
 	}

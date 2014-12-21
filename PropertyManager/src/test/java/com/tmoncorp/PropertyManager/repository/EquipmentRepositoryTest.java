@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tmoncorp.PropertyManager.model.EquipmentModel;
+
 /**
  * 
  * @author piro
@@ -27,26 +28,27 @@ public class EquipmentRepositoryTest {
 	@Autowired
 	private SqlSession sqlSession;
 	private EquipmentMapper equipmentMapper;
+
 	@Before
-	public void setup(){
+	public void setup() {
 		equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
 	}
-	
+
 	@Transactional
 	@Test
-	public void 장비정보_삽입_테스트(){
+	public void 장비정보_삽입_테스트() {
 		equipmentMapper.insertEquipmentInfomation(getTestInsertionData());
 	}
-	
+
 	@Test
-	public void 특정사원의_자산정보를_들고오는지_테스트(){
+	public void 특정사원의_자산정보를_들고오는지_테스트() {
 		List<EquipmentModel> result = equipmentMapper.selectPropertyOnMember("201404016");
 		assertNotNull(result);
 	}
-	
-	private EquipmentModel getTestInsertionData(){
+
+	private EquipmentModel getTestInsertionData() {
 		EquipmentModel equipmentModel = new EquipmentModel();
-		
+
 		equipmentModel.setPropertyNumber("test");
 		equipmentModel.setIncommingFinance(new Date(System.currentTimeMillis()));
 		equipmentModel.setIncommingItUnit(new Date(System.currentTimeMillis()));

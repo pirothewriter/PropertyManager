@@ -21,13 +21,13 @@ import com.tmoncorp.PropertyManager.service.MemberService;
 public class ShowPersonalEquipmentController {
 	@Autowired
 	private MemberService memberService;
-	
+
 	@RequestMapping("/showMembers")
-	public ModelAndView showMembers(){
+	public ModelAndView showMembers() {
 		List<MemberModel> members = memberService.selectMembers();
 		List<String> upperDivisionList = memberService.getUpperDivisions();
 		List<String> lowerDivisionList = memberService.getLowerDivisions();
-		
+
 		ModelAndView showMembersModelAndView = new ModelAndView();
 		showMembersModelAndView.addObject("members", members);
 		showMembersModelAndView.addObject("upperDivisionList", upperDivisionList);

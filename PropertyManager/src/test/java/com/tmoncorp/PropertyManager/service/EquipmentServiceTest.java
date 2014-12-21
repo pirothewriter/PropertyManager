@@ -10,16 +10,22 @@ import org.junit.Test;
 import com.tmoncorp.PropertyManager.model.EquipmentModel;
 import com.tmoncorp.PropertyManager.repository.EquipmentRepository;
 
+/**
+ * 
+ * @author piro
+ *
+ */
+
 public class EquipmentServiceTest {
 	private EquipmentService equipmentService;
-	
+
 	@Before
-	public void setup(){
+	public void setup() {
 		equipmentService = new EquipmentService();
 	}
-	
+
 	@Test
-	public void 데이터_인서트테스트(){
+	public void 데이터_인서트테스트() {
 		EquipmentRepository mockedRepository = mock(EquipmentRepository.class);
 	}
 }
