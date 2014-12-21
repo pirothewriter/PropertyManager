@@ -1,6 +1,7 @@
 package com.tmoncorp.PropertyManager.service;
 
 import java.text.ParseException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +12,12 @@ import com.tmoncorp.PropertyManager.model.EquipmentModel;
 import com.tmoncorp.PropertyManager.repository.EquipmentRepository;
 import com.tmoncorp.PropertyManager.util.ExchangeDateBetweenString;
 
+/**
+ * 
+ * @author piro
+ *
+ */
+
 @Service
 public class EquipmentService {
 	@Autowired
@@ -20,7 +27,11 @@ public class EquipmentService {
 		int affectedRows = equipmentRepository.insertEquipmentInfomation(parsingInsertionParameters(request));
 		return affectedRows;
 	}
-
+	
+	public List<EquipmentModel> selectPropertyOnMember(String memberId){
+		return equipmentRepository.selectPropertyOnMember(memberId);
+	}
+	
 	private EquipmentModel parsingInsertionParameters(HttpServletRequest request) throws ParseException {
 		EquipmentModel dataForInsert = new EquipmentModel();
 		ExchangeDateBetweenString exchangeDateBetweenString = new ExchangeDateBetweenString();

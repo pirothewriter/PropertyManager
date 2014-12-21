@@ -36,11 +36,30 @@ public class MemberRepositoryTest {
 	}
 	
 	@Test
+	public void 상위_부서의_리스트를_정상적으로_반환하는지_테스트(){
+		memberMapper = sqlSession.getMapper(MemberMapper.class);
+		List<String> result = memberMapper.selectUpperDivisions();
+		assertNotNull(result);
+		System.out.println(result.get(0));
+	}
+	
+	@Test
+	public void 하위_부서의_리스트를_정상적으로_반환하는지_테스트(){
+		memberMapper = sqlSession.getMapper(MemberMapper.class);
+		assertNotNull(memberMapper.selectUpperDivisions());
+	}
+	
+	@Test
 	public void 전체_사원정보를_들고오는지_테스트(){
 		memberMapper = sqlSession.getMapper(MemberMapper.class);
-		List<MemberModel> allMembers = memberMapper.selectAllMembers();
-		assertNotNull(allMembers);
-		System.out.println(allMembers.get(0).getMemberId());
+		List<MemberModel> members = memberMapper.selectMembers();
+		assertNotNull(members);
+	}
+	
+	@Test
+	public void 특정_사원정보를_들고오는지_테스트(){
+		memberMapper = sqlSession.getMapper(MemberMapper.class);
+		assertNotNull(memberMapper.selectAMember("201404016"));
 	}
 	
 	private MemberModel generateMember(){

@@ -12,6 +12,9 @@ import com.tmoncorp.PropertyManager.model.MemberModel;
 
 public interface MemberMapper {
 	int insertMemberInfomation(MemberModel memberModel);
-	List<MemberModel> selectAllMembers();
+	List<MemberModel> selectMembers();
+	List<String> selectUpperDivisions();
+	List<String> selectLowerDivisions();
+	MemberModel selectAMember(String memberId);
 
 }

@@ -1,6 +1,9 @@
 package com.tmoncorp.PropertyManager.repository;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.sql.Date;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Before;
@@ -33,6 +36,12 @@ public class EquipmentRepositoryTest {
 	@Test
 	public void 장비정보_삽입_테스트(){
 		equipmentMapper.insertEquipmentInfomation(getTestInsertionData());
+	}
+	
+	@Test
+	public void 특정사원의_자산정보를_들고오는지_테스트(){
+		List<EquipmentModel> result = equipmentMapper.selectPropertyOnMember("201404016");
+		assertNotNull(result);
 	}
 	
 	private EquipmentModel getTestInsertionData(){

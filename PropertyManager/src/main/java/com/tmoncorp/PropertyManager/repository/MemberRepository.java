@@ -19,14 +19,29 @@ public class MemberRepository {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<MemberModel> selectAllMembers(){
+	public List<MemberModel> selectMembers(){
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		return memberMapper.selectAllMembers();
+		return memberMapper.selectMembers();
 	}
 	
 	public int insertMemberInfomation(MemberModel memberModel){
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		int result = memberMapper.insertMemberInfomation(memberModel);
 		return result;
+	}
+	
+	public List<String> selectUpperDivisions(){
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.selectUpperDivisions();
+	}
+	
+	public List<String> selectLowerDivisions(){
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.selectLowerDivisions();
+	}
+	
+	public MemberModel selectAMember(String memberId){
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.selectAMember(memberId);
 	}
 }

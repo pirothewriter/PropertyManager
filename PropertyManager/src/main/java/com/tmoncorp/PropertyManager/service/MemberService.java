@@ -20,26 +20,38 @@ import com.tmoncorp.PropertyManager.repository.MemberRepository;
 public class MemberService {
 	@Autowired
 	private MemberRepository memberRepository;
-	
-	public List<MemberModel> selectAllMembers(){
-		return memberRepository.selectAllMembers();
+
+	public List<MemberModel> selectMembers() {
+		return memberRepository.selectMembers();
 	}
-	
-	public int insertMemberInfomation(HttpServletRequest request){
+
+	public List<String> getUpperDivisions() {
+		return memberRepository.selectUpperDivisions();
+	}
+
+	public List<String> getLowerDivisions() {
+		return memberRepository.selectLowerDivisions();
+	}
+
+	public int insertMemberInfomation(HttpServletRequest request) {
 		int result = memberRepository.insertMemberInfomation(parsememberInfomation(request));
 		return result;
 	}
-	
-	private MemberModel parsememberInfomation(HttpServletRequest request){
+
+	public MemberModel selectAMember(String memberId) {
+		return memberRepository.selectAMember(memberId);
+	}
+
+	private MemberModel parsememberInfomation(HttpServletRequest request) {
 		MemberModel memberModel = new MemberModel();
-		
+
 		memberModel.setMemberId(request.getParameter("memberId"));
 		memberModel.setMemberName(request.getParameter("memberName"));
 		memberModel.setUpperDivision(request.getParameter("upperDivision"));
 		memberModel.setLowerDivision(request.getParameter("lowerDivision"));
-		memberModel.setAdAccount(request.getParameter("emailAddress"));
+		memberModel.setAdAccount(request.getParameter("adAccount"));
 		memberModel.setOfficePhoneNumber(Integer.parseInt(request.getParameter("officePhoneNumber")));
-		
+
 		return memberModel;
 	}
 
