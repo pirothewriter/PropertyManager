@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmoncorp.PropertyManager.repository.PropertyLogMapper">
+	<resultMap type="PropertyLogModel" id="PropertyLogResult">
+	<result property="propertyNumber" column="property_number" />
+	<result property="memberId" column="member_id" />
+	<result property="urgentDate" column ="urgent_date" />
+	<result property="withdrawDate" column="withdraw_date" />
+	</resultMap>
+	
+	<select id="selectPropertyLog" resultMap="PropertyLogResult">
+		SELECT
+			property_number, member_id, urgent_date, withdraw_date
+		FROM
+			equipment_log
+		WHERE
+			property_number = #{propertyNumber}
+	</select>
+	
+	<select id="selectPropertyNow" resultType="Date">
+		SELECT
+			urgent_date
+		FROM
+			equipment_log
+		WHERE
+			property_number = #{propertyNumber}
+				AND
+					member_id = #{memberId}
+		LIMIT
+			1
+	</select>
+</mapper>

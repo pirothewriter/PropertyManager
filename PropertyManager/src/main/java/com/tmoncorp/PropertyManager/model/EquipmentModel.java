@@ -21,6 +21,7 @@ public class EquipmentModel {
 	private String seller;
 	private int price;
 	private String user;
+	private Date urgentDate;
 	
 	public String getPropertyNumber() {
 		return propertyNumber;
@@ -93,5 +94,11 @@ public class EquipmentModel {
 	}
 	public void setUser(String user) {
 		this.user = user;
+	}
+	public Date getUrgentDate() {
+		return urgentDate;
+	}
+	public void setUrgentDate(Date urgentDate) {
+		this.urgentDate = urgentDate;
 	}
 }

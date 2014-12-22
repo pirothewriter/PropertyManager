@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tmoncorp.PropertyManager.model.MemberModel;
-import com.tmoncorp.PropertyManager.service.EquipmentService;
 import com.tmoncorp.PropertyManager.service.MemberService;
 
 /**

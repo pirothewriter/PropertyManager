@@ -50,6 +50,7 @@
 			<th>자산제조사</th>
 			<th>자산판매사</th>
 			<th>자산구매단가</th>
+			<th>자산지급일</th>
 		</tr>
 		<c:forEach var="property" items="${propertyInfo}" varStatus="status">
 		<tr>
@@ -64,6 +65,8 @@
 			<td>${property.productor }</td>
 			<td>${property.seller }</td>
 			<td>${property.price }</td>
+			<td>${property.urgentDate }</td>
+			<td>
 		</tr>
 		</c:forEach>
 		</tbody>

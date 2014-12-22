@@ -13,6 +13,7 @@ import com.tmoncorp.PropertyManager.model.EquipmentModel;
 import com.tmoncorp.PropertyManager.model.MemberModel;
 import com.tmoncorp.PropertyManager.service.EquipmentService;
 import com.tmoncorp.PropertyManager.service.MemberService;
+import com.tmoncorp.PropertyManager.service.PropertyLogService;
 
 /**
  * 
@@ -27,12 +28,20 @@ public class MemberInfoController {
 
 	@Autowired
 	private EquipmentService equipmentService;
+	
+	@Autowired
+	private PropertyLogService propertyLogService;
 
 	@RequestMapping("/memberInfo")
 	public ModelAndView showMemberInfo(HttpServletRequest request) {
 		ModelAndView memberInfoModelAndView = new ModelAndView();
 		MemberModel member = memberService.selectAMember(request.getParameter("memberId"));
 		List<EquipmentModel> properties = equipmentService.selectPropertyOnMember(request.getParameter("memberId"));
+		
+		for(int index = 0; index < properties.size(); index++){
+			properties.get(index).setUrgentDate(propertyLogService.getPropertyUrgentDateNow(properties.get(index).getPropertyNumber(), request.getParameter("memberId")));
+		}
+		
 		memberInfoModelAndView.addObject("memberInfo", member);
 		memberInfoModelAndView.addObject("propertyInfo", properties);
 		memberInfoModelAndView.setViewName("memberInfo");
