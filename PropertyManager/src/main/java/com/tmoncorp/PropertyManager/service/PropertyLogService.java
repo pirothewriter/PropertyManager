@@ -22,4 +22,14 @@ public class PropertyLogService {
 		return (Date) propertyLogRepository.getPropertyNowStatus(propertyNumber, memberId);
 	}
 
+	public int urgentProperty(String memberId, String propertyNumber) {
+		int result = propertyLogRepository.insertUrgentProperty(memberId, propertyNumber);
+		return result;
+	}
+
+	public int urgentPropertyLog(String memberId, String propertyNumber) {
+		int result = propertyLogRepository.insertUrgentPropertyLog(memberId, propertyNumber);
+		return result;
+	}
+
 }

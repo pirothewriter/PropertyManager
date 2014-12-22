@@ -15,4 +15,6 @@ public interface EquipmentMapper {
 
 	public List<EquipmentModel> selectPropertyOnMember(String memberId);
 
+	public List<EquipmentModel> selectOwnerlessEquipments();
+
 }

@@ -49,4 +49,17 @@
 		WHERE
 			M.member_id = #{memberId}
 	</select>
+	
+	<select id="selectOwnerlessEquipments" resultMap="EquipmentResult">
+		SELECT 
+			E.property_number, E.name, E.upper_category, E.lower_category, E.infomation1, E.infomation2, E.incomming_It_Unit, E.incomming_finance, E.productor, E.seller, E.price, E.user
+		FROM
+			equipment E
+		LEFT JOIN 
+			equipment_map_person J
+		ON
+			(E.property_number = J.property_number)
+		WHERE
+			J.member_id IS NULL
+	</select>
 </mapper>

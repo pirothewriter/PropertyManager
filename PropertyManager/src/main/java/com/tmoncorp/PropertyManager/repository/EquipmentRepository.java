@@ -29,4 +29,9 @@ public class EquipmentRepository {
 		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
 		return equipmentMapper.selectPropertyOnMember(memberId);
 	}
+
+	public List<EquipmentModel> selectOwnerlessEquipments() {
+		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
+		return equipmentMapper.selectOwnerlessEquipments();
+	}
 }

@@ -28,7 +28,7 @@ public class MemberInfoController {
 
 	@Autowired
 	private EquipmentService equipmentService;
-	
+
 	@Autowired
 	private PropertyLogService propertyLogService;
 
@@ -37,14 +37,35 @@ public class MemberInfoController {
 		ModelAndView memberInfoModelAndView = new ModelAndView();
 		MemberModel member = memberService.selectAMember(request.getParameter("memberId"));
 		List<EquipmentModel> properties = equipmentService.selectPropertyOnMember(request.getParameter("memberId"));
-		
-		for(int index = 0; index < properties.size(); index++){
+
+		for (int index = 0; index < properties.size(); index++) {
 			properties.get(index).setUrgentDate(propertyLogService.getPropertyUrgentDateNow(properties.get(index).getPropertyNumber(), request.getParameter("memberId")));
 		}
-		
+
 		memberInfoModelAndView.addObject("memberInfo", member);
 		memberInfoModelAndView.addObject("propertyInfo", properties);
 		memberInfoModelAndView.setViewName("memberInfo");
 		return memberInfoModelAndView;
+	}
+
+	@RequestMapping("/urgentProperty")
+	public ModelAndView urgentProperty(HttpServletRequest request) {
+		ModelAndView urgentingModelAndView = new ModelAndView();
+		List<EquipmentModel> ownerlessEquipments = equipmentService.getOwnerlessEquipment();
+		urgentingModelAndView.addObject("ownerlessEquipment", ownerlessEquipments);
+		urgentingModelAndView.addObject("memberId", request.getParameter("memberId"));
+		urgentingModelAndView.setViewName("urgentProperty");
+		return urgentingModelAndView;
+	}
+	
+	@RequestMapping("/mapping")
+	public ModelAndView mapping(HttpServletRequest request){
+		ModelAndView mappingModelAndView = new ModelAndView();
+		propertyLogService.urgentProperty(request.getParameter("memberId"), request.getParameter("check_property"));
+		propertyLogService.urgentPropertyLog(request.getParameter("memberId"), request.getParameter("check_property"));
+		mappingModelAndView.addObject("msg", "등록되었습니다!");
+		mappingModelAndView.addObject("url", "/memberInfo.tmon?memberId=" + request.getParameter("memberId"));
+		mappingModelAndView.setViewName("mapping");
+		return mappingModelAndView;
 	}
 }

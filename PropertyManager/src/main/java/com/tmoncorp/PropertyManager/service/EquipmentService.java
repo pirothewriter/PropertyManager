@@ -31,6 +31,10 @@ public class EquipmentService {
 	public List<EquipmentModel> selectPropertyOnMember(String memberId) {
 		return equipmentRepository.selectPropertyOnMember(memberId);
 	}
+	
+	public List<EquipmentModel> getOwnerlessEquipment() {
+		return equipmentRepository.selectOwnerlessEquipments();
+	}
 
 	private EquipmentModel parsingInsertionParameters(HttpServletRequest request) throws ParseException {
 		EquipmentModel dataForInsert = new EquipmentModel();

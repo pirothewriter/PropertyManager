@@ -17,4 +17,8 @@ public interface PropertyLogMapper {
 	List<PropertyLogModel> selectPropertyLog(String propertyNumber);
 
 	Date selectPropertyNow(@Param("propertyNumber") String propertyNumber, @Param("memberId") String memberId);
+
+	int insertUrgentProperty(@Param("memberId") String memberId, @Param("propertyNumber")String propertyNumber);
+
+	int insertUrgentPropertyLog(@Param("memberId") String memberId, @Param("propertyNumber")String propertyNumber);
 }

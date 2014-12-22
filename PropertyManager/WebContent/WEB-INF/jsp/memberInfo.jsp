@@ -14,6 +14,15 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
+	$(document).ready(function(){
+		$("#back_to_list").on("click", function(){
+			document.location.href="/showMembers.tmon";
+		});
+		
+		$("#add_property").on("click", function(){
+			document.location.href = "/urgentProperty.tmon?memberId=" + ${memberInfo.memberId};
+		});
+	})
 </script>
 </head>
 <body>
@@ -34,7 +43,10 @@
 			</tbody>
 		</table>
 	</div>
-	
+	<div id="navi">
+	<button type="button" id="back_to_list">목록으로</button>	
+	<button type="button" id="add_property">자산추가</button>
+	</div>
 	<div id="propertyInfo">
 		<table>
 		<tbody>

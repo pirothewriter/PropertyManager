@@ -32,4 +32,18 @@
 		LIMIT
 			1
 	</select>
+	
+	<insert id="insertUrgentProperty" parameterType="String">
+		INSERT
+			equipment_map_person(member_id, property_number)
+		VALUE
+			(#{memberId}, #{propertyNumber})
+	</insert>
+	
+	<insert id="insertUrgentPropertyLog" parameterType="String">
+		INSERT
+			equipment_log(member_id, property_number, urgent_date)
+		VALUE
+			(#{memberId}, #{propertyNumber}, NOW())
+	</insert>
 </mapper>

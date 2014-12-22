@@ -31,4 +31,14 @@ public class PropertyLogRepository {
 		return new java.sql.Date(result.getTime());
 	}
 
+	public int insertUrgentProperty(String memberId, String propertyNumber) {
+		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
+		return propertyLogMapper.insertUrgentProperty(memberId, propertyNumber);
+	}
+
+	public int insertUrgentPropertyLog(String memberId, String propertyNumber) {
+		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
+		return propertyLogMapper.insertUrgentPropertyLog(memberId, propertyNumber);
+	}
+
 }
