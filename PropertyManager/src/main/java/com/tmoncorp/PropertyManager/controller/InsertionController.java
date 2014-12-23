@@ -39,7 +39,7 @@ public class InsertionController {
 			insertingModelAndView.addObject("msg", "자산 번호 값이 중복되었습니다! 다시 입력해주세요!");
 			insertingModelAndView.addObject("url", "back");
 		}
-		
+
 		else if (affectedRows == 1) {
 			insertingModelAndView.addObject("msg", "등록되었습니다!");
 			insertingModelAndView.addObject("url", "/insert.tmon");

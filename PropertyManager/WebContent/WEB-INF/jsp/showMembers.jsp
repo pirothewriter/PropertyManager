@@ -14,32 +14,13 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
-	// 카테고리 정보를 불러오기 위한 작업
-	function getUpperDivisionSearcherInfos(){
-		$("#searcherUpper").append("<option value=''>소속부서(大)</option>");
-		<c:forEach var="division" items="${upperDivisionList}" varStatus="status">
-		$("#searcherUpper").append("<option value=${division }>${division}</option>");
-		</c:forEach>
-	}
-	
-	function getLowerDivisionSearcherInfos(upperDivision){
-		$("#searcherLower").append("<option value=''>소속부서(小)</option>");
-		<c:forEach var="division" items="${lowerDivisionList}" varStatus="status">
-		$("#searcherLower").append("<option value=${division }>${division}</option>");
-		</c:forEach>
-	}
-	
 	$(document).ready(function(){
-		getUpperDivisionSearcherInfos();
-		getLowerDivisionSearcherInfos();
 	});
 </script>
 </head>
 <body>
 	<div id="wrapper">
 		<div id="seacher">
-			<select id = "searcherUpper" name = "upperDivision"></select>
-			<select id = "searcherLower" name = "lowerDivision"></select>
 			AD 계정 <input name = "adAccout">
 			사 원 명<input name = "name">
 		</div>

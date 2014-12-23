@@ -29,8 +29,8 @@ public class MemberService {
 		return memberRepository.selectUpperDivisions();
 	}
 
-	public List<String> getLowerDivisions() {
-		return memberRepository.selectLowerDivisions();
+	public List<String> getLowerDivisions(String upperDivision) {
+		return memberRepository.selectLowerDivisions(upperDivision);
 	}
 
 	public int insertMemberInfomation(HttpServletRequest request) {

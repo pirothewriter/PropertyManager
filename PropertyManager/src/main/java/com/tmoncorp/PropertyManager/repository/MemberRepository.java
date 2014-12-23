@@ -35,9 +35,9 @@ public class MemberRepository {
 		return memberMapper.selectUpperDivisions();
 	}
 
-	public List<String> selectLowerDivisions() {
+	public List<String> selectLowerDivisions(String upperDivision) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		return memberMapper.selectLowerDivisions();
+		return memberMapper.selectLowerDivisions(upperDivision);
 	}
 
 	public MemberModel selectAMember(String memberId) {

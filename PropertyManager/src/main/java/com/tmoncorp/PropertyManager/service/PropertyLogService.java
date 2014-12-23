@@ -38,7 +38,7 @@ public class PropertyLogService {
 		int result = propertyLogRepository.deleteReleaseProperty(memberId, propertyNumber);
 		return result;
 	}
-	
+
 	public int releasePropertyLog(String memberId, String propertyNumber) {
 		int result = propertyLogRepository.updateReleaseLogProperty(memberId, propertyNumber);
 		return result;
@@ -46,10 +46,10 @@ public class PropertyLogService {
 
 	public List<PropertyLogModel> getEquipmentLog(String propertyNumber) {
 		List<PropertyLogModel> result = propertyLogRepository.selectEquipmentLog(propertyNumber);
-		for(int index = 0; index < result.size(); index++){
-			if(result.get(index).getUrgentDate() != null)
+		for (int index = 0; index < result.size(); index++) {
+			if (result.get(index).getUrgentDate() != null)
 				result.get(index).setUrgentDate(new java.sql.Date(result.get(index).getUrgentDate().getTime()));
-			if(result.get(index).getWithdrawDate() != null)
+			if (result.get(index).getWithdrawDate() != null)
 				result.get(index).setWithdrawDate(new java.sql.Date(result.get(index).getWithdrawDate().getTime()));
 		}
 		return result;

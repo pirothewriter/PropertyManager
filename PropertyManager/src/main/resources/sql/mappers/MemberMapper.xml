@@ -43,6 +43,8 @@
 				lower_division
 			FROM
 				member
+			WHERE
+				upper_division = #{upperDivision}
 			GROUP BY
 				lower_division
 	</select>

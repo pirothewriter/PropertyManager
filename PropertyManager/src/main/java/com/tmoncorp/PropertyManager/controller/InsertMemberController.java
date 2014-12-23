@@ -39,7 +39,7 @@ public class InsertMemberController {
 			insertingModelAndView.addObject("msg", "중복된 사원번호입니다. 다시 입력해주세요!");
 			insertingModelAndView.addObject("url", "back");
 		}
-		
+
 		else if (affectedRows == 1) {
 			insertingModelAndView.addObject("msg", "등록되었습니다!");
 			insertingModelAndView.addObject("url", "/memberinsert.tmon");

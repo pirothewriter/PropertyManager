@@ -17,7 +17,7 @@ public interface MemberMapper {
 
 	List<String> selectUpperDivisions();
 
-	List<String> selectLowerDivisions();
+	List<String> selectLowerDivisions(String upperDivision);
 
 	MemberModel selectAMember(String memberId);
 
