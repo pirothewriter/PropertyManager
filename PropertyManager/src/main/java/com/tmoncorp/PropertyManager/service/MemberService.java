@@ -51,7 +51,7 @@ public class MemberService {
 		memberModel.setLowerDivision(request.getParameter("lowerDivision"));
 		memberModel.setAdAccount(request.getParameter("adAccount"));
 		memberModel.setOfficePhoneNumber(Integer.parseInt(request.getParameter("officePhoneNumber")));
-
+		
 		return memberModel;
 	}
 

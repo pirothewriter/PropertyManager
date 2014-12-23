@@ -73,7 +73,6 @@
 						<td>${property.productor }</td>
 						<td>${property.seller }</td>
 						<td>${property.price }</td>
-						<td>
 					</tr>
 					</c:forEach>
 					</tbody>

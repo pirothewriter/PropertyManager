@@ -23,11 +23,6 @@ public class PropertyLogRepositoryTest {
 	private PropertyLogRepository propertyLogRepository;
 
 	@Test
-	public void 특정_자산의_로그를_정상적으로_셀렉트하는지_테스트() {
-		assertNotNull(propertyLogRepository.getPropertyLog("PCM12345"));
-	}
-
-	@Test
 	public void 특정자산의_현재_소유자의_지급일자를_확인하는_테스트() {
 		Date result = (Date) propertyLogRepository.getPropertyNowStatus("PCM12345", "201404016");
 		assertNotNull(result);

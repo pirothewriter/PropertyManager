@@ -22,6 +22,20 @@
 		$("#add_property").on("click", function(){
 			document.location.href = "/urgentProperty.tmon?memberId=" + ${memberInfo.memberId};
 		});
+		
+		$("#release_properties").on("click", function(){
+			var isRelease = confirm("자산을 회수하시겠습니까?");
+			if(isRelease == true)
+				document.releaseForm.submit();
+		});
+		
+		$(".view_log").click(function(){
+			var propertyNumber = this.value;
+			var popupUrl = "/equipmentLog.tmon?propertyNumber=" + propertyNumber;
+			var popupOption = "width=400, heignt=300, resizable=false, scrollbars=false";
+			
+			window.open(popupUrl, "", popupOption);
+		});
 	})
 </script>
 </head>
@@ -48,41 +62,48 @@
 	<button type="button" id="add_property">자산추가</button>
 	</div>
 	<div id="propertyInfo">
-		<table>
-		<tbody>
-		<tr>
-			<th>자산번호</th>
-			<th>자산명</th>
-			<th>대분류</th>
-			<th>소분류</th>
-			<th>자산정보1</th>
-			<th>자산정보2</th>
-			<th>자산입고일(IT유닛 입고당일)</th>
-			<th>자산입고일(재무팀 월말)</th>
-			<th>자산제조사</th>
-			<th>자산판매사</th>
-			<th>자산구매단가</th>
-			<th>자산지급일</th>
-		</tr>
-		<c:forEach var="property" items="${propertyInfo}" varStatus="status">
-		<tr>
-			<td>${property.propertyNumber }</td>
-			<td>${property.name }</td>
-			<td>${property.upperCategory }</td>
-			<td>${property.lowerCategory }</td>
-			<td>${property.infomation1 }</td>
-			<td>${property.infomation2 }</td>
-			<td>${property.incommingItUnit }</td>
-			<td>${property.incommingFinance }</td>
-			<td>${property.productor }</td>
-			<td>${property.seller }</td>
-			<td>${property.price }</td>
-			<td>${property.urgentDate }</td>
-			<td>
-		</tr>
-		</c:forEach>
-		</tbody>
-		</table>
+		<form action="/releasing.tmon" method="post" name="releaseForm">
+			<input type="text" name="memberId" value="${memberInfo.memberId }" style="visibility:hidden; ">
+			<table>
+				<tbody>
+				<tr>
+					<th>선택</th>
+					<th>자산번호</th>
+					<th>자산명</th>
+					<th>대분류</th>
+					<th>소분류</th>
+					<th>자산정보1</th>
+					<th>자산정보2</th>
+					<th>자산입고일(IT유닛 입고당일)</th>
+					<th>자산입고일(재무팀 월말)</th>
+					<th>자산제조사</th>
+					<th>자산판매사</th>
+					<th>자산구매단가</th>
+					<th>자산지급일</th>
+					<th>과거이력</th>
+				</tr>
+				<c:forEach var="property" items="${propertyInfo}" varStatus="status">
+				<tr>
+					<td><input type="checkbox" name="propertyNumber" value="${property.propertyNumber }"></td>
+					<td>${property.propertyNumber }</td>
+					<td>${property.name }</td>
+					<td>${property.upperCategory }</td>
+					<td>${property.lowerCategory }</td>
+					<td>${property.infomation1 }</td>
+					<td>${property.infomation2 }</td>
+					<td>${property.incommingItUnit }</td>
+					<td>${property.incommingFinance }</td>
+					<td>${property.productor }</td>
+					<td>${property.seller }</td>
+					<td>${property.price }</td>
+					<td>${property.urgentDate }</td>
+					<td><button type="button" class="view_log" value="${property.propertyNumber }">보기</button>
+				</tr>
+				</c:forEach>
+				</tbody>
+			</table>
+			<button type="button" id="release_properties">자산회수</button>
+		</form>
 	</div>
 </div>
 </body>

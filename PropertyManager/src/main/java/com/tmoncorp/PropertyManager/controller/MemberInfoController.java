@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tmoncorp.PropertyManager.model.EquipmentModel;
 import com.tmoncorp.PropertyManager.model.MemberModel;
+import com.tmoncorp.PropertyManager.model.PropertyLogModel;
 import com.tmoncorp.PropertyManager.service.EquipmentService;
 import com.tmoncorp.PropertyManager.service.MemberService;
 import com.tmoncorp.PropertyManager.service.PropertyLogService;
@@ -57,15 +58,40 @@ public class MemberInfoController {
 		urgentingModelAndView.setViewName("urgentProperty");
 		return urgentingModelAndView;
 	}
-	
+
 	@RequestMapping("/mapping")
-	public ModelAndView mapping(HttpServletRequest request){
+	public ModelAndView mapping(HttpServletRequest request) {
 		ModelAndView mappingModelAndView = new ModelAndView();
 		propertyLogService.urgentProperty(request.getParameter("memberId"), request.getParameter("check_property"));
 		propertyLogService.urgentPropertyLog(request.getParameter("memberId"), request.getParameter("check_property"));
 		mappingModelAndView.addObject("msg", "등록되었습니다!");
 		mappingModelAndView.addObject("url", "/memberInfo.tmon?memberId=" + request.getParameter("memberId"));
-		mappingModelAndView.setViewName("mapping");
+		mappingModelAndView.setViewName("processing");
 		return mappingModelAndView;
+	}
+
+	@RequestMapping("/releasing")
+	public ModelAndView releasing(HttpServletRequest request) {
+		ModelAndView releasingModelAndView = new ModelAndView();
+		releasingModelAndView.addObject("msg", "회수되었습니다!");
+		releasingModelAndView.addObject("url", "/memberInfo.tmon?memberId=" + request.getParameter("memberId"));
+		releasingModelAndView.setViewName("processing");
+		String[] properties = request.getParameterValues("propertyNumber");
+
+		for (int index = 0; index < properties.length; index++) {
+			propertyLogService.releaseProperty(request.getParameter("memberId"), properties[index]);
+			propertyLogService.releasePropertyLog(request.getParameter("memberId"), properties[index]);
+		}
+
+		return releasingModelAndView;
+	}
+
+	@RequestMapping("/equipmentLog")
+	public ModelAndView viewLog(HttpServletRequest request) {
+		ModelAndView logModelAndView = new ModelAndView();
+		List<PropertyLogModel> equipmentLog = propertyLogService.getEquipmentLog(request.getParameter("propertyNumber"));
+		logModelAndView.addObject("equipmentLog", equipmentLog);
+		logModelAndView.setViewName("equipmentLog");
+		return logModelAndView;
 	}
 }

@@ -52,7 +52,7 @@ public class EquipmentService {
 		dataForInsert.setSeller(request.getParameter("propertySeller"));
 		dataForInsert.setPrice(Integer.parseInt(request.getParameter("propertyPrice")));
 		dataForInsert.setUser("티켓몬스터");
-
+		
 		return dataForInsert;
 	}
 }

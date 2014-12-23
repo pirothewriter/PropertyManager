@@ -18,7 +18,11 @@ public interface PropertyLogMapper {
 
 	Date selectPropertyNow(@Param("propertyNumber") String propertyNumber, @Param("memberId") String memberId);
 
-	int insertUrgentProperty(@Param("memberId") String memberId, @Param("propertyNumber")String propertyNumber);
+	int insertUrgentProperty(@Param("memberId") String memberId, @Param("propertyNumber") String propertyNumber);
 
-	int insertUrgentPropertyLog(@Param("memberId") String memberId, @Param("propertyNumber")String propertyNumber);
+	int insertUrgentPropertyLog(@Param("memberId") String memberId, @Param("propertyNumber") String propertyNumber);
+
+	int deleteReleaseProperty(@Param("memberId") String memberId, @Param("propertyNumber") String propertyNumber);
+	
+	int updateReleaseLogProperty(@Param("memberId") String memberId, @Param("propertyNumber") String propertyNumber);
 }

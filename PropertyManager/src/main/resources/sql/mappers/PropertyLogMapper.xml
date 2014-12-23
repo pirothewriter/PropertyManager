@@ -7,17 +7,22 @@
 	<resultMap type="PropertyLogModel" id="PropertyLogResult">
 	<result property="propertyNumber" column="property_number" />
 	<result property="memberId" column="member_id" />
+	<result property="memberName" column="member_name" />
 	<result property="urgentDate" column ="urgent_date" />
 	<result property="withdrawDate" column="withdraw_date" />
 	</resultMap>
 	
 	<select id="selectPropertyLog" resultMap="PropertyLogResult">
 		SELECT
-			property_number, member_id, urgent_date, withdraw_date
+			L.property_number, M.member_name AS member_id, L.urgent_date, L.withdraw_date
 		FROM
-			equipment_log
+			equipment_log L
+		LEFT JOIN
+			member M
+				ON
+					(L.member_id = M.member_id)
 		WHERE
-			property_number = #{propertyNumber}
+			L.property_number = #{propertyNumber}
 	</select>
 	
 	<select id="selectPropertyNow" resultType="Date">
@@ -46,4 +51,22 @@
 		VALUE
 			(#{memberId}, #{propertyNumber}, NOW())
 	</insert>
+	
+	<delete id="deleteReleaseProperty" parameterType="String">
+		DELETE FROM
+			equipment_map_person
+		WHERE
+			member_id = #{memberId} AND property_number = #{propertyNumber}
+	</delete>
+	
+	<update id="updateReleaseLogProperty" parameterType="String">
+		UPDATE
+			equipment_log
+		SET
+			withdraw_date = NOW()
+		WHERE
+			property_number = #{propertyNumber} AND member_id = #{memberId} 
+	</update>
+		
+	
 </mapper>

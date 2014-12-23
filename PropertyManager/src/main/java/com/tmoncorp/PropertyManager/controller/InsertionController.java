@@ -33,13 +33,13 @@ public class InsertionController {
 	@RequestMapping("/inserting")
 	public ModelAndView insertion(HttpServletRequest request, HttpServletResponse response) throws ParseException {
 		ModelAndView insertingModelAndView = new ModelAndView();
-		insertingModelAndView.setViewName("Inserting");
+		insertingModelAndView.setViewName("processing");
 		int affectedRows = equipmentService.equipmentInsertion(request);
 		if (affectedRows == 0) {
 			insertingModelAndView.addObject("msg", "자산 번호 값이 중복되었습니다! 다시 입력해주세요!");
 			insertingModelAndView.addObject("url", "back");
 		}
-
+		
 		else if (affectedRows == 1) {
 			insertingModelAndView.addObject("msg", "등록되었습니다!");
 			insertingModelAndView.addObject("url", "/insert.tmon");
