@@ -25,12 +25,21 @@
 	}
 	
 	$(document).ready(function(){
-		$("#submitMapping").on("click", function(){
+		$("form").on("submit", function(event){
 			var propertyNumber = getCheckedValue();
 			if(propertyNumber == null){
 				alert("추가할 자산을 선택해주십시오!");
 			} else {
-				document.mappingForm.submit();
+				$.ajax({
+					type : "POST",
+					cache : false,
+					url : 'mapping.tmon',
+					data : $(this).serializeArray(),
+					success : function(msg){
+						alert("등록되었습니다!");
+						document.location.href = "/memberInfo.tmon?memberId=${memberId }";
+					}
+				});
 			}
 		});
 	})
@@ -40,7 +49,7 @@
 	<div id="wrapper">
 		<div id="searcher">
 		</div>
-		<form action="/mapping.tmon" method="post" name="mappingForm">
+		<form method="post" name="mappingForm">
 			<div id="ownerlessProperties">
 				<input type="text" name="memberId" value="${memberId }" style="visibility:hidden; ">
 				<table>
@@ -77,7 +86,7 @@
 					</c:forEach>
 					</tbody>
 				</table>
-				<button type="button" id="submitMapping">추가</button>
+				<button type="submit" id="submitMapping">추가</button>
 			</div>
 		</form>
 	</div>

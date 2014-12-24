@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tmoncorp.PropertyManager.model.EquipmentModel;
@@ -59,31 +61,23 @@ public class MemberInfoController {
 		return urgentingModelAndView;
 	}
 
-	@RequestMapping("/mapping")
-	public ModelAndView mapping(HttpServletRequest request) {
-		ModelAndView mappingModelAndView = new ModelAndView();
+	@RequestMapping(value = "/mapping", method = RequestMethod.POST)
+	public @ResponseBody String mapping(HttpServletRequest request) {
+		String msg = "SUCCESS";
 		propertyLogService.urgentProperty(request.getParameter("memberId"), request.getParameter("check_property"));
 		propertyLogService.urgentPropertyLog(request.getParameter("memberId"), request.getParameter("check_property"));
-		mappingModelAndView.addObject("msg", "등록되었습니다!");
-		mappingModelAndView.addObject("url", "/memberInfo.tmon?memberId=" + request.getParameter("memberId"));
-		mappingModelAndView.setViewName("processing");
-		return mappingModelAndView;
+		return msg;
 	}
 
-	@RequestMapping("/releasing")
-	public ModelAndView releasing(HttpServletRequest request) {
-		ModelAndView releasingModelAndView = new ModelAndView();
-		releasingModelAndView.addObject("msg", "회수되었습니다!");
-		releasingModelAndView.addObject("url", "/memberInfo.tmon?memberId=" + request.getParameter("memberId"));
-		releasingModelAndView.setViewName("processing");
+	@RequestMapping(value = "/releasing", method = RequestMethod.POST)
+	public @ResponseBody String releasing(HttpServletRequest request) {
 		String[] properties = request.getParameterValues("propertyNumber");
-
+		String msg = "SUCCESS";
 		for (int index = 0; index < properties.length; index++) {
 			propertyLogService.releaseProperty(request.getParameter("memberId"), properties[index]);
 			propertyLogService.releasePropertyLog(request.getParameter("memberId"), properties[index]);
 		}
-
-		return releasingModelAndView;
+		return msg;
 	}
 
 	@RequestMapping("/equipmentLog")

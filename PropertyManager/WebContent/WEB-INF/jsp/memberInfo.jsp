@@ -23,10 +23,20 @@
 			document.location.href = "/urgentProperty.tmon?memberId=" + ${memberInfo.memberId};
 		});
 		
-		$("#release_properties").on("click", function(){
+		$("#propertyInfo form").on("submit", function(event){
 			var isRelease = confirm("자산을 회수하시겠습니까?");
-			if(isRelease == true)
-				document.releaseForm.submit();
+			if(isRelease == true){
+				$.ajax({
+					type : "POST",
+					cache : false,
+					url : 'releasing.tmon',
+					data : $(this).serializeArray(),
+					success : function(msg){
+						alert("회수되었습니다!");
+						location.reload(true);
+					}
+				});
+			}
 		});
 		
 		$(".view_log").click(function(){
@@ -62,7 +72,7 @@
 	<button type="button" id="add_property">자산추가</button>
 	</div>
 	<div id="propertyInfo">
-		<form action="/releasing.tmon" method="post" name="releaseForm">
+		<form method="post" name="releaseForm">
 			<input type="text" name="memberId" value="${memberInfo.memberId }" style="visibility:hidden; ">
 			<table>
 				<tbody>
@@ -102,7 +112,7 @@
 				</c:forEach>
 				</tbody>
 			</table>
-			<button type="button" id="release_properties">자산회수</button>
+			<button type="submit" id="release_properties">자산회수</button>
 		</form>
 	</div>
 </div>

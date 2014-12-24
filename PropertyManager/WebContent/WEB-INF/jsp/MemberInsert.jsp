@@ -22,24 +22,41 @@
 	}
 	
 	$(document).ready(function(){
-		$("#formSubmit").on("click", function(){
+		$("form").on("submit", function(event){
 			var checker = checkIntegrity();
 			var num_regx = /^[0-9]+$/;
 			
 			if(checker == false){
 				alert("값을 채워주세요!");
+				return false;
 			}
 			
 			else if(! num_regx.test($("input")[0].value)){
 				alert("사원번호는 숫자만 들어갈 수 있습니다!");
+				return false;
 			}
 			
 			else if(! num_regx.test($("input")[5].value)){
 				alert("내선번호는 숫자만 들어갈 수 있습니다!");
+				return false;
 			}
 			
 			else{
-				document.inputForm.submit();
+				event.preventDefault();
+				$.ajax({
+					type : "POST",
+					cache : false,
+					url : 'insertingMember.tmon',
+					data : $(this).serializeArray(),
+					success : function(msg){
+						if(msg == 'SUCCESS'){
+							alert("등록되었습니다!");
+							location.reload(true);
+						} else {
+							alert("중복된 사원번호입니다. 다시 입력해주세요!");
+						}
+					}
+				});
 			}
 		});
 	})
@@ -49,14 +66,14 @@
 <body>
 	<div id="wrapper">
 		<div id="list">
-			<form action="/insertingMember.tmon" method="post" name="inputForm">
+			<form method="post" name="inputForm">
 			사원번호 : <input type="text" name="memberId"><br>
 			사 원 명 : <input type="text" name="memberName"><br>
 			부서명(大) : <input type="text" name="upperDivision"><br>
 			부서명(小) : <input type="text" name="lowerDivision"><br>
 			AD계정 : <input type="text" name="adAccount"><br>
 			내선번호 : <input type="text" name="officePhoneNumber"><br>
-			<button type="button" id="formSubmit">입력</button>
+			<button type="submit" id="formSubmit">입력</button>
 			</form>
 		</div>
 	</div>
