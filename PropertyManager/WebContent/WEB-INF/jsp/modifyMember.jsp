@@ -80,6 +80,10 @@
 				});
 			}
 		});
+		
+		$("#cancel").on("click", function(){
+			document.location.href="/showMembers.tmon";
+		});
 	})
 </script>
 </head>
@@ -97,6 +101,7 @@
 			<br><b>사원번호는 변경할 수 없습니다.</b><br>
 			<button type="submit" id="formSubmit">수정</button>
 			<button type="button" id="retire">퇴사처리</button>
+			<button type="button" id="cancel">취소</button>
 			</form>
 		</div>
 	</div>

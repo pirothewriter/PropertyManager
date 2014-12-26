@@ -43,6 +43,18 @@
 				});
 			}
 		});
+		
+		$(".view_log").click(function(){
+			var propertyNumber = this.value;
+			var popupUrl = "/equipmentLog.tmon?propertyNumber=" + propertyNumber;
+			var popupOption = "width=400, heignt=300, resizable=false, scrollbars=false";
+			
+			window.open(popupUrl, "", popupOption);
+		});
+		
+		$("#cancelUrgenting").on("click", function(){
+			document.location.href="/memberInfo.tmon?memberId=${memberId}";
+		});
 	})
 </script>
 </head>
@@ -68,6 +80,7 @@
 						<th>자산제조사</th>
 						<th>자산판매사</th>
 						<th>자산구매단가</th>
+						<th>자산이력보기</th>
 					</tr>
 					<c:forEach var="property" items="${ownerlessEquipment}" varStatus="status">
 					<tr>
@@ -83,11 +96,13 @@
 						<td>${property.productor }</td>
 						<td>${property.seller }</td>
 						<td>${property.price }</td>
+						<td><button type="button" class="view_log" value="${property.propertyNumber }">보기</button>
 					</tr>
 					</c:forEach>
 					</tbody>
 				</table>
 				<button type="submit" id="submitMapping">추가</button>
+				<button type="button" id="cancelUrgenting">취소</button>
 			</div>
 		</form>
 	</div>

@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tmoncorp.PropertyManager.model.EquipmentModel;
 import com.tmoncorp.PropertyManager.model.MemberModel;
-import com.tmoncorp.PropertyManager.model.PropertyLogModel;
 import com.tmoncorp.PropertyManager.service.EquipmentService;
 import com.tmoncorp.PropertyManager.service.MemberService;
 import com.tmoncorp.PropertyManager.service.PropertyLogService;
@@ -78,15 +77,6 @@ public class MemberInfoController {
 			propertyLogService.releasePropertyLog(request.getParameter("memberId"), properties[index]);
 		}
 		return msg;
-	}
-
-	@RequestMapping("/equipmentLog")
-	public ModelAndView viewLog(HttpServletRequest request) {
-		ModelAndView logModelAndView = new ModelAndView();
-		List<PropertyLogModel> equipmentLog = propertyLogService.getEquipmentLog(request.getParameter("propertyNumber"));
-		logModelAndView.addObject("equipmentLog", equipmentLog);
-		logModelAndView.setViewName("equipmentLog");
-		return logModelAndView;
 	}
 	
 	@RequestMapping(value = "retireMember", method=RequestMethod.GET)

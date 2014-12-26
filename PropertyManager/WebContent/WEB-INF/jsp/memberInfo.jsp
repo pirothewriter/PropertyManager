@@ -47,6 +47,14 @@
 			
 			window.open(popupUrl, "", popupOption);
 		});
+		
+		$("#personalLog").on("click", function(){
+			var memberId = ${memberInfo.memberId };
+			var popupUrl = "/personalLog.tmon?memberId=" + memberId;
+			var popupOption = "width=400, heignt=300, resizable=false, scrollbars=false";
+			
+			window.open(popupUrl, "", popupOption);
+		});
 	})
 </script>
 </head>
@@ -71,6 +79,7 @@
 	<div id="navi">
 	<button type="button" id="back_to_list">목록으로</button>	
 	<button type="button" id="add_property">자산추가</button>
+	<button type="button" id="personalLog">개인장비 이력보기</button>
 	</div>
 	<div id="propertyInfo">
 		<form method="post" name="releaseForm">

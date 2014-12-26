@@ -74,8 +74,17 @@
 		UPDATE
 			member
 		SET
-			is_served = 'N'
+			is_served = 'N', retire_date=NOW()
 		WHERE
 			member_id = #{memberId}
 	</update>
+	
+	<select id="selectRetiredMembers" resultMap="MembertResult">
+		SELECT
+			member_id, member_name, upper_division, lower_division, ad_account, office_phone_number
+		FROM
+			member
+		WHERE
+			is_served = 'N'
+	</select>
 </mapper>

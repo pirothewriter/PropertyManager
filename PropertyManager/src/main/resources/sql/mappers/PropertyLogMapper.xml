@@ -83,4 +83,13 @@
 		WHERE
 			member_id = #{memberId} AND withdraw_date IS NULL
 	</update>
+	
+	<select id="selectPersonalLog" resultMap="PropertyLogResult">
+		SELECT
+			property_number, urgent_date, withdraw_date
+		FROM
+			equipment_log
+		WHERE
+			member_id = #{memberId}
+	</select>
 </mapper>

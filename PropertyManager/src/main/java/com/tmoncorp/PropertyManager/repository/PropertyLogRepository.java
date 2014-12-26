@@ -61,4 +61,9 @@ public class PropertyLogRepository {
 		return propertyLogMapper.logWithdrawDateOfRetireMembersEquipment(memberId);
 	}
 
+	public List<PropertyLogModel> selectPersonalLog(String memberId) {
+		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
+		return propertyLogMapper.selectPersonalLog(memberId);
+	}
+
 }

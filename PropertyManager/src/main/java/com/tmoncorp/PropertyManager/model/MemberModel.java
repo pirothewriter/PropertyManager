@@ -1,5 +1,7 @@
 package com.tmoncorp.PropertyManager.model;
 
+import java.sql.Date;
+
 /**
  * 
  * @author piro
@@ -14,6 +16,7 @@ public class MemberModel {
 	private String adAccount;
 	private int officePhoneNumber;
 	private char isServed;
+	private Date retireDate;
 
 	public String getMemberId() {
 		return memberId;
@@ -69,5 +72,13 @@ public class MemberModel {
 
 	public void setIsServed(char isServed) {
 		this.isServed = isServed;
+	}
+
+	public Date getRetireDate() {
+		return retireDate;
+	}
+
+	public void setRetireDate(Date retireDate) {
+		this.retireDate = retireDate;
 	}
 }

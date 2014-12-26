@@ -16,21 +16,16 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(document).ready(function(){
-			$(".modifyMember[id^='memberId']").on("click", function(){
-				var value = this.value;
-				document.location.href="/modifyMember.tmon?memberId=" + value;
+			$(".view_log").click(function(){
+				var memberId = this.value;
+				var popupUrl = "/personalLog.tmon?memberId=" + memberId;
+				var popupOption = "width=400, heignt=300, resizable=false, scrollbars=false";
+				
+				window.open(popupUrl, "", popupOption);
 			});
 			
-			$("#insertProperty").on("click", function(){
-				document.location.href="/insert.tmon";
-			});
-			
-			$("#insertMember").on("click", function(){
-				document.location.href="/memberinsert.tmon";
-			});
-			
-			$("#showRetired").on("click", function(){
-				document.location.href="/retired.tmon";
+			$("#back_to_list").on("click", function(){
+				document.location.href="/showMembers.tmon";
 			});
 		})
 	});
@@ -43,7 +38,6 @@
 			사 원 명<input name = "name">
 		</div>
 		<div id="list">
-			<form action="/memberInfo.tmon" method="get" name="members">
 			<table id="memberTable">
 			<tbody>
 				<tr>
@@ -53,10 +47,9 @@
 					<th>소속부서(小)</th>
 					<th>AD 계정</th>
 					<th>내선번호</th>
-					<th>보유자산보기</th>
-					<th>사원정보수정</th>
+					<th>자산기록보기</th>
 				</tr>
-				 <c:forEach var="member" items="${members}" varStatus="status">
+				 <c:forEach var="member" items="${retiredMembers}" varStatus="status">
 				 <tr>
 				    <td>${member.memberId }</td>
 				    <td>${member.memberName }</td>
@@ -64,18 +57,14 @@
 				    <td>${member.lowerDivision }</td>
 				    <td>${member.adAccount }</td>
 				    <td>${member.officePhoneNumber }</td>
-				    <td><button type="submit" name='memberId' class="showDetailInfo" value="${member.memberId }">보기</button></td>
-				    <td><button type="button" class="modifyMember" id="memberId${member.memberId }" value="${member.memberId }">수정</button></td>
+				    <td><button type="button" class="view_log" value="${member.memberId }">보기</button></td>
 				</tr>
 				</c:forEach>
 			</tbody> 
 			</table>
-			</form>
 		</div>
-		<div id="test">
-		<button type="button" id="insertProperty">자산등록</button>
-		<button type="button" id="insertMember">사원등록</button>
-		<button type="button" id="showRetired">퇴사자 보기</button>
+		<div id="navi">
+		<button type="button" id="back_to_list">목록으로</button>
 		</div>
 	</div>
 </body>

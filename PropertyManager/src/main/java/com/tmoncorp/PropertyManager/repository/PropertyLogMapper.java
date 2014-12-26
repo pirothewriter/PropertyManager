@@ -29,4 +29,6 @@ public interface PropertyLogMapper {
 	int releaseAllEquipmentOnRetireMember(String memberId);
 
 	int logWithdrawDateOfRetireMembersEquipment(String memberId);
+
+	List<PropertyLogModel> selectPersonalLog(String memberId);
 }

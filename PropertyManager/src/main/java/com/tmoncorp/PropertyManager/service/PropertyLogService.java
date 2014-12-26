@@ -65,4 +65,16 @@ public class PropertyLogService {
 		return result;
 	}
 
+	public List<PropertyLogModel> getPersonalLog(String memberId) {
+		List<PropertyLogModel> result = propertyLogRepository.selectPersonalLog(memberId);
+		for (int index = 0; index < result.size(); index++) {
+			if (result.get(index).getUrgentDate() != null)
+				result.get(index).setUrgentDate(new java.sql.Date(result.get(index).getUrgentDate().getTime()));
+			if (result.get(index).getWithdrawDate() != null)
+				result.get(index).setWithdrawDate(new java.sql.Date(result.get(index).getWithdrawDate().getTime()));
+		}
+		
+		return result;
+	}
+
 }

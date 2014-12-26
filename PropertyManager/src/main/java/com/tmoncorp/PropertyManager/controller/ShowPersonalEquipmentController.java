@@ -49,4 +49,15 @@ public class ShowPersonalEquipmentController {
 		return showMembersModelAndView;
 	}
 
+	@RequestMapping("/retired")
+	public ModelAndView showRetired() {
+		List<MemberModel> retiredMembers = memberService.getRetiredMembers();
+
+		ModelAndView showRetiredMembersModelAndView = new ModelAndView();
+		showRetiredMembersModelAndView.setViewName("retired");
+		showRetiredMembersModelAndView.addObject("retiredMembers", retiredMembers);
+
+		return showRetiredMembersModelAndView;
+	}
+
 }

@@ -25,4 +25,6 @@ public interface MemberMapper {
 
 	int retireMember(String memberId);
 
+	List<MemberModel> selectRetiredMembers();
+
 }

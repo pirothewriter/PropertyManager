@@ -65,4 +65,8 @@ public class MemberService {
 		return result;
 	}
 
+	public List<MemberModel> getRetiredMembers() {
+		return memberRepository.selectRetiredMembers();
+	}
+
 }
