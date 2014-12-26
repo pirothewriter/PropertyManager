@@ -68,5 +68,19 @@
 			property_number = #{propertyNumber} AND member_id = #{memberId} 
 	</update>
 		
+	<delete id="releaseAllEquipmentOnRetireMember" parameterType="String">
+		DELETE FROM
+			equipment_map_person
+		WHERE
+			member_id = #{memberId}
+	</delete>
 	
+	<update id="logWithdrawDateOfRetireMembersEquipment" parameterType="String">
+		UPDATE
+			equipment_log
+		SET
+			withdraw_date = NOW()
+		WHERE
+			member_id = #{memberId} AND withdraw_date IS NULL
+	</update>
 </mapper>

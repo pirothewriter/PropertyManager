@@ -51,4 +51,14 @@ public class PropertyLogRepository {
 		return propertyLogMapper.selectPropertyLog(propertyNumber);
 	}
 
+	public int releaseAllEquipmentOnRetireMember(String memberId) {
+		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
+		return propertyLogMapper.releaseAllEquipmentOnRetireMember(memberId);
+	}
+
+	public int logWithdrawDateOfRetireMembersEquipment(String memberId) {
+		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
+		return propertyLogMapper.logWithdrawDateOfRetireMembersEquipment(memberId);
+	}
+
 }

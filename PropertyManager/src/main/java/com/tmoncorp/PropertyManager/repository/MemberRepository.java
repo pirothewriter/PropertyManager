@@ -44,4 +44,14 @@ public class MemberRepository {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		return memberMapper.selectAMember(memberId);
 	}
+
+	public int modifyMemberInformation(MemberModel parsememberInfomation) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.modifyMember(parsememberInfomation);
+	}
+
+	public int retireMember(String memberId) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.retireMember(memberId);
+	}
 }

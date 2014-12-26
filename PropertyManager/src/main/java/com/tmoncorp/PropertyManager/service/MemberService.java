@@ -55,4 +55,14 @@ public class MemberService {
 		return memberModel;
 	}
 
+	public int modifyMemberInformation(HttpServletRequest request) {
+		int result = memberRepository.modifyMemberInformation(parsememberInfomation(request));
+		return result;
+	}
+
+	public int retireMember(String memberId) {
+		int result = memberRepository.retireMember(memberId);
+		return result;
+	}
+
 }

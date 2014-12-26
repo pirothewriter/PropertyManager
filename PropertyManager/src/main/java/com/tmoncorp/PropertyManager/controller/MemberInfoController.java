@@ -88,4 +88,20 @@ public class MemberInfoController {
 		logModelAndView.setViewName("equipmentLog");
 		return logModelAndView;
 	}
+	
+	@RequestMapping(value = "retireMember", method=RequestMethod.GET)
+	public @ResponseBody String retireMember(HttpServletRequest request){
+		String result = "";
+		
+		int affectedRowsOnMemberTable = memberService.retireMember(request.getParameter("memberId"));
+		int affectedRowsOnMappingTable = propertyLogService.withdrawEqiupmentThatOwnedRetireMember(request.getParameter("memberId"));
+		int affectedRowsOnLogTable = propertyLogService.withdrawEqiupmentThatOwnedRetireMemberLog(request.getParameter("memberId"));
+		
+		if(affectedRowsOnLogTable * affectedRowsOnMappingTable * affectedRowsOnMemberTable == 0)
+			result = "ERROR";
+		else
+			result = "SUCCESS";
+		
+		return result;
+	}
 }

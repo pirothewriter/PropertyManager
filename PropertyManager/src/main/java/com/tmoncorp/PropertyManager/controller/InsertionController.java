@@ -31,7 +31,7 @@ public class InsertionController {
 		return insertModelAndView;
 	}
 
-	@RequestMapping(value="/inserting", method=RequestMethod.POST)
+	@RequestMapping(value = "/inserting", method = RequestMethod.POST)
 	public @ResponseBody String insertion(HttpServletRequest request) throws ParseException {
 		String msg = "";
 		int affectedRows = equipmentService.equipmentInsertion(request);
@@ -42,7 +42,7 @@ public class InsertionController {
 		else if (affectedRows == 1) {
 			msg = "SUCCESS";
 		}
-		
+
 		return msg;
 	}
 }

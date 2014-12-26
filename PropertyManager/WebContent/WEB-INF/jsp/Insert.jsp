@@ -215,7 +215,7 @@
 					type : "POST",
 					cache : false,
 					url : 'inserting.tmon',
-					data : $(this).serializeArray(),
+					data : $(this).serialize(),
 					success : function(msg){
 						if(msg == 'SUCCESS'){
 							alert("등록되었습니다!");

@@ -25,4 +25,8 @@ public interface PropertyLogMapper {
 	int deleteReleaseProperty(@Param("memberId") String memberId, @Param("propertyNumber") String propertyNumber);
 	
 	int updateReleaseLogProperty(@Param("memberId") String memberId, @Param("propertyNumber") String propertyNumber);
+
+	int releaseAllEquipmentOnRetireMember(String memberId);
+
+	int logWithdrawDateOfRetireMembersEquipment(String memberId);
 }

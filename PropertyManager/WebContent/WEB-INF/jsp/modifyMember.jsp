@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>사원 정보 등록</title>
+<title>사원 정보 수정</title>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <link href="css/glDatePicker.flatwhite.css" rel="stylesheet" type="text/css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -46,15 +46,36 @@
 				$.ajax({
 					type : "POST",
 					cache : false,
-					url : 'insertingMember.tmon',
+					url : 'modifyingMember.tmon',
 					data : $(this).serialize(),
 					success : function(msg){
 						if(msg == 'SUCCESS'){
 							alert("등록되었습니다!");
-							location.reload(true);
+							document.location.href="/showMembers.tmon";
 						} else {
-							alert("중복된 사원번호입니다. 다시 입력해주세요!");
+							alert("오류입니다. 다시 시도해주세요!");
 						}
+					}
+				});
+			}
+		});
+		
+		$("#retire").on("click", function(event){
+			var isRetire = confirm("퇴사처리 하시겠습니까? 퇴사처리를 하면 할당된 자산들은 전부 회수됩니다");
+			if(isRetire == true){
+				event.preventDefault();
+				$.ajax({
+					type : "GET",
+					cache : false,
+					url : "/retireMember.tmon",
+					data : "memberId=${member.memberId}",
+					success : function(msg){
+						if(msg == 'SUCCESS'){
+							alert("정상적으로 퇴사처리되었습니다!");
+						} else {
+							alert("오류입니다!")
+						}
+						document.location.href="/showMembers.tmon";
 					}
 				});
 			}
@@ -67,13 +88,15 @@
 	<div id="wrapper">
 		<div id="list">
 			<form method="post" name="inputForm">
-			사원번호 : <input type="text" name="memberId"><br>
-			사 원 명 : <input type="text" name="memberName"><br>
-			부서명(大) : <input type="text" name="upperDivision"><br>
-			부서명(小) : <input type="text" name="lowerDivision"><br>
-			AD계정 : <input type="text" name="adAccount"><br>
-			내선번호 : <input type="text" name="officePhoneNumber"><br>
-			<button type="submit" id="formSubmit">입력</button>
+			사원번호 : <input type="text" name="memberId" value="${member.memberId }" readonly><br>
+			사 원 명 : <input type="text" name="memberName" value="${member.memberName }"><br>
+			부서명(大) : <input type="text" name="upperDivision" value="${member.upperDivision }"><br>
+			부서명(小) : <input type="text" name="lowerDivision" value="${member.lowerDivision }"><br>
+			AD계정 : <input type="text" name="adAccount" value="${member.adAccount }"><br>
+			내선번호 : <input type="text" name="officePhoneNumber" value="${member.officePhoneNumber }"><br>
+			<br><b>사원번호는 변경할 수 없습니다.</b><br>
+			<button type="submit" id="formSubmit">수정</button>
+			<button type="button" id="retire">퇴사처리</button>
 			</form>
 		</div>
 	</div>

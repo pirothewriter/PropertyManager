@@ -21,4 +21,8 @@ public interface MemberMapper {
 
 	MemberModel selectAMember(String memberId);
 
+	int modifyMember(MemberModel memberModel);
+
+	int retireMember(String memberId);
+
 }

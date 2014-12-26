@@ -15,6 +15,20 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		$(document).ready(function(){
+			$(".modifyMember[id^='memberId']").on("click", function(){
+				var value = this.value;
+				document.location.href="/modifyMember.tmon?memberId=" + value;
+			});
+			
+			$("#insertProperty").on("click", function(){
+				document.location.href="/insert.tmon";
+			});
+			
+			$("#insertMember").on("click", function(){
+				document.location.href="/memberinsert.tmon";
+			});
+		})
 	});
 </script>
 </head>
@@ -35,7 +49,8 @@
 					<th>소속부서(小)</th>
 					<th>AD 계정</th>
 					<th>내선번호</th>
-					<th>상세보기</th>
+					<th>보유자산보기</th>
+					<th>사원정보수정</th>
 				</tr>
 				 <c:forEach var="member" items="${members}" varStatus="status">
 				 <tr>
@@ -46,11 +61,16 @@
 				    <td>${member.adAccount }</td>
 				    <td>${member.officePhoneNumber }</td>
 				    <td><button type="submit" name='memberId' class="showDetailInfo" value="${member.memberId }">보기</button></td>
+				    <td><button type="button" class="modifyMember" id="memberId${member.memberId }" value="${member.memberId }">수정</button></td>
 				</tr>
 				</c:forEach>
 			</tbody> 
 			</table>
 			</form>
+		</div>
+		<div id="test">
+		<button type="button" id="insertProperty">자산등록</button>
+		<button type="button" id="insertMember">사원등록</button>
 		</div>
 	</div>
 </body>

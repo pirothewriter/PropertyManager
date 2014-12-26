@@ -26,11 +26,12 @@
 		$("#propertyInfo form").on("submit", function(event){
 			var isRelease = confirm("자산을 회수하시겠습니까?");
 			if(isRelease == true){
+				event.preventDefault();
 				$.ajax({
 					type : "POST",
 					cache : false,
 					url : 'releasing.tmon',
-					data : $(this).serializeArray(),
+					data : $(this).serialize(),
 					success : function(msg){
 						alert("회수되었습니다!");
 						location.reload(true);

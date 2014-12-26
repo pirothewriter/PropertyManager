@@ -11,15 +11,16 @@
 		<result property="lowerDivision" column="lower_division" />
 		<result property="adAccount" column="ad_account" />
 		<result property="officePhoneNumber" column="office_phone_number" />
+		<result property="isServed" column="is_served" />
 	</resultMap>
 
 	<insert id="insertMemberInfomation" parameterType="MemberModel">
 		INSERT INTO
-		member(member_id, member_name, upper_division, lower_division, ad_account, office_phone_number)
+			member(member_id, member_name, upper_division, lower_division, ad_account, office_phone_number, is_served)
 		SELECT
-		#{memberId}, #{memberName}, #{upperDivision}, #{lowerDivision}, #{adAccount}, #{officePhoneNumber} 
+			#{memberId}, #{memberName}, #{upperDivision}, #{lowerDivision}, #{adAccount}, #{officePhoneNumber}, 'Y' 
 		FROM DUAL WHERE NOT EXISTS
-		(SELECT M.member_id FROM member M WHERE M.member_id = #{memberId})
+			(SELECT M.member_id FROM member M WHERE M.member_id = #{memberId})
 	</insert>
 	
 	<select id="selectMembers" resultMap="MembertResult">
@@ -27,6 +28,8 @@
 			member_id, member_name, upper_division, lower_division, ad_account, office_phone_number
 		FROM
 			member
+		WHERE
+			is_served = 'Y'
 	</select>
 	
 	<select id="selectUpperDivisions" resultType="String">
@@ -57,4 +60,22 @@
 		WHERE
 			member_id = #{memberId}  
 	</select>
+	
+	<update id="modifyMember" parameterType="memberModel">
+		UPDATE
+			member
+		SET
+			member_name = #{memberName}, upper_division = #{upperDivision}, lower_division = #{lowerDivision}, ad_account = #{adAccount}, office_phone_number = #{officePhoneNumber}
+		WHERE
+			member_id = #{memberId}
+	</update>
+	
+	<update id="retireMember" parameterType="String">
+		UPDATE
+			member
+		SET
+			is_served = 'N'
+		WHERE
+			member_id = #{memberId}
+	</update>
 </mapper>

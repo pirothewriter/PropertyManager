@@ -54,4 +54,15 @@ public class PropertyLogService {
 		}
 		return result;
 	}
+
+	public int withdrawEqiupmentThatOwnedRetireMember(String memberId) {
+		int result = propertyLogRepository.releaseAllEquipmentOnRetireMember(memberId);
+		return result;
+	}
+
+	public int withdrawEqiupmentThatOwnedRetireMemberLog(String memberId) {
+		int result = propertyLogRepository.logWithdrawDateOfRetireMembersEquipment(memberId);
+		return result;
+	}
+
 }

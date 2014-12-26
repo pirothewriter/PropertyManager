@@ -31,7 +31,15 @@ public class InsertMemberController {
 		return insertMemberModelAndView;
 	}
 
-	@RequestMapping(value="/insertingMember", method=RequestMethod.POST)
+	@RequestMapping("/modifyMember")
+	public ModelAndView modifyMember(HttpServletRequest request) {
+		ModelAndView modifyMemberModelAndView = new ModelAndView();
+		modifyMemberModelAndView.addObject("member", memberService.selectAMember(request.getParameter("memberId")));
+		modifyMemberModelAndView.setViewName("modifyMember");
+		return modifyMemberModelAndView;
+	}
+
+	@RequestMapping(value = "/insertingMember", method = RequestMethod.POST)
 	public @ResponseBody String insertion(HttpServletRequest request) throws ParseException {
 		int affectedRows = memberService.insertMemberInfomation(request);
 		String msg = "";
@@ -43,6 +51,22 @@ public class InsertMemberController {
 			msg = "SUCCESS";
 		}
 
+		return msg;
+	}
+	
+	@RequestMapping(value = "/modifyingMember", method=RequestMethod.POST)
+	public @ResponseBody String modifying(HttpServletRequest request){
+		int affectedRows = memberService.modifyMemberInformation(request);
+		String msg = "";
+		
+		if(affectedRows == 1){
+			msg = "SUCCESS";
+		}
+		
+		else {
+			msg = "ERROR";
+		}
+		
 		return msg;
 	}
 }

@@ -71,6 +71,7 @@ public class MemberRepositoryTest {
 		memberModel.setLowerDivision("test");
 		memberModel.setAdAccount("test");
 		memberModel.setOfficePhoneNumber(1234);
+		memberModel.setIsServed('Y');
 
 		return memberModel;
 	}

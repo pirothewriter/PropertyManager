@@ -13,6 +13,7 @@ public class MemberModel {
 	private String lowerDivision;
 	private String adAccount;
 	private int officePhoneNumber;
+	private char isServed;
 
 	public String getMemberId() {
 		return memberId;
@@ -60,5 +61,13 @@ public class MemberModel {
 
 	public void setOfficePhoneNumber(int officePhoneNumber) {
 		this.officePhoneNumber = officePhoneNumber;
+	}
+
+	public char getIsServed() {
+		return isServed;
+	}
+
+	public void setIsServed(char isServed) {
+		this.isServed = isServed;
 	}
 }

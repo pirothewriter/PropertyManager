@@ -30,11 +30,12 @@
 			if(propertyNumber == null){
 				alert("추가할 자산을 선택해주십시오!");
 			} else {
+				event.preventDefault();
 				$.ajax({
 					type : "POST",
 					cache : false,
 					url : 'mapping.tmon',
-					data : $(this).serializeArray(),
+					data : $(this).serialize(),
 					success : function(msg){
 						alert("등록되었습니다!");
 						document.location.href = "/memberInfo.tmon?memberId=${memberId }";
