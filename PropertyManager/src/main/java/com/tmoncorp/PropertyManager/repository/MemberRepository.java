@@ -59,4 +59,5 @@ public class MemberRepository {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		return memberMapper.selectRetiredMembers();
 	}
+
 }
