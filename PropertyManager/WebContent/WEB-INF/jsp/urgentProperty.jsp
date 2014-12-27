@@ -26,10 +26,8 @@
 	
 	$(document).ready(function(){
 		$("form").on("submit", function(event){
-			var propertyNumber = getCheckedValue();
-			if(propertyNumber == null){
-				alert("추가할 자산을 선택해주십시오!");
-			} else {
+			var urgentIt = confirm("해당 자산들을 추가하시겠습니까?");
+			if(urgentIt == true) {
 				event.preventDefault();
 				$.ajax({
 					type : "POST",
@@ -84,7 +82,7 @@
 					</tr>
 					<c:forEach var="property" items="${ownerlessEquipment}" varStatus="status">
 					<tr>
-						<td><input type="radio" name="check_property" value='${property.propertyNumber }'>
+						<td><input type="checkbox" name="propertyNumber" value='${property.propertyNumber }'>
 						<td>${property.propertyNumber }</td>
 						<td>${property.name }</td>
 						<td>${property.upperCategory }</td>

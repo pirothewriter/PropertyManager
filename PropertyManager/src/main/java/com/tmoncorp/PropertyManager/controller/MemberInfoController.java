@@ -62,9 +62,13 @@ public class MemberInfoController {
 
 	@RequestMapping(value = "/mapping", method = RequestMethod.POST)
 	public @ResponseBody String mapping(HttpServletRequest request) {
+		String[] properties = request.getParameterValues("propertyNumber");
 		String msg = "SUCCESS";
-		propertyLogService.urgentProperty(request.getParameter("memberId"), request.getParameter("check_property"));
-		propertyLogService.urgentPropertyLog(request.getParameter("memberId"), request.getParameter("check_property"));
+		
+		for(int index = 0; index < properties.length; index++){
+			propertyLogService.urgentProperty(request.getParameter("memberId"), properties[index]);
+			propertyLogService.urgentPropertyLog(request.getParameter("memberId"), properties[index]);
+		}
 		return msg;
 	}
 
