@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/applicationContext*.xml" })
-public class MemberServiceTest {
+public class CsvReaderServiceTest {
 	@Autowired
-	private MemberService memberService;
-
+	private CsvReaderService csvReaderService;
+	
 	@Transactional
 	@Test
 	public void 정상적으로_여래개의_사원정보를_입력하는지_테스트() throws IOException {
-		memberService.multipleMemberInsert("WebContent/csv/test_member.csv");
+		csvReaderService.multipleMemberInsert("WebContent/csv/test_member.csv");
 	}
 }
