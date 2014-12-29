@@ -1,5 +1,6 @@
 package com.tmoncorp.PropertyManager.service;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -9,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tmoncorp.PropertyManager.model.EquipmentModel;
+import com.tmoncorp.PropertyManager.repository.CsvReaderRepository;
 import com.tmoncorp.PropertyManager.repository.EquipmentRepository;
+import com.tmoncorp.PropertyManager.util.ExchangeCharacterSet;
 import com.tmoncorp.PropertyManager.util.ExchangeDateBetweenString;
 
 /**
@@ -23,6 +26,8 @@ public class EquipmentService {
 	@Autowired
 	private EquipmentRepository equipmentRepository;
 
+	private CsvReaderRepository csvReaderRepository;
+
 	public int equipmentInsertion(HttpServletRequest request) throws ParseException {
 		int affectedRows = equipmentRepository.insertEquipmentInfomation(parsingInsertionParameters(request));
 		return affectedRows;
@@ -31,9 +36,26 @@ public class EquipmentService {
 	public List<EquipmentModel> selectPropertyOnMember(String memberId) {
 		return equipmentRepository.selectPropertyOnMember(memberId);
 	}
-	
+
 	public List<EquipmentModel> getOwnerlessEquipment() {
 		return equipmentRepository.selectOwnerlessEquipments();
+	}
+
+	public int insertMultipleEquipment(String csvFile) throws IOException, ParseException {
+		csvReaderRepository = new CsvReaderRepository();
+		int insertSuccess = 0;
+
+		List<String[]> parsedList = csvReaderRepository.parsingCsv(csvFile);
+
+		for (int index = 1; index < parsedList.size(); index++) {
+			String[] parsedData = parsedList.get(index);
+			ExchangeDateBetweenString exchangeDateBetweenString = new ExchangeDateBetweenString();
+			EquipmentModel equipment = generateEquipmentData(parsedData, exchangeDateBetweenString);
+
+			insertSuccess += equipmentRepository.insertEquipmentInfomation(equipment);
+		}
+
+		return insertSuccess;
 	}
 
 	private EquipmentModel parsingInsertionParameters(HttpServletRequest request) throws ParseException {
@@ -52,7 +74,27 @@ public class EquipmentService {
 		dataForInsert.setSeller(request.getParameter("propertySeller"));
 		dataForInsert.setPrice(Integer.parseInt(request.getParameter("propertyPrice")));
 		dataForInsert.setUser("티켓몬스터");
-		
+
 		return dataForInsert;
 	}
+
+	private EquipmentModel generateEquipmentData(String[] parsedData, ExchangeDateBetweenString exchangeDateBetweenString) throws ParseException, IOException {
+		EquipmentModel equipment = new EquipmentModel();
+		ExchangeCharacterSet exchangeCharacterSet = new ExchangeCharacterSet();
+
+		equipment.setPropertyNumber(exchangeCharacterSet.convert(parsedData[0], "UTF-8"));
+		equipment.setUpperCategory(exchangeCharacterSet.convert(parsedData[1], "UTF-8"));
+		equipment.setLowerCategory(exchangeCharacterSet.convert(parsedData[2], "UTF-8"));
+		equipment.setName(exchangeCharacterSet.convert(parsedData[3], "UTF-8"));
+		equipment.setInfomation1(exchangeCharacterSet.convert(parsedData[4], "UTF-8"));
+		equipment.setInfomation2(exchangeCharacterSet.convert(parsedData[5], "UTF-8"));
+		equipment.setIncommingItUnit(exchangeDateBetweenString.stringToDate(exchangeCharacterSet.convert(parsedData[6], "UTF-8")));
+		equipment.setIncommingFinance(exchangeDateBetweenString.stringToDate(exchangeCharacterSet.convert(parsedData[7], "UTF-8")));
+		equipment.setProductor(exchangeCharacterSet.convert(parsedData[8], "UTF-8"));
+		equipment.setSeller(exchangeCharacterSet.convert(parsedData[9], "UTF-8"));
+		equipment.setPrice(Integer.parseInt(exchangeCharacterSet.convert(parsedData[10], "UTF-8")));
+		equipment.setUser("티켓몬스터");
+		return equipment;
+	}
+
 }

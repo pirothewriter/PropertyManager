@@ -1,0 +1,26 @@
+자산번호,자산구분(大),자산구분(小),자산명,자산정보1,자산정보2,자산입고일(IT유닛 입고 당일),자산입고일(재무팀 월말),자산제조사,자산판매사,자산구매단가
+PCM1024401,test,test,test01,test,test,2014-12-29,2014-12-29,test,test,1
+PCM1024402,,test,test02,test,test,2014-12-29,2014-12-29,test,test,2
+PCM1024403,test,test,test03,test,test,2014-12-29,2014-12-29,test,test,3
+PCM1024404,,test,test04,test,test,2014-12-29,2014-12-29,test,test,4
+PCM1024405,test,test,test05,test,test,2014-12-29,2014-12-29,test,test,5
+PCM1024406,,test,test06,test,test,2014-12-29,2014-12-29,test,test,6
+PCM1024407,test,test,test07,test,test,2014-12-29,2014-12-29,test,test,7
+PCM1024408,,test,test08,test,test,2014-12-29,2014-12-29,test,test,8
+PCM1024409,test,test,test09,test,test,2014-12-29,2014-12-29,test,test,9
+PCM1024410,,test,test10,test,test,2014-12-29,2014-12-29,test,test,10
+PCM1024411,test,test,test11,test,test,2014-12-29,2014-12-29,test,test,11
+PCM1024412,,test,test12,test,test,2014-12-29,2014-12-29,test,test,12
+PCM1024413,test,test,test13,test,test,2014-12-29,2014-12-29,test,test,13
+PCM1024414,,test,test14,test,test,2014-12-29,2014-12-29,test,test,14
+PCM1024415,test,test,test15,test,test,2014-12-29,2014-12-29,test,test,15
+PCM1024416,,test,test16,test,test,2014-12-29,2014-12-29,test,test,16
+PCM1024417,test,test,test17,test,test,2014-12-29,2014-12-29,test,test,17
+PCM1024418,,test,test18,test,test,2014-12-29,2014-12-29,test,test,18
+PCM1024419,test,test,test19,test,test,2014-12-29,2014-12-29,test,test,19
+PCM1024420,,test,test20,test,test,2014-12-29,2014-12-29,test,test,20
+PCM1024421,test,test,test21,test,test,2014-12-29,2014-12-29,test,test,21
+PCM1024422,,test,test22,test,test,2014-12-29,2014-12-29,test,test,22
+PCM1024423,test,test,test23,test,test,2014-12-29,2014-12-29,test,test,23
+PCM1024424,,test,test24,test,test,2014-12-29,2014-12-29,test,test,24
+PCM1024425,test,test,test25,test,test,2014-12-29,2014-12-29,test,test,25

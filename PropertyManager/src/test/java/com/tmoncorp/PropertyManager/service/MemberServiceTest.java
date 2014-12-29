@@ -18,6 +18,6 @@ public class MemberServiceTest {
 	@Transactional
 	@Test
 	public void 정상적으로_여래개의_사원정보를_입력하는지_테스트() throws IOException {
-		memberService.multipleMemberInsert("WebContent/csv/test.csv");
+		memberService.multipleMemberInsert("WebContent/csv/test_member.csv");
 	}
 }

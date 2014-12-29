@@ -1,14 +1,16 @@
 package com.tmoncorp.PropertyManager.service;
 
-import org.junit.Before;
+import static org.junit.Assert.assertEquals;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import java.io.IOException;
+import java.text.ParseException;
 
 import org.junit.Test;
-
-import com.tmoncorp.PropertyManager.model.EquipmentModel;
-import com.tmoncorp.PropertyManager.repository.EquipmentRepository;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 
@@ -16,16 +18,17 @@ import com.tmoncorp.PropertyManager.repository.EquipmentRepository;
  *
  */
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:spring/applicationContext*.xml" })
 public class EquipmentServiceTest {
+	@Autowired
 	private EquipmentService equipmentService;
-
-	@Before
-	public void setup() {
-		equipmentService = new EquipmentService();
-	}
-
+	
+	@Transactional
 	@Test
-	public void 데이터_인서트테스트() {
-		EquipmentRepository mockedRepository = mock(EquipmentRepository.class);
+	public void 여래개의_장비정보가_제대로_들어가는지_테스트() throws IOException, ParseException{
+		int result = equipmentService.insertMultipleEquipment("webContent/csv/test_property.csv");
+		assertEquals(25, result);
 	}
+	
 }

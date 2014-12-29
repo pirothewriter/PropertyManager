@@ -23,7 +23,7 @@ public class CsvReaderRepositoryTest {
 	
 	@Test
 	public void CSV파일을_읽어들이고나서_정상적으로_반환하는지_테스트() throws IOException{
-		assertNotNull(csvReaderRepository.parsingCsv("WebContent/csv/test.csv"));
+		assertNotNull(csvReaderRepository.parsingCsv("WebContent/csv/test_member.csv"));
 	}
 
 }
