@@ -33,11 +33,9 @@ public class CsvReaderService {
 		List<String[]> membersList = csvReaderRepository.parsingCsv(csvFile);
 		int result = 0;
 
-		ExchangeCharacterSet exchangeCharacterSet = new ExchangeCharacterSet();
-
 		for (int index = CSV_START_ROW; index < membersList.size(); index++) {
 			String[] member = membersList.get(index);
-			convertUtf8(exchangeCharacterSet, member);
+			member = convertUtf8(member);
 			MemberModel model = generateMemberModel(member);
 
 			result += memberRepository.insertMemberInfomation(model);
@@ -50,17 +48,35 @@ public class CsvReaderService {
 		List<String[]> properties = csvReaderRepository.parsingCsv(csvFile);
 		int result = 0;
 
-		ExchangeCharacterSet exchangeCharacterSet = new ExchangeCharacterSet();
-
 		for (int index = CSV_START_ROW; index < properties.size(); index++) {
 			String[] property = properties.get(index);
-			convertUtf8(exchangeCharacterSet, property);
+			property = convertUtf8(property);
 			EquipmentModel equipment = genearateEquipmentModel(property);
 
 			result += equipmentRepository.insertEquipmentInfomation(equipment);
 		}
 
 		return result;
+	}
+
+	public boolean verifyForm(File csvFile, String inputType) throws IOException {
+		String[] head = csvReaderRepository.parsingCsv(csvFile).get(0);
+		String[] correctForm;
+
+		if (inputType.compareTo("member") == 0) {
+			String tmp[] = { "사원번호", "사원명", "부서명(大)", "부서명(小)", "AD계정", "내선번호" };
+			correctForm = tmp;
+		} else if (inputType.compareTo("property") == 0) {
+			String tmp[] = { "자산번호", "자산구분(大)", "자산구분(小)", "자산명", "자산정보1", "자산정보2", "자산입고일(IT유닛 입고 당일)", "자산입고일(재무팀 월말)", "자산제조사", "자산판매사", "자산구매단가" };
+			correctForm = tmp;
+		} else {
+			return false;
+		}
+
+		head = convertUtf8(head);
+		correctForm = convertUtf8(correctForm);
+
+		return (head.length == correctForm.length);
 	}
 
 	private EquipmentModel genearateEquipmentModel(String[] property) throws ParseException {
@@ -82,9 +98,12 @@ public class CsvReaderService {
 		return equipmentModel;
 	}
 
-	private void convertUtf8(ExchangeCharacterSet exchangeCharacterSet, String[] member) throws IOException {
-		for (int index = 0; index < member.length; index++)
-			member[index] = exchangeCharacterSet.convert(member[index], "UTF-8");
+	private String[] convertUtf8(String[] arrayFromCsv) throws IOException {
+		ExchangeCharacterSet exchangeCharacterSet = new ExchangeCharacterSet();
+		for (int index = 0; index < arrayFromCsv.length; index++)
+			arrayFromCsv[index] = exchangeCharacterSet.convert(arrayFromCsv[index], "UTF-8");
+
+		return arrayFromCsv;
 	}
 
 	private MemberModel generateMemberModel(String[] csvParsedString) {

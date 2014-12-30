@@ -248,6 +248,9 @@
 	                } else if(msg == 'NO FILE'){
 	                	alert("파일을 선택해주세요!");
 	                	return false;
+	                } else if(msg == "INCORRECT FORM"){
+	                	alert("잘못된 양식의 csv파일입니다!");
+	                	location.reload(true);
 	                } else if(msg == 'SUCCESS'){
 	                	alert("등록 성공!");
 	                	location.reload(true);

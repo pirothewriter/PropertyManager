@@ -36,7 +36,13 @@ public class CsvReaderController {
 		if (isCsvFile(csvFile) == false)
 			return "NOT CSV";
 
-		msg = inserting("member", csvFile);
+		ConvertMultipartFileToFile convertMultipartFileToFile = new ConvertMultipartFileToFile();
+		File file = convertMultipartFileToFile.convert(csvFile);
+
+		if (csvReaderService.verifyForm(file, "member") == false)
+			return "INCORRECT FORM";
+
+		msg = inserting("member", file);
 
 		return msg;
 	}
@@ -54,16 +60,20 @@ public class CsvReaderController {
 		if (isCsvFile(csvFile) == false)
 			return "NOT CSV";
 
-		msg = inserting("property", csvFile);
+		ConvertMultipartFileToFile convertMultipartFileToFile = new ConvertMultipartFileToFile();
+		File file = convertMultipartFileToFile.convert(csvFile);
+
+		if (csvReaderService.verifyForm(file, "property") == false)
+			return "INCORRECT FORM";
+
+		msg = inserting("property", file);
 
 		return msg;
 	}
 
-	private String inserting(String insertType, MultipartFile csvFile) throws IOException, ParseException {
+	private String inserting(String insertType, File file) throws IOException, ParseException {
 		String msg;
 		int result = 0;
-		ConvertMultipartFileToFile convertMultipartFileToFile = new ConvertMultipartFileToFile();
-		File file = convertMultipartFileToFile.convert(csvFile);
 
 		if (insertType.compareTo("member") == 0)
 			result = csvReaderService.multipleMemberInsert(file);
