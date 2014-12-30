@@ -1,5 +1,6 @@
 package com.tmoncorp.PropertyManager.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -41,7 +42,7 @@ public class EquipmentService {
 		return equipmentRepository.selectOwnerlessEquipments();
 	}
 
-	public int insertMultipleEquipment(String csvFile) throws IOException, ParseException {
+	public int insertMultipleEquipment(File csvFile) throws IOException, ParseException {
 		csvReaderRepository = new CsvReaderRepository();
 		int insertSuccess = 0;
 

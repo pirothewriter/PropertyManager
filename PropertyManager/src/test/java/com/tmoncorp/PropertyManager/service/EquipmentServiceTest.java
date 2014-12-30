@@ -2,6 +2,7 @@ package com.tmoncorp.PropertyManager.service;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -27,7 +28,8 @@ public class EquipmentServiceTest {
 	@Transactional
 	@Test
 	public void 여래개의_장비정보가_제대로_들어가는지_테스트() throws IOException, ParseException{
-		int result = equipmentService.insertMultipleEquipment("webContent/csv/test_property.csv");
+		File file = new File("webContent/csv/test_property.csv");
+		int result = equipmentService.insertMultipleEquipment(file);
 		assertEquals(25, result);
 	}
 	

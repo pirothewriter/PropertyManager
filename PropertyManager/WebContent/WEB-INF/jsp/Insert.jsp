@@ -130,7 +130,7 @@
 		    }
 	        });
 		
-		$("form").on("submit", function(event){
+		$("#inputForm").on("submit", function(event){
 			var num_regx = /^[0-9]+$/;
 			
 			if($("#propertyNumber").val() == ''){
@@ -227,13 +227,50 @@
 				});
 			}
 		});
+		
+		$('#btn_submit').on("click", function() {
+	        var data = new FormData();
+	        $.each($('#attachFile')[0].files, function(i, file) {
+	            data.append('file-' + i, file);
+	        });
+	 
+	        $.ajax({
+	            url: '/uploadProperty.tmon',
+	            type: "post",
+	            dataType: "text",
+	            data: data,
+	            processData: false,
+	            contentType: false,
+	            success: function(msg, textStatus, jqXHR) {
+	                if(msg == 'NOT CSV'){
+	                	alert("csv파일만 업로드 가능합니다!");
+	                	return false;
+	                } else if(msg == 'NO FILE'){
+	                	alert("파일을 선택해주세요!");
+	                	return false;
+	                } else if(msg == 'SUCCESS'){
+	                	alert("등록 성공!");
+	                	location.reload(true);
+	                } else {
+	                	alert("서버 에러");
+	                	location.reload(true);
+	                }
+	            },
+	            error: function(jqXHR, textStatus, errorThrown) {}
+	        });
+	    });
+		
+		$("#btn_download_form").click(function(event){
+			event.preventDefault();
+			window.location.href = "csv/propertyinsert.csv";
+		});
 	})
 </script>
 </head>
 <body>
 	<div id="wrapper">
 		<div id="list">
-			<form method="post" name="inputForm">
+			<form method="post" name="inputForm" id="inputForm">
 			자산번호 : <input type="text" id="propertyHeadNumber" name="propertyHeadNumber" readonly><input type="text" id="propertyNumber" name="propertyNumber"><br>
 			자산구분 : 
 			<select id="propertyUpperCategory" name="propertyUpperCategory">
@@ -265,6 +302,13 @@
 			유저정보 : <input type="text" name="propertyUser" value="티켓몬스터" disabled><p>
 			<button type="submit" id="formSubmit">입력</button>
 			</form>
+		</div>
+		<div id="csvForm">
+			<button type="button" id="btn_download_form">양식 다운로드</button><br>
+			<form id="submitForm" enctype="multipart/form-data">
+        		<input name="attachFile" id="attachFile" type="file" /><br/>
+        		<button type="button" id="btn_submit">upload</button>
+    		</form>
 		</div>
 	</div>
 </body>

@@ -1,5 +1,6 @@
 package com.tmoncorp.PropertyManager.service;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.junit.Test;
@@ -18,6 +19,7 @@ public class CsvReaderServiceTest {
 	@Transactional
 	@Test
 	public void 정상적으로_여래개의_사원정보를_입력하는지_테스트() throws IOException {
-		csvReaderService.multipleMemberInsert("WebContent/csv/test_member.csv");
+		File file = new File("WebContent/csv/test_member.csv");
+		csvReaderService.multipleMemberInsert(file);
 	}
 }

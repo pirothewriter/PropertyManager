@@ -23,6 +23,9 @@
 	   </property>
 	</bean>
 
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>
+
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="contentType" value="text/html; charset=UTF-8" />
 		<property name="prefix" value="/WEB-INF/jsp/" />
