@@ -125,7 +125,7 @@ public class CsvReaderService {
 	private boolean checkNullValue(String[] parsedArray) {
 		boolean isNotNull = true;
 		for (int index = 0; index < parsedArray.length; index++) {
-			if (parsedArray[index] == "")
+			if (parsedArray[index].compareTo("") == 0)
 				isNotNull = false;
 		}
 
