@@ -25,30 +25,20 @@ public class CsvReaderController {
 
 	@RequestMapping(value = "/uploadMembers", method = RequestMethod.POST)
 	public @ResponseBody String insertMultipleMembers(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
-		Iterator<String> iterator = request.getFileNames();
-		String msg;
-
-		if (isUploadedFile(iterator) == false)
-			return "NO FILE";
-
-		MultipartFile csvFile = request.getFile(iterator.next());
-
-		if (isCsvFile(csvFile) == false)
-			return "NOT CSV";
-
-		ConvertMultipartFileToFile convertMultipartFileToFile = new ConvertMultipartFileToFile();
-		File file = convertMultipartFileToFile.convert(csvFile);
-
-		if (csvReaderService.verifyForm(file, "member") == false)
-			return "INCORRECT FORM";
-
-		msg = inserting("member", file);
-
-		return msg;
+		return commonInsertingOfCsv(request, "member");
 	}
 
 	@RequestMapping(value = "/uploadProperty", method = RequestMethod.POST)
 	public @ResponseBody String insertMultipleProperties(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+		return commonInsertingOfCsv(request, "property");
+	}
+
+	@RequestMapping(value = "/uploadMappedProperty", method = RequestMethod.POST)
+	public @ResponseBody String insertMappedProperties(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+		return commonInsertingOfCsv(request, "mapped");
+	}
+
+	private String commonInsertingOfCsv(MultipartHttpServletRequest request, String inputType) throws IOException, ParseException {
 		Iterator<String> iterator = request.getFileNames();
 		String msg;
 
@@ -63,28 +53,16 @@ public class CsvReaderController {
 		ConvertMultipartFileToFile convertMultipartFileToFile = new ConvertMultipartFileToFile();
 		File file = convertMultipartFileToFile.convert(csvFile);
 
-		if (csvReaderService.verifyForm(file, "property") == false)
+		if (csvReaderService.verifyForm(file, inputType) == false)
 			return "INCORRECT FORM";
 
-		msg = inserting("property", file);
+		msg = inserting(inputType, file);
 
 		return msg;
 	}
 
-	private String inserting(String insertType, File file) throws IOException, ParseException {
-		String msg;
-		int result = 0;
-
-		if (insertType.compareTo("member") == 0)
-			result = csvReaderService.multipleMemberInsert(file);
-		else if (insertType.compareTo("property") == 0)
-			result = csvReaderService.multiplePropertiesInsert(file);
-
-		if (result > 0)
-			msg = "SUCCESS";
-		else
-			msg = "ERROR";
-		return msg;
+	private boolean isUploadedFile(Iterator<String> iterator) {
+		return iterator.hasNext();
 	}
 
 	private boolean isCsvFile(MultipartFile csvFile) {
@@ -96,7 +74,22 @@ public class CsvReaderController {
 		return (type.compareTo("csv") == 0);
 	}
 
-	private boolean isUploadedFile(Iterator<String> iterator) {
-		return iterator.hasNext();
+	private String inserting(String insertType, File file) throws IOException, ParseException {
+		String msg;
+		int result = 0;
+
+		if (insertType.compareTo("member") == 0)
+			result = csvReaderService.multipleMemberInsert(file);
+		else if (insertType.compareTo("property") == 0)
+			result = csvReaderService.multiplePropertiesInsert(file);
+		else if (insertType.compareTo("mapped") == 0) {
+			result = csvReaderService.multipleMappedInsert(file);
+		}
+
+		if (result > 0)
+			msg = "SUCCESS";
+		else
+			msg = "ERROR";
+		return msg;
 	}
 }

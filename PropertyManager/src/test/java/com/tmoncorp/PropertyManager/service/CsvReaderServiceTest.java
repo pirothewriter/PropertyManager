@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +24,13 @@ public class CsvReaderServiceTest {
 	public void 정상적으로_여래개의_사원정보를_입력하는지_테스트() throws IOException {
 		File file = new File("WebContent/csv/test_member.csv");
 		csvReaderService.multipleMemberInsert(file);
+	}
+	
+	@Transactional
+	@Test
+	public void 정상적으로_매핑된_정보를_입력하는지_테스트() throws IOException, ParseException{
+		File file = new File("WebContent/csv/map_test.csv");
+		csvReaderService.multipleMappedInsert(file);
 	}
 
 	@Test
