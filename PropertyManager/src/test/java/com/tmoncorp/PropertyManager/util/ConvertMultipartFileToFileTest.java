@@ -5,6 +5,12 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * @author piro
+ *
+ */
+
 public class ConvertMultipartFileToFileTest {
 	private ConvertMultipartFileToFile convertMultipartFileToFile;
 
