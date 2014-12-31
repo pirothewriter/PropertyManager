@@ -52,7 +52,7 @@ public class MemberRepositoryTest {
 	@Test
 	public void 전체_사원정보를_들고오는지_테스트() {
 		memberMapper = sqlSession.getMapper(MemberMapper.class);
-		List<MemberModel> members = memberMapper.selectMembers(0);
+		List<MemberModel> members = memberMapper.selectMembers(0, 20);
 		assertNotNull(members);
 	}
 

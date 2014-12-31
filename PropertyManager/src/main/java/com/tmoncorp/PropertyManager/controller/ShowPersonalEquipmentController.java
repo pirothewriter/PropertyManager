@@ -3,6 +3,7 @@ package com.tmoncorp.PropertyManager.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,11 @@ public class ShowPersonalEquipmentController {
 
 	@RequestMapping(value = "/showMembers.tmon/{upperDivision}.tmon", method = RequestMethod.GET)
 	public ModelAndView showMembersWithupperDivision(@PathVariable("upperDivision") String upperDivision, HttpServletRequest request) {
-		List<MemberModel> members = memberService.selectMembers(Integer.parseInt(request.getParameter("page")));
+		int viewSolePage = 20;
+		if (request.getParameter("viewSolePage") != null)
+			viewSolePage = Integer.parseInt(request.getParameter("viewSolePage"));
+
+		List<MemberModel> members = memberService.selectMembers(Integer.parseInt(request.getParameter("page")), viewSolePage);
 		List<String> upperDivisionList = memberService.getUpperDivisions();
 		List<String> lowerDivisionList = memberService.getLowerDivisions(upperDivision);
 
@@ -65,6 +70,7 @@ public class ShowPersonalEquipmentController {
 		int nowPage;
 		int startPage;
 		int endPage;
+		int viewSolePage;
 		int maximumPage = 0;
 
 		if (request.getParameter("page") == null)
@@ -72,15 +78,22 @@ public class ShowPersonalEquipmentController {
 		else
 			nowPage = Integer.parseInt(request.getParameter("page"));
 
+		HttpSession session = request.getSession();
+		
+		if (session.getAttribute("viewSolePage") == null)
+			viewSolePage = 20;
+		else
+			viewSolePage = (int) session.getAttribute("viewSolePage");
+
 		if (contentType.compareTo("member") == 0) {
-			List<MemberModel> members = memberService.selectMembers(nowPage);
-			maximumPage = memberService.getMaximumPage();
+			List<MemberModel> members = memberService.selectMembers(nowPage, viewSolePage);
+			maximumPage = memberService.getMaximumPage(viewSolePage);
 			modelAndView.addObject("members", members);
 		}
 
 		else if (contentType.compareTo("retired") == 0) {
-			List<MemberModel> retiredMembers = memberService.getRetiredMembers(nowPage);
-			maximumPage = memberService.getMaximumPageRetired();
+			List<MemberModel> retiredMembers = memberService.getRetiredMembers(nowPage, viewSolePage);
+			maximumPage = memberService.getMaximumPageRetired(viewSolePage);
 			modelAndView.addObject("retiredMembers", retiredMembers);
 		}
 
@@ -96,6 +109,7 @@ public class ShowPersonalEquipmentController {
 
 		modelAndView.addObject("startPage", startPage);
 		modelAndView.addObject("endPage", endPage);
+		modelAndView.addObject("viewSolePage", viewSolePage);
 
 		return modelAndView;
 	}

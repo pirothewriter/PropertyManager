@@ -31,7 +31,7 @@
 		WHERE
 			is_served = 'Y'
 		LIMIT
-			#{page}, 10
+			#{page}, #{viewSolePage}
 	</select>
 	
 	<select id="selectUpperDivisions" resultType="String">
@@ -89,7 +89,7 @@
 		WHERE
 			is_served = 'N'
 		LIMIT
-			#{page}, 10
+			#{page}, #{viewSolePage}
 			
 	</select>
 	

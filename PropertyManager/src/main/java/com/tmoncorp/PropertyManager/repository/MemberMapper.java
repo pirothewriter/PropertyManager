@@ -2,6 +2,8 @@ package com.tmoncorp.PropertyManager.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.tmoncorp.PropertyManager.model.MemberModel;
 
 /**
@@ -13,7 +15,7 @@ import com.tmoncorp.PropertyManager.model.MemberModel;
 public interface MemberMapper {
 	int insertMemberInfomation(MemberModel memberModel);
 
-	List<MemberModel> selectMembers(int page);
+	List<MemberModel> selectMembers(@Param("page") int page, @Param("viewSolePage") int viewSolePage);
 
 	List<String> selectUpperDivisions();
 
@@ -25,7 +27,7 @@ public interface MemberMapper {
 
 	int retireMember(String memberId);
 
-	List<MemberModel> selectRetiredMembers(int page);
+	List<MemberModel> selectRetiredMembers(@Param("page") int page, @Param("viewSolePage") int viewSolePage);
 
 	int selectMaximumRow();
 
