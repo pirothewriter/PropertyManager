@@ -13,7 +13,7 @@ import com.tmoncorp.PropertyManager.model.MemberModel;
 public interface MemberMapper {
 	int insertMemberInfomation(MemberModel memberModel);
 
-	List<MemberModel> selectMembers();
+	List<MemberModel> selectMembers(int page);
 
 	List<String> selectUpperDivisions();
 
@@ -25,6 +25,10 @@ public interface MemberMapper {
 
 	int retireMember(String memberId);
 
-	List<MemberModel> selectRetiredMembers();
+	List<MemberModel> selectRetiredMembers(int page);
+
+	int selectMaximumRow();
+
+	int selectMaximumRowRetired();
 
 }

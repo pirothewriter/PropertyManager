@@ -2,6 +2,8 @@ package com.tmoncorp.PropertyManager.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,21 +25,22 @@ public class ShowPersonalEquipmentController {
 	@Autowired
 	private MemberService memberService;
 
-	@RequestMapping("/showMembers")
-	public ModelAndView showMembers() {
-		List<MemberModel> members = memberService.selectMembers();
+	@RequestMapping(value = "/showMembers", method = RequestMethod.GET)
+	public ModelAndView showMembers(HttpServletRequest request) {
 		List<String> upperDivisionList = memberService.getUpperDivisions();
 
 		ModelAndView showMembersModelAndView = new ModelAndView();
-		showMembersModelAndView.addObject("members", members);
+
 		showMembersModelAndView.addObject("upperDivisionList", upperDivisionList);
 		showMembersModelAndView.setViewName("showMembers");
+
+		showMembersModelAndView = doPagenation(request, showMembersModelAndView, "member");
 		return showMembersModelAndView;
 	}
 
 	@RequestMapping(value = "/showMembers.tmon/{upperDivision}.tmon", method = RequestMethod.GET)
-	public ModelAndView showMembersWithupperDivision(@PathVariable("upperDivision") String upperDivision) {
-		List<MemberModel> members = memberService.selectMembers();
+	public ModelAndView showMembersWithupperDivision(@PathVariable("upperDivision") String upperDivision, HttpServletRequest request) {
+		List<MemberModel> members = memberService.selectMembers(Integer.parseInt(request.getParameter("page")));
 		List<String> upperDivisionList = memberService.getUpperDivisions();
 		List<String> lowerDivisionList = memberService.getLowerDivisions(upperDivision);
 
@@ -50,14 +53,51 @@ public class ShowPersonalEquipmentController {
 	}
 
 	@RequestMapping("/retired")
-	public ModelAndView showRetired() {
-		List<MemberModel> retiredMembers = memberService.getRetiredMembers();
-
+	public ModelAndView showRetired(HttpServletRequest request) {
 		ModelAndView showRetiredMembersModelAndView = new ModelAndView();
+		showRetiredMembersModelAndView = doPagenation(request, showRetiredMembersModelAndView, "retired");
 		showRetiredMembersModelAndView.setViewName("retired");
-		showRetiredMembersModelAndView.addObject("retiredMembers", retiredMembers);
 
 		return showRetiredMembersModelAndView;
+	}
+
+	private ModelAndView doPagenation(HttpServletRequest request, ModelAndView modelAndView, String contentType) {
+		int nowPage;
+		int startPage;
+		int endPage;
+		int maximumPage = 0;
+
+		if (request.getParameter("page") == null)
+			nowPage = 1;
+		else
+			nowPage = Integer.parseInt(request.getParameter("page"));
+
+		if (contentType.compareTo("member") == 0) {
+			List<MemberModel> members = memberService.selectMembers(nowPage);
+			maximumPage = memberService.getMaximumPage();
+			modelAndView.addObject("members", members);
+		}
+
+		else if (contentType.compareTo("retired") == 0) {
+			List<MemberModel> retiredMembers = memberService.getRetiredMembers(nowPage);
+			maximumPage = memberService.getMaximumPageRetired();
+			modelAndView.addObject("retiredMembers", retiredMembers);
+		}
+
+		if (maximumPage > nowPage + 5)
+			endPage = nowPage + 5;
+		else
+			endPage = maximumPage;
+
+		if (nowPage - 5 > 0)
+			startPage = nowPage - 5;
+		else
+			startPage = 1;
+
+		modelAndView.addObject("startPage", startPage);
+		modelAndView.addObject("endPage", endPage);
+
+		return modelAndView;
 	}
 
 }

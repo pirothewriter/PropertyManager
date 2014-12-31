@@ -62,6 +62,7 @@
 				</c:forEach>
 			</tbody> 
 			</table>
+			<%@ include file="pagenation.jsp" %>
 		</div>
 		<div id="navi">
 		<button type="button" id="back_to_list">목록으로</button>

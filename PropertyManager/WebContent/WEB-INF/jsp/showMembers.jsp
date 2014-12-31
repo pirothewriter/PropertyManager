@@ -110,6 +110,7 @@
 				</c:forEach>
 			</tbody> 
 			</table>
+			<%@ include file="pagenation.jsp" %>
 			</form>
 		</div>
 		<div id="test">

@@ -19,9 +19,9 @@ public class MemberRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<MemberModel> selectMembers() {
+	public List<MemberModel> selectMembers(int page) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		return memberMapper.selectMembers();
+		return memberMapper.selectMembers(page);
 	}
 
 	public int insertMemberInfomation(MemberModel memberModel) {
@@ -55,9 +55,19 @@ public class MemberRepository {
 		return memberMapper.retireMember(memberId);
 	}
 
-	public List<MemberModel> selectRetiredMembers() {
+	public List<MemberModel> selectRetiredMembers(int page) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		return memberMapper.selectRetiredMembers();
+		return memberMapper.selectRetiredMembers(page);
+	}
+
+	public int selectMaximumPage() {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return (memberMapper.selectMaximumRow() / 10) + 1;
+	}
+
+	public int selectMaximumPageRetired() {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return (memberMapper.selectMaximumRowRetired() / 10) + 1;
 	}
 
 }

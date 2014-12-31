@@ -21,8 +21,8 @@ public class MemberService {
 	@Autowired
 	private MemberRepository memberRepository;
 
-	public List<MemberModel> selectMembers() {
-		return memberRepository.selectMembers();
+	public List<MemberModel> selectMembers(int page) {
+		return memberRepository.selectMembers(calculatePageToRow(page));
 	}
 
 	public List<String> getUpperDivisions() {
@@ -42,19 +42,6 @@ public class MemberService {
 		return memberRepository.selectAMember(memberId);
 	}
 
-	private MemberModel parsememberInfomation(HttpServletRequest request) {
-		MemberModel memberModel = new MemberModel();
-
-		memberModel.setMemberId(request.getParameter("memberId"));
-		memberModel.setMemberName(request.getParameter("memberName"));
-		memberModel.setUpperDivision(request.getParameter("upperDivision"));
-		memberModel.setLowerDivision(request.getParameter("lowerDivision"));
-		memberModel.setAdAccount(request.getParameter("adAccount"));
-		memberModel.setOfficePhoneNumber(Integer.parseInt(request.getParameter("officePhoneNumber")));
-
-		return memberModel;
-	}
-
 	public int modifyMemberInformation(HttpServletRequest request) {
 		int result = memberRepository.modifyMemberInformation(parsememberInfomation(request));
 		return result;
@@ -65,7 +52,32 @@ public class MemberService {
 		return result;
 	}
 
-	public List<MemberModel> getRetiredMembers() {
-		return memberRepository.selectRetiredMembers();
+	public List<MemberModel> getRetiredMembers(int page) {
+		return memberRepository.selectRetiredMembers(calculatePageToRow(page));
+	}
+
+	public int getMaximumPage() {
+		return memberRepository.selectMaximumPage();
+	}
+
+	private int calculatePageToRow(int page) {
+		return (page-1) * 10;
+	}
+
+	private MemberModel parsememberInfomation(HttpServletRequest request) {
+		MemberModel memberModel = new MemberModel();
+	
+		memberModel.setMemberId(request.getParameter("memberId"));
+		memberModel.setMemberName(request.getParameter("memberName"));
+		memberModel.setUpperDivision(request.getParameter("upperDivision"));
+		memberModel.setLowerDivision(request.getParameter("lowerDivision"));
+		memberModel.setAdAccount(request.getParameter("adAccount"));
+		memberModel.setOfficePhoneNumber(Integer.parseInt(request.getParameter("officePhoneNumber")));
+	
+		return memberModel;
+	}
+
+	public int getMaximumPageRetired() {
+		return memberRepository.selectMaximumPageRetired();
 	}
 }
