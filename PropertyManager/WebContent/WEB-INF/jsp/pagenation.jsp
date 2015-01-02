@@ -17,10 +17,18 @@
 	$(document).ready(function(){
 		$("#solePageSet").change(function(){
 			var viewSolePage = $("#solePageSet").val();
-			if(viewSolePage != ""){
-				$.session.set("viewSolePage", viewSolePage);
-				location.reload(true);
-			}
+			var nowLocation = document.location.href;
+			
+			$.ajax({
+				type : "get",
+				cache : false,
+				success:function(){
+					var nowLocation = document.location.href;
+					nowLocation = nowLocation.split('?')[0];
+					var url = nowLocation + "?viewSolePage=" + viewSolePage;
+					document.location.href= url;
+				}
+			})
 		});
 	})
 </script>

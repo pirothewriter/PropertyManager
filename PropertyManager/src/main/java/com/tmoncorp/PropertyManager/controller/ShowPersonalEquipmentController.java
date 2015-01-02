@@ -72,18 +72,21 @@ public class ShowPersonalEquipmentController {
 		int endPage;
 		int viewSolePage;
 		int maximumPage = 0;
-
+		HttpSession session = request.getSession();
+		
 		if (request.getParameter("page") == null)
 			nowPage = 1;
 		else
 			nowPage = Integer.parseInt(request.getParameter("page"));
 
-		HttpSession session = request.getSession();
+		if (request.getParameter("viewSolePage") != null)
+			session.setAttribute("viewSolePage",  request.getParameter("viewSolePage"));
 		
 		if (session.getAttribute("viewSolePage") == null)
 			viewSolePage = 20;
-		else
-			viewSolePage = (int) session.getAttribute("viewSolePage");
+		else {
+			viewSolePage = Integer.parseInt((String)session.getAttribute("viewSolePage"));
+		}
 
 		if (contentType.compareTo("member") == 0) {
 			List<MemberModel> members = memberService.selectMembers(nowPage, viewSolePage);
@@ -113,5 +116,4 @@ public class ShowPersonalEquipmentController {
 
 		return modelAndView;
 	}
-
 }
