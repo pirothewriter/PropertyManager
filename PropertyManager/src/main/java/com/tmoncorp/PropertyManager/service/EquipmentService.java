@@ -38,8 +38,8 @@ public class EquipmentService {
 		return equipmentRepository.selectPropertyOnMember(memberId);
 	}
 
-	public List<EquipmentModel> getOwnerlessEquipment() {
-		return equipmentRepository.selectOwnerlessEquipments();
+	public List<EquipmentModel> getOwnerlessEquipment(int nowPage, int viewSolePage) {
+		return equipmentRepository.selectOwnerlessEquipments(calculatePageToRow(nowPage, viewSolePage), viewSolePage);
 	}
 
 	public int insertMultipleEquipment(File csvFile) throws IOException, ParseException {
@@ -98,4 +98,11 @@ public class EquipmentService {
 		return equipment;
 	}
 
+	public int getMaximumPage(int viewSolePage) {
+		return ((equipmentRepository.selectAllOwnerlessEquipment() - 1) / viewSolePage) + 1;
+	}
+
+	private int calculatePageToRow(int page, int viewSolePage) {
+		return (page - 1) * viewSolePage;
+	}
 }

@@ -3,6 +3,7 @@ package com.tmoncorp.PropertyManager.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,8 +54,7 @@ public class MemberInfoController {
 	@RequestMapping("/urgentProperty")
 	public ModelAndView urgentProperty(HttpServletRequest request) {
 		ModelAndView urgentingModelAndView = new ModelAndView();
-		List<EquipmentModel> ownerlessEquipments = equipmentService.getOwnerlessEquipment();
-		urgentingModelAndView.addObject("ownerlessEquipment", ownerlessEquipments);
+		urgentingModelAndView = doPagenation(request, urgentingModelAndView, "property");
 		urgentingModelAndView.addObject("memberId", request.getParameter("memberId"));
 		urgentingModelAndView.setViewName("urgentProperty");
 		return urgentingModelAndView;
@@ -97,5 +97,50 @@ public class MemberInfoController {
 			result = "SUCCESS";
 		
 		return result;
+	}
+	
+	private ModelAndView doPagenation(HttpServletRequest request, ModelAndView modelAndView, String contentType) {
+		int nowPage;
+		int startPage;
+		int endPage;
+		int viewSolePage;
+		int maximumPage = 0;
+		HttpSession session = request.getSession();
+		
+		if (request.getParameter("page") == null)
+			nowPage = 1;
+		else
+			nowPage = Integer.parseInt(request.getParameter("page"));
+
+		if (request.getParameter("viewSolePage") != null)
+			session.setAttribute("viewSolePage",  request.getParameter("viewSolePage"));
+		
+		if (session.getAttribute("viewSolePage") == null)
+			viewSolePage = 20;
+		else {
+			viewSolePage = Integer.parseInt((String)session.getAttribute("viewSolePage"));
+		}
+
+		if (contentType.compareTo("property") == 0) {
+			List<EquipmentModel> ownerlessEquipments = equipmentService.getOwnerlessEquipment(nowPage, viewSolePage);
+			maximumPage = equipmentService.getMaximumPage(viewSolePage);
+			modelAndView.addObject("ownerlessEquipment", ownerlessEquipments);
+		}
+
+		if (maximumPage > nowPage + 5)
+			endPage = nowPage + 5;
+		else
+			endPage = maximumPage;
+
+		if (nowPage - 5 > 0)
+			startPage = nowPage - 5;
+		else
+			startPage = 1;
+
+		modelAndView.addObject("startPage", startPage);
+		modelAndView.addObject("endPage", endPage);
+		modelAndView.addObject("viewSolePage", viewSolePage);
+
+		return modelAndView;
 	}
 }

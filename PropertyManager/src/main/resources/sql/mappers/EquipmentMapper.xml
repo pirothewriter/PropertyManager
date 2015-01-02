@@ -61,5 +61,20 @@
 			(E.property_number = J.property_number)
 		WHERE
 			J.member_id IS NULL
+		LIMIT
+			#{nowPage}, #{viewSolePage}
+	</select>
+	
+	<select id="selectCountAllOwnerlessEquipment" resultType = "Integer">
+		SELECT 
+			COUNT(E.property_number)
+		FROM
+			equipment E
+		LEFT JOIN 
+			equipment_map_person J
+		ON
+			(E.property_number = J.property_number)
+		WHERE
+			J.member_id IS NULL
 	</select>
 </mapper>

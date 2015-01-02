@@ -99,6 +99,7 @@
 					</c:forEach>
 					</tbody>
 				</table>
+				<%@ include file="pagenation.jsp" %>
 				<button type="submit" id="submitMapping">추가</button>
 				<button type="button" id="cancelUrgenting">취소</button>
 			</div>

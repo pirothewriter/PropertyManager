@@ -2,6 +2,8 @@ package com.tmoncorp.PropertyManager.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.tmoncorp.PropertyManager.model.EquipmentModel;
 
 /**
@@ -15,6 +17,8 @@ public interface EquipmentMapper {
 
 	public List<EquipmentModel> selectPropertyOnMember(String memberId);
 
-	public List<EquipmentModel> selectOwnerlessEquipments();
+	public List<EquipmentModel> selectOwnerlessEquipments(@Param("nowPage") int nowPage, @Param("viewSolePage") int viewSolePage);
+
+	public int selectCountAllOwnerlessEquipment();
 
 }
