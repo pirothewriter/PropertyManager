@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmoncorp.PropertyManager.repository.CategoryMapper">
+	<resultMap type="CategoryModel" id="CategoryResult">
+		<result property = "categoryName" column = "category_name" />
+		<result property = "categoryDivision" column = "category_division" />
+		<result property = "categoryCode" column = "category_code" />
+		<result property = "upperCategory" column = "upper_category" />
+	</resultMap>
+	
+	<select id="selectAllCategories" resultMap="CategoryResult">
+		SELECT
+			category_name, category_division, category_code, upper_category
+		FROM
+			category
+		WHERE
+			category_division = #{division}
+	</select>
+	
+	<insert id="insertUpperCategory" parameterType="CategoryModel">
+		INSERT INTO
+			category(category_name, category_division)
+		VALUES
+			(#{categoryName}, 0)
+	</insert>
+	
+	<insert id="insertLowerCAtegory" parameterType="CategoryModel">
+		INSERT INTO
+			category(category_name, category_division, upper_category)
+		VALUES
+			(#{categoryName}, 1, #{upperCategory})
+	</insert>
+</mapper>
