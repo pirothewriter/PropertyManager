@@ -23,14 +23,27 @@
 	<insert id="insertUpperCategory" parameterType="CategoryModel">
 		INSERT INTO
 			category(category_name, category_division)
-		VALUES
-			(#{categoryName}, 0)
+		SELECT
+			#{categoryName}, 0
+		FROM DUAL WHERE NOT EXISTS
+			(SELECT category_name FROM category WHERE category_name = #{categoryName})
 	</insert>
 	
-	<insert id="insertLowerCAtegory" parameterType="CategoryModel">
+	<insert id="insertLowerCategory" parameterType="CategoryModel">
 		INSERT INTO
 			category(category_name, category_division, upper_category)
-		VALUES
-			(#{categoryName}, 1, #{upperCategory})
+		SELECT
+			#{categoryName}, 1, #{upperCategory}
+		FROM DUAL WHERE NOT EXISTS
+			(SELECT category_name FROM category WHERE category_name = #{categoryName})
 	</insert>
+	
+	<select id="selectSpecificCategory" resultType="Integer">
+		SELECT
+			category_code
+		FROM
+			category
+		WHERE
+			category.category_name = #{divisionName}
+	</select>
 </mapper>

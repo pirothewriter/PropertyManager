@@ -35,4 +35,8 @@ public class CategoryService {
 		return categoryRepository.insertLowerCategory(categoryModel);
 	}
 
+	public int selectSpecificCategory(String categoryName) {
+		return categoryRepository.selectSpecificCategory(categoryName);
+	}
+
 }

@@ -17,4 +17,6 @@ public interface CategoryMapper {
 	
 	int insertLowerCategory(CategoryModel category);
 
+	int selectSpecificCategory(String categoryName);
+
 }

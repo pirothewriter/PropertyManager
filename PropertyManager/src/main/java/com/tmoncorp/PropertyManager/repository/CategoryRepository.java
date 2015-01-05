@@ -31,6 +31,11 @@ public class CategoryRepository {
 
 	public int insertLowerCategory(CategoryModel categoryModel) {
 		CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
-		return categoryMapper.insertUpperCategory(categoryModel);
+		return categoryMapper.insertLowerCategory(categoryModel);
+	}
+
+	public int selectSpecificCategory(String categoryName) {
+		CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
+		return categoryMapper.selectSpecificCategory(categoryName);
 	}
 }

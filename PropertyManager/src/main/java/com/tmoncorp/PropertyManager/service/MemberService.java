@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tmoncorp.PropertyManager.model.CategoryModel;
 import com.tmoncorp.PropertyManager.model.MemberModel;
 import com.tmoncorp.PropertyManager.repository.MemberRepository;
 
@@ -18,8 +19,12 @@ import com.tmoncorp.PropertyManager.repository.MemberRepository;
 
 @Service
 public class MemberService {
+	private static final int NO_EXIST_CATEGORY_CODE = -1;
 	@Autowired
 	private MemberRepository memberRepository;
+	
+	@Autowired
+	private CategoryService categoryService;
 
 	public List<MemberModel> selectMembers(int page, int viewSolePage) {
 		return memberRepository.selectMembers(calculatePageToRow(page, viewSolePage), viewSolePage);
@@ -74,10 +79,61 @@ public class MemberService {
 		memberModel.setAdAccount(request.getParameter("adAccount"));
 		memberModel.setOfficePhoneNumber(Integer.parseInt(request.getParameter("officePhoneNumber")));
 
+		memberModel = setDivisionCode(memberModel);
+
 		return memberModel;
 	}
 
 	public int getMaximumPageRetired(int viewSolePage) {
 		return memberRepository.selectMaximumPageRetired(viewSolePage);
+	}
+
+	private MemberModel setDivisionCode(MemberModel memberModel) {
+		List<CategoryModel> upperCategories = categoryService.getAllUpperCategory();
+		List<CategoryModel> lowerCategories = categoryService.getAllLowerCategory();
+
+		String upperDivisionName = memberModel.getUpperDivision();
+		String lowerDivisionName = memberModel.getLowerDivision();
+
+		int upperDivisionCode = convertDivisionNameToCode(upperDivisionName, upperCategories);
+
+		if (upperDivisionCode == NO_EXIST_CATEGORY_CODE)
+			upperDivisionCode = insertedNewCode(upperDivisionName, "upper", 0);
+
+		int lowerDivisionCode = convertDivisionNameToCode(lowerDivisionName, lowerCategories);
+
+		if (lowerDivisionCode == NO_EXIST_CATEGORY_CODE)
+			lowerDivisionCode = insertedNewCode(lowerDivisionName, "lower", upperDivisionCode);
+
+		memberModel.setUpperDivisionCode(upperDivisionCode);
+		memberModel.setLowerDivisionCode(lowerDivisionCode);
+
+		return memberModel;
+	}
+
+	private int insertedNewCode(String divisionName, String divisionType, int upperDivisionCode) {
+		if (divisionType.compareTo("upper") == 0) {
+			CategoryModel categoryModel = new CategoryModel();
+			categoryModel.setCategoryName(divisionName);
+			categoryService.insertUpperCategory(categoryModel);
+		} else if (divisionType.compareTo("lower") == 0) {
+			CategoryModel categoryModel = new CategoryModel();
+			categoryModel.setCategoryName(divisionName);
+			categoryModel.setUpperCategory(upperDivisionCode);
+			categoryService.insertLowerCategory(categoryModel);
+		}
+
+		return categoryService.selectSpecificCategory(divisionName);
+	}
+
+	private int convertDivisionNameToCode(String divisionName, List<CategoryModel> categories) {
+		int code = NO_EXIST_CATEGORY_CODE;
+
+		for (int index = 0; index < categories.size(); index++) {
+			if (categories.get(index).getCategoryName().compareTo(divisionName) == 0)
+				code = categories.get(index).getCategoryCode();
+		}
+
+		return code;
 	}
 }

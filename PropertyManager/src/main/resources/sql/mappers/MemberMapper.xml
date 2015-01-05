@@ -18,16 +18,24 @@
 		INSERT INTO
 			member(member_id, member_name, upper_division, lower_division, ad_account, office_phone_number, is_served)
 		SELECT
-			#{memberId}, #{memberName}, #{upperDivision}, #{lowerDivision}, #{adAccount}, #{officePhoneNumber}, 'Y' 
+			#{memberId}, #{memberName}, #{upperDivisionCode}, #{lowerDivisionCode}, #{adAccount}, #{officePhoneNumber}, 'Y' 
 		FROM DUAL WHERE NOT EXISTS
 			(SELECT M.member_id FROM member M WHERE M.member_id = #{memberId})
 	</insert>
 	
 	<select id="selectMembers" resultMap="MembertResult">
 		SELECT
-			member_id, member_name, upper_division, lower_division, ad_account, office_phone_number
+			M.member_id, M.member_name, C1.category_name AS upper_division, C2.category_name AS lower_division, M.ad_account, M.office_phone_number
 		FROM
-			member
+			member M
+		JOIN
+			category C1
+				ON
+					(C1.category_code = M.upper_division)
+		JOIN
+			category C2
+				ON
+					(C2.category_code = M.lower_division)
 		WHERE
 			is_served = 'Y'
 		LIMIT
@@ -56,9 +64,17 @@
 	
 	<select id="selectAMember" resultMap="MembertResult">
 		SELECT
-			member_id, member_name, upper_division, lower_division, ad_account, office_phone_number
+			M.member_id, M.member_name, C1.category_name AS upper_division, C2.category_name AS lower_division, M.ad_account, M.office_phone_number
 		FROM
-			member
+			member M
+		JOIN
+			category C1
+				ON
+					(C1.category_code = M.upper_division)
+		JOIN
+			category C2
+				ON
+					(C2.category_code = M.lower_division)
 		WHERE
 			member_id = #{memberId}  
 	</select>
@@ -83,9 +99,17 @@
 	
 	<select id="selectRetiredMembers" resultMap="MembertResult">
 		SELECT
-			member_id, member_name, upper_division, lower_division, ad_account, office_phone_number
+			M.member_id, M.member_name, C1.category_name AS upper_division, C2.category_name AS lower_division, M.ad_account, M.office_phone_number
 		FROM
-			member
+			member M
+		JOIN
+			category C1
+				ON
+					(C1.category_code = M.upper_division)
+		JOIN
+			category C2
+				ON
+					(C2.category_code = M.lower_division)
 		WHERE
 			is_served = 'N'
 		LIMIT

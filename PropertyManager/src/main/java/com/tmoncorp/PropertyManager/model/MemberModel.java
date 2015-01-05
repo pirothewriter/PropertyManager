@@ -13,6 +13,8 @@ public class MemberModel {
 	private String memberName;
 	private String upperDivision;
 	private String lowerDivision;
+	private int upperDivisionCode;
+	private int lowerDivisionCode;
 	private String adAccount;
 	private int officePhoneNumber;
 	private char isServed;
@@ -81,4 +83,21 @@ public class MemberModel {
 	public void setRetireDate(Date retireDate) {
 		this.retireDate = retireDate;
 	}
+
+	public int getUpperDivisionCode() {
+		return upperDivisionCode;
+	}
+
+	public void setUpperDivisionCode(int upperDivisionCode) {
+		this.upperDivisionCode = upperDivisionCode;
+	}
+
+	public int getLowerDivisionCode() {
+		return lowerDivisionCode;
+	}
+
+	public void setLowerDivisionCode(int lowerDivisionCode) {
+		this.lowerDivisionCode = lowerDivisionCode;
+	}
+
 }
