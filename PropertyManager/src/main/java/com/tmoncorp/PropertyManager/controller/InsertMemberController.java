@@ -1,6 +1,7 @@
 package com.tmoncorp.PropertyManager.controller;
 
 import java.text.ParseException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tmoncorp.PropertyManager.model.CategoryModel;
+import com.tmoncorp.PropertyManager.service.CategoryService;
 import com.tmoncorp.PropertyManager.service.MemberService;
 
 /**
@@ -24,9 +27,18 @@ public class InsertMemberController {
 	@Autowired
 	private MemberService memberService;
 
+	@Autowired
+	private CategoryService categoryService;
+
 	@RequestMapping("/memberinsert")
 	public ModelAndView insertMember() {
 		ModelAndView insertMemberModelAndView = new ModelAndView();
+		List<CategoryModel> upperCategory = categoryService.getAllUpperCategory();
+		List<CategoryModel> lowerCategory = categoryService.getAllLowerCategory();
+
+		insertMemberModelAndView.addObject("upperCategory", upperCategory);
+		insertMemberModelAndView.addObject("lowerCategory", lowerCategory);
+
 		insertMemberModelAndView.setViewName("MemberInsert");
 		return insertMemberModelAndView;
 	}
@@ -34,6 +46,13 @@ public class InsertMemberController {
 	@RequestMapping("/modifyMember")
 	public ModelAndView modifyMember(HttpServletRequest request) {
 		ModelAndView modifyMemberModelAndView = new ModelAndView();
+
+		List<CategoryModel> upperCategory = categoryService.getAllUpperCategory();
+		List<CategoryModel> lowerCategory = categoryService.getAllLowerCategory();
+
+		modifyMemberModelAndView.addObject("upperCategory", upperCategory);
+		modifyMemberModelAndView.addObject("lowerCategory", lowerCategory);
+
 		modifyMemberModelAndView.addObject("member", memberService.selectAMember(request.getParameter("memberId")));
 		modifyMemberModelAndView.setViewName("modifyMember");
 		return modifyMemberModelAndView;
@@ -53,20 +72,20 @@ public class InsertMemberController {
 
 		return msg;
 	}
-	
-	@RequestMapping(value = "/modifyingMember", method=RequestMethod.POST)
-	public @ResponseBody String modifying(HttpServletRequest request){
+
+	@RequestMapping(value = "/modifyingMember", method = RequestMethod.POST)
+	public @ResponseBody String modifying(HttpServletRequest request) {
 		int affectedRows = memberService.modifyMemberInformation(request);
 		String msg = "";
-		
-		if(affectedRows == 1){
+
+		if (affectedRows == 1) {
 			msg = "SUCCESS";
 		}
-		
+
 		else {
 			msg = "ERROR";
 		}
-		
+
 		return msg;
 	}
 }

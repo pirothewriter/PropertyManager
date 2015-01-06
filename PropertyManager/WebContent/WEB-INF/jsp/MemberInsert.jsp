@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,24 +10,75 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script type="text/javascript">
-	function checkIntegrity(){
-		var checker = true;
-		
-		for(var index = 0; index < $("form input").length; index++){
-			if($("form input")[index].value == '')
-				checker = false;
-		}
-		
-		return checker;
-	}
-	
 	$(document).ready(function(){
+		$("select[name=upperDivision]").on("change", function(){
+			if($("select[name=upperDivision]").val() == 'directInput'){
+				$("#inputDirectUpperDivision").removeAttr("disabled");
+				$("select[name=upperDivision]").removeAttr("name");
+				$("#inputDirectUpperDivision").attr("name", "upperDivision");
+				$("#inputDirectUpperDivision").val("");
+			} else {
+				$("select[name=upperDivision]").attr("name", "upperDivision");
+				$("#inputDirectUpperDivision").attr("disabled", "disabled");
+				$("#inputDirectUpperDivision").removeAttr("name");
+				$("#inputDirectUpperDivision").val("직접입력");
+			}
+		});
+		
+		$("select[name=lowerDivision]").on("change", function(){
+			if($("select[name=lowerDivision]").val() == 'directInput'){
+				$("#inputDirectLowerDivision").removeAttr("disabled");
+				$("select[name=lowerDivision]").removeAttr("name");
+				$("#inputDirectLowerDivision").attr("name", "lowerDivision");
+				$("#inputDirectLowerDivision").val("");
+			} else {
+				$("select[name=lowerDivision]").attr("name", "lowerDivision");
+				$("#inputDirectLowerDivision").attr("disabled", "disabled");
+				$("#inputDirectLowerDivision").removeAttr("name");
+				$("#inputDirectLowerDivision").val("직접입력");
+			}
+		});
+		
 		$("#inputForm").on("submit", function(event){
-			var checker = checkIntegrity();
 			var num_regx = /^[0-9]+$/;
 			
-			if(checker == false){
-				alert("값을 채워주세요!");
+			if($("form input[name=memberId]").val() == ''){
+				alert("사원번호를 입력해주세요!");
+				return false;
+			}
+			
+			else if($("form input[name=memberName]").val() == ''){
+				alert("사원명을 입력해주세요!");
+				return false;
+			}
+			
+			else if($("form input[name=adAddress]") == ''){
+				alert("AD 계정을 입력해주세요!");
+				return false;
+			} 
+			
+			else if($("form input[name=officePhoneNumber]") == ''){
+				alert("내선번호를 입력해주세요!");
+				return false;
+			}
+			
+			else if($("#selectUpper").val() == ''){
+				alert("부서명(大)을 선택해주세요!");
+				return false;
+			}
+			
+			else if($("#selectLower").val() == ''){
+				alert("부서명(小)을 선택해주세요!");
+				return false;
+			}
+			
+			else if($("#selectUpper").val() == 'directInput' && ($("#inputDirectUpperDivision").val() == "직접입력" || $("#inputDirectUpperDivision").val() == "")){
+				alert("부서명을 정확히 입력해주세요!");
+				return false;
+			}
+			
+			else if($("#selectLower").val() == 'directInput' && ($("#inputDirectLowerDivision").val() == "직접입력" || $("#inputDirectLowerDivision").val() == "")){
+				alert("부서명을 정확히 입력해주세요!");
 				return false;
 			}
 			
@@ -106,8 +157,22 @@
 			<form id="inputForm" method="post" name="inputForm">
 			사원번호 : <input type="text" name="memberId"><br>
 			사 원 명 : <input type="text" name="memberName"><br>
-			부서명(大) : <input type="text" name="upperDivision"><br>
-			부서명(小) : <input type="text" name="lowerDivision"><br>
+			부서명(大) : <select id="selectUpper" name="upperDivision">
+			<option value=''>부서명(大)</option>
+			<c:forEach var="category" items="${upperCategory }" varStatus="status">
+			<option value="${category.categoryName }">${category.categoryName }</option>
+			</c:forEach>
+			<option value="directInput">직접입력</option>
+			</select>
+			<input type="text" id="inputDirectUpperDivision" disabled value="직접입력"><br>
+			부서명(小) : <select id="selectLower" name="lowerDivision">
+			<option value=''>부서명(소)</option>
+			<c:forEach var="category" items="${lowerCategory }" varStatus="status">
+			<option value="${category.categoryName }">${category.categoryName }</option>
+			</c:forEach>
+			<option value="directInput">직접입력</option>
+			</select>
+			<input type="text" id="inputDirectLowerDivision" disabled value="직접입력"><br>
 			AD계정 : <input type="text" name="adAccount"><br>
 			내선번호 : <input type="text" name="officePhoneNumber"><br>
 			<button type="submit" id="formSubmit">입력</button>
