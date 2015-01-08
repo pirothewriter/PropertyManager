@@ -15,7 +15,7 @@ import com.tmoncorp.PropertyManager.model.MemberModel;
 public interface MemberMapper {
 	int insertMemberInfomation(MemberModel memberModel);
 
-	List<MemberModel> selectMembers(@Param("page") int page, @Param("viewSolePage") int viewSolePage);
+	List<MemberModel> selectMembers(@Param("page") int page, @Param("viewSolePage") int viewSolePage, @Param("upperCategory") String upperCategory, @Param("lowerCategory") String lowerCategory, @Param("adAccount") String adAccount, @Param("nameOfMember") String nameOfMember);
 
 	List<String> selectUpperDivisions();
 
@@ -27,10 +27,14 @@ public interface MemberMapper {
 
 	int retireMember(String memberId);
 
-	List<MemberModel> selectRetiredMembers(@Param("page") int page, @Param("viewSolePage") int viewSolePage);
+	List<MemberModel> selectRetiredMembers(@Param("page") int page, @Param("viewSolePage") int viewSolePage, @Param("upperCategory") String upperCategory, @Param("lowerCategory") String lowerCategory, @Param("adAccount") String adAccount, @Param("nameOfMember") String nameOfMember);
 
-	int selectMaximumRow();
+	int selectMaximumRow(@Param("upperCategory") String upperCategory, @Param("lowerCategory") String lowerCategory, @Param("adAccount") String adAccount, @Param("nameOfMember") String nameOfMember);
 
-	int selectMaximumRowRetired();
+	int selectMaximumRowRetired(@Param("upperCategory") String upperCategory, @Param("lowerCategory") String lowerCategory, @Param("adAccount") String adAccount, @Param("nameOfMember") String nameOfMember);
+
+	List<MemberModel> selectConditionedMembersServing(String condition);
+
+	List<MemberModel> selectConditionedMembersRetired(String condition);
 
 }

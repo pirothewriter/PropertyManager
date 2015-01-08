@@ -24,6 +24,16 @@ public class CategoryRepository {
 		return categoryMapper.selectAllCategories(division);
 	}
 
+	public List<CategoryModel> selectUpperCategories() {
+		CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
+		return categoryMapper.selectUpperCategories();
+	}
+
+	public List<CategoryModel> selectLowerCategories(int upperCategory) {
+		CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
+		return categoryMapper.selectLowerCategories(upperCategory);
+	}
+
 	public int insertUpperCategory(CategoryModel category) {
 		CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
 		return categoryMapper.insertUpperCategory(category);

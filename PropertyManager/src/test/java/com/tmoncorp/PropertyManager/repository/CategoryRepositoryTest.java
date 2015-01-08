@@ -29,6 +29,16 @@ public class CategoryRepositoryTest {
 		assertNotNull(categoryRepository.selectAllCategories(0));
 	}
 
+	@Test
+	public void 하위_카테고리정보를_정상적으로_반환하는지_테스트() {
+		assertNotNull(categoryRepository.selectLowerCategories(16));
+	}
+
+	@Test
+	public void 특정_카테고리를_정확히_셀렉하는지_테스트() {
+		assertEquals(categoryRepository.selectSpecificCategory("마케팅WG"), 1);
+	}
+
 	@Transactional
 	@Test
 	public void 상위카테고리를_정상적으로_인서트하는지_테스트() {

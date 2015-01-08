@@ -38,6 +38,18 @@
 					(C2.category_code = M.lower_division)
 		WHERE
 			is_served = 'Y'
+			<if test="upperCategory != ''">
+				AND C1.category_name = #{upperCategory}
+			</if>
+			<if test="lowerCategory != ''">
+				AND C2.category_name = #{lowerCategory}
+			</if>
+			<if test="adAccount != ''">
+				AND M.ad_account like #{adAccount}
+			</if>
+			<if test="nameOfMember != ''">
+				AND M.member_name like #{nameOfMember}
+			</if>
 		LIMIT
 			#{page}, #{viewSolePage}
 	</select>
@@ -112,6 +124,18 @@
 					(C2.category_code = M.lower_division)
 		WHERE
 			is_served = 'N'
+				<if test="upperCategory != ''">
+					AND C1.category_name = #{upperCategory}
+				</if>
+				<if test="lowerCategory != ''">
+					AND C2.category_name = #{lowerCategory}
+				</if>
+				<if test="adAccount != ''">
+					AND M.ad_account like #{adAccount}
+				</if>
+				<if test="nameOfMember != ''">
+					AND M.member_name like #{nameOfMember}
+				</if>
 		LIMIT
 			#{page}, #{viewSolePage}
 			
@@ -121,17 +145,58 @@
 		SELECT 
 			COUNT(member_id)
 		FROM
-			member
+			member M
+		JOIN
+			category C1
+				ON
+					(C1.category_code = M.upper_division)
+		JOIN
+			category C2
+				ON
+					(C2.category_code = M.lower_division)
 		WHERE
 			is_served = 'Y'
+			<if test="upperCategory != ''">
+				AND C1.category_name = #{upperCategory}
+			</if>
+			<if test="lowerCategory != ''">
+				AND C2.category_name = #{lowerCategory}
+			</if>
+			<if test="adAccount != ''">
+				AND M.ad_account like #{adAccount}
+			</if>
+			<if test="nameOfMember != ''">
+				AND M.member_name like #{nameOfMember}
+			</if>
 	</select>
 	
 	<select id="selectMaximumRowRetired" resultType="Integer">
 		SELECT 
 			COUNT(member_id)
 		FROM
-			member
+			member M
+		JOIN
+			category C1
+				ON
+					(C1.category_code = M.upper_division)
+		JOIN
+			category C2
+				ON
+					(C2.category_code = M.lower_division)
 		WHERE
 			is_served = 'N'
+			<if test="upperCategory != ''">
+				AND C1.category_name = #{upperCategory}
+			</if>
+			<if test="lowerCategory != ''">
+				AND C2.category_name = #{lowerCategory}
+			</if>
+			<if test="adAccount != ''">
+				AND M.ad_account like #{adAccount}
+			</if>
+			<if test="nameOfMember != ''">
+				AND M.member_name like #{nameOfMember}
+			</if>
 	</select>
+	
 </mapper>

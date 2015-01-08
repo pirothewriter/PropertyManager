@@ -20,6 +20,24 @@
 			category_division = #{division}
 	</select>
 	
+	<select id="selectUpperCategories" resultMap="CategoryResult">
+		SELECT
+			category_name, category_division, category_code, upper_category
+		FROM
+			category
+		WHERE
+			category_division = 0
+	</select>
+	
+	<select id="selectLowerCategories" parameterType="Integer" resultMap="CategoryResult">
+		SELECT
+			category_name, category_division, category_code, upper_category
+		FROM
+			category
+		WHERE
+			category_division = 1 AND upper_category = #{upperCategory}
+	</select>
+	
 	<insert id="insertUpperCategory" parameterType="CategoryModel">
 		INSERT INTO
 			category(category_name, category_division)

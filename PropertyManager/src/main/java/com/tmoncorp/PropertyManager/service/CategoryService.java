@@ -27,6 +27,14 @@ public class CategoryService {
 		return categoryRepository.selectAllCategories(1);
 	}
 
+	public List<CategoryModel> getUpperCategories() {
+		return categoryRepository.selectUpperCategories();
+	}
+
+	public List<CategoryModel> getLowerCategories(int upperCategoryCode) {
+		return categoryRepository.selectLowerCategories(upperCategoryCode);
+	}
+
 	public int insertUpperCategory(CategoryModel categoryModel) {
 		return categoryRepository.insertUpperCategory(categoryModel);
 	}

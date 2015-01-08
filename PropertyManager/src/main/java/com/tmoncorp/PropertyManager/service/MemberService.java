@@ -22,12 +22,12 @@ public class MemberService {
 	private static final int NO_EXIST_CATEGORY_CODE = -1;
 	@Autowired
 	private MemberRepository memberRepository;
-	
+
 	@Autowired
 	private CategoryService categoryService;
 
-	public List<MemberModel> selectMembers(int page, int viewSolePage) {
-		return memberRepository.selectMembers(calculatePageToRow(page, viewSolePage), viewSolePage);
+	public List<MemberModel> selectMembers(int page, int viewSolePage, String upperCategory, String lowerCategory, String adAccount, String nameOfMember) {
+		return memberRepository.selectMembers(calculatePageToRow(page, viewSolePage), viewSolePage, upperCategory, lowerCategory, adAccount, nameOfMember);
 	}
 
 	public List<String> getUpperDivisions() {
@@ -57,12 +57,12 @@ public class MemberService {
 		return result;
 	}
 
-	public List<MemberModel> getRetiredMembers(int page, int viewSolePage) {
-		return memberRepository.selectRetiredMembers(calculatePageToRow(page, viewSolePage), viewSolePage);
+	public List<MemberModel> getRetiredMembers(int page, int viewSolePage, String upperCategory, String lowerCategory, String adAccount, String nameOfMember) {
+		return memberRepository.selectRetiredMembers(calculatePageToRow(page, viewSolePage), viewSolePage, upperCategory, lowerCategory, adAccount, nameOfMember);
 	}
 
-	public int getMaximumPage(int viewSolePage) {
-		return memberRepository.selectMaximumPage(viewSolePage);
+	public int getMaximumPage(int viewSolePage, String upperCategory, String lowerCategory, String adAccount, String nameOfMember) {
+		return memberRepository.selectMaximumPage(viewSolePage, upperCategory, lowerCategory, adAccount, nameOfMember);
 	}
 
 	private int calculatePageToRow(int page, int viewSolePage) {
@@ -84,8 +84,8 @@ public class MemberService {
 		return memberModel;
 	}
 
-	public int getMaximumPageRetired(int viewSolePage) {
-		return memberRepository.selectMaximumPageRetired(viewSolePage);
+	public int getMaximumPageRetired(int viewSolePage, String upperCategory, String lowerCategory, String adAccount, String nameOfMember) {
+		return memberRepository.selectMaximumPageRetired(viewSolePage, upperCategory, lowerCategory, adAccount, nameOfMember);
 	}
 
 	private MemberModel setDivisionCode(MemberModel memberModel) {

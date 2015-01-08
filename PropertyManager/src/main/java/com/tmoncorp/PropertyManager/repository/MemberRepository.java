@@ -19,9 +19,9 @@ public class MemberRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<MemberModel> selectMembers(int page, int viewSolePage) {
+	public List<MemberModel> selectMembers(int page, int viewSolePage, String upperCategory, String lowerCategory, String adAccount, String nameOfMember) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		return memberMapper.selectMembers(page, viewSolePage);
+		return memberMapper.selectMembers(page, viewSolePage, upperCategory, lowerCategory, adAccount, nameOfMember);
 	}
 
 	public int insertMemberInfomation(MemberModel memberModel) {
@@ -55,19 +55,19 @@ public class MemberRepository {
 		return memberMapper.retireMember(memberId);
 	}
 
-	public List<MemberModel> selectRetiredMembers(int page, int viewSolePage) {
+	public List<MemberModel> selectRetiredMembers(int page, int viewSolePage, String upperCategory, String lowerCategory, String adAccount, String nameOfMember) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		return memberMapper.selectRetiredMembers(page, viewSolePage);
+		return memberMapper.selectRetiredMembers(page, viewSolePage, upperCategory, lowerCategory, adAccount, nameOfMember);
 	}
 
-	public int selectMaximumPage(int viewSolePage) {
+	public int selectMaximumPage(int viewSolePage, String upperCategory, String lowerCategory, String adAccount, String nameOfMember) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		return (memberMapper.selectMaximumRow() / viewSolePage) + 1;
+		return (memberMapper.selectMaximumRow(upperCategory, lowerCategory, adAccount, nameOfMember) / viewSolePage) + 1;
 	}
 
-	public int selectMaximumPageRetired(int viewSolePage) {
+	public int selectMaximumPageRetired(int viewSolePage, String upperCategory, String lowerCategory, String adAccount, String nameOfMember) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		return (memberMapper.selectMaximumRowRetired() / viewSolePage) + 1;
+		return (memberMapper.selectMaximumRowRetired(upperCategory, lowerCategory, adAccount, nameOfMember) / viewSolePage) + 1;
 	}
 
 }

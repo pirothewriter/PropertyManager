@@ -11,28 +11,59 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("select[name=upperDivision]").on("change", function(){
-			if($("select[name=upperDivision]").val() == 'directInput'){
+		$("#selectUpper").on("change", function(){
+			if($("#selectUpper").val() == 'directInput'){
 				$("#inputDirectUpperDivision").removeAttr("disabled");
-				$("select[name=upperDivision]").removeAttr("name");
+				$("#selectUpper").removeAttr("name");
 				$("#inputDirectUpperDivision").attr("name", "upperDivision");
 				$("#inputDirectUpperDivision").val("");
-			} else {
-				$("select[name=upperDivision]").attr("name", "upperDivision");
-				$("#inputDirectUpperDivision").attr("disabled", "disabled");
-				$("#inputDirectUpperDivision").removeAttr("name");
-				$("#inputDirectUpperDivision").val("직접입력");
-			}
-		});
-		
-		$("select[name=lowerDivision]").on("change", function(){
-			if($("select[name=lowerDivision]").val() == 'directInput'){
+				
+				$("#selectLower option").remove();
+				$("#selectLower").val('directInput');
+				$("#selectLower").append("<option value='directInput'>직접입력</option>");
+				
 				$("#inputDirectLowerDivision").removeAttr("disabled");
-				$("select[name=lowerDivision]").removeAttr("name");
+				$("#selectLower").removeAttr("name");
 				$("#inputDirectLowerDivision").attr("name", "lowerDivision");
 				$("#inputDirectLowerDivision").val("");
 			} else {
-				$("select[name=lowerDivision]").attr("name", "lowerDivision");
+				$("#selectUpper").attr("name", "upperDivision");
+				$("#inputDirectUpperDivision").attr("disabled", "disabled");
+				$("#inputDirectUpperDivision").removeAttr("name");
+				$("#inputDirectUpperDivision").val("직접입력");
+				
+				if($("#selectUpper").val() == ''){
+					$("#selectLower option").remove();
+					$("#selectLower").append("<option value=''>부서명(小)</option>");
+					$("#selectLower").append("<option value='directInput'>직접입력</option>");
+				} else {
+					$.ajax({
+						type : "POST",
+						url : "/loadLowerDivision.tmon",
+						dataType : "json",
+						data : {"upperDivision" : $("#selectUpper").val()},
+						success : function(data){
+							$("#selectLower option").remove();
+							$("#selectLower").append("<option value=''>부서명(小)</option>");
+							$.each(data, function(index, element){
+								$("#selectLower").append("<option value='" + element.categoryName + "'>" + element.categoryName + "</option>");
+							});
+							
+							$("#selectLower").append("<option value='directInput'>직접입력</option>");
+						}
+					});
+				}
+			}
+		});
+		
+		$("#selectLower").on("change", function(){
+			if($("#selectLower").val() == 'directInput'){
+				$("#inputDirectLowerDivision").removeAttr("disabled");
+				$("#selectLower").removeAttr("name");
+				$("#inputDirectLowerDivision").attr("name", "lowerDivision");
+				$("#inputDirectLowerDivision").val("");
+			} else {
+				$("#selectLower").attr("name", "lowerDivision");
 				$("#inputDirectLowerDivision").attr("disabled", "disabled");
 				$("#inputDirectLowerDivision").removeAttr("name");
 				$("#inputDirectLowerDivision").val("직접입력");
@@ -157,22 +188,6 @@
 			<form id="inputForm" method="post" name="inputForm">
 			사원번호 : <input type="text" name="memberId"><br>
 			사 원 명 : <input type="text" name="memberName"><br>
-			부서명(大) : <select id="selectUpper" name="upperDivision">
-			<option value=''>부서명(大)</option>
-			<c:forEach var="category" items="${upperCategory }" varStatus="status">
-			<option value="${category.categoryName }">${category.categoryName }</option>
-			</c:forEach>
-			<option value="directInput">직접입력</option>
-			</select>
-			<input type="text" id="inputDirectUpperDivision" disabled value="직접입력"><br>
-			부서명(小) : <select id="selectLower" name="lowerDivision">
-			<option value=''>부서명(소)</option>
-			<c:forEach var="category" items="${lowerCategory }" varStatus="status">
-			<option value="${category.categoryName }">${category.categoryName }</option>
-			</c:forEach>
-			<option value="directInput">직접입력</option>
-			</select>
-			<input type="text" id="inputDirectLowerDivision" disabled value="직접입력"><br>
 			AD계정 : <input type="text" name="adAccount"><br>
 			내선번호 : <input type="text" name="officePhoneNumber"><br>
 			<button type="submit" id="formSubmit">입력</button>

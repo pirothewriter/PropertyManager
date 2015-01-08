@@ -52,7 +52,7 @@ public class MemberRepositoryTest {
 	@Test
 	public void 전체_사원정보를_들고오는지_테스트() {
 		memberMapper = sqlSession.getMapper(MemberMapper.class);
-		List<MemberModel> members = memberMapper.selectMembers(0, 20);
+		List<MemberModel> members = memberMapper.selectMembers(0, 20, "", "", "", "");
 		assertNotNull(members);
 	}
 
@@ -60,6 +60,12 @@ public class MemberRepositoryTest {
 	public void 특정_사원정보를_들고오는지_테스트() {
 		memberMapper = sqlSession.getMapper(MemberMapper.class);
 		assertNotNull(memberMapper.selectAMember("201404016"));
+	}
+	
+	@Test
+	public void 조건절의_멤버를_들고오는지_테스트(){
+		memberMapper = sqlSession.getMapper(MemberMapper.class);
+		assertNotNull(memberMapper.selectMembers(0, 20, "서비스개발랩", "", "piro", ""));
 	}
 
 	private MemberModel generateMember() {

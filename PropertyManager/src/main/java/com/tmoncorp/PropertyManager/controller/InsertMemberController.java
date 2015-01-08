@@ -1,5 +1,6 @@
 package com.tmoncorp.PropertyManager.controller;
 
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tmoncorp.PropertyManager.model.CategoryModel;
 import com.tmoncorp.PropertyManager.service.CategoryService;
 import com.tmoncorp.PropertyManager.service.MemberService;
+import com.tmoncorp.PropertyManager.util.JsonEncoding;
 
 /**
  * 
@@ -34,13 +36,21 @@ public class InsertMemberController {
 	public ModelAndView insertMember() {
 		ModelAndView insertMemberModelAndView = new ModelAndView();
 		List<CategoryModel> upperCategory = categoryService.getAllUpperCategory();
-		List<CategoryModel> lowerCategory = categoryService.getAllLowerCategory();
-
 		insertMemberModelAndView.addObject("upperCategory", upperCategory);
-		insertMemberModelAndView.addObject("lowerCategory", lowerCategory);
 
 		insertMemberModelAndView.setViewName("MemberInsert");
 		return insertMemberModelAndView;
+	}
+
+	@RequestMapping(value = "/loadLowerDivision", method = RequestMethod.POST)
+	public @ResponseBody String returningLowerCategories(HttpServletRequest request) {
+		JsonEncoding jsonEncoding = new JsonEncoding();
+		URLDecoder urlDecoder = new URLDecoder();
+		String upperCategoryString = urlDecoder.decode(request.getParameter("upperDivision"));
+		int upperDivisionCode = categoryService.selectSpecificCategory(upperCategoryString);
+		List<CategoryModel> lowerCategory = categoryService.getLowerCategories(upperDivisionCode);
+
+		return jsonEncoding.encodingJson(lowerCategory);
 	}
 
 	@RequestMapping("/modifyMember")
@@ -48,10 +58,8 @@ public class InsertMemberController {
 		ModelAndView modifyMemberModelAndView = new ModelAndView();
 
 		List<CategoryModel> upperCategory = categoryService.getAllUpperCategory();
-		List<CategoryModel> lowerCategory = categoryService.getAllLowerCategory();
 
 		modifyMemberModelAndView.addObject("upperCategory", upperCategory);
-		modifyMemberModelAndView.addObject("lowerCategory", lowerCategory);
 
 		modifyMemberModelAndView.addObject("member", memberService.selectAMember(request.getParameter("memberId")));
 		modifyMemberModelAndView.setViewName("modifyMember");
