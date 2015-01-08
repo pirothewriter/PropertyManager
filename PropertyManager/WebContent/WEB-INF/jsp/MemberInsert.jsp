@@ -188,6 +188,22 @@
 			<form id="inputForm" method="post" name="inputForm">
 			사원번호 : <input type="text" name="memberId"><br>
 			사 원 명 : <input type="text" name="memberName"><br>
+			부서명(大) : <select id="selectUpper" name="upperDivision">
+			<option value=''>부서명(大)</option>
+			<c:forEach var="category" items="${upperCategory }" varStatus="status">
+			<option value="${category.categoryName }">${category.categoryName }</option>
+			</c:forEach>
+			<option value="directInput">직접입력</option>
+			</select>
+			<input type="text" id="inputDirectUpperDivision" disabled value="직접입력"><br>
+			부서명(小) : <select id="selectLower" name="lowerDivision">
+			<option value=''>부서명(소)</option>
+			<c:forEach var="category" items="${lowerCategory }" varStatus="status">
+			<option value="${category.categoryName }">${category.categoryName }</option>
+			</c:forEach>
+			<option value="directInput">직접입력</option>
+			</select>
+			<input type="text" id="inputDirectLowerDivision" disabled value="직접입력"><br>
 			AD계정 : <input type="text" name="adAccount"><br>
 			내선번호 : <input type="text" name="officePhoneNumber"><br>
 			<button type="submit" id="formSubmit">입력</button>
