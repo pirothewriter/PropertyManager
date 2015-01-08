@@ -97,7 +97,7 @@
 		UPDATE
 			member
 		SET
-			member_name = #{memberName}, upper_division = #{upperDivision}, lower_division = #{lowerDivision}, ad_account = #{adAccount}, office_phone_number = #{officePhoneNumber}
+			member_name = #{memberName}, upper_division = #{upperDivisionCode}, lower_division = #{lowerDivisionCode}, ad_account = #{adAccount}, office_phone_number = #{officePhoneNumber}
 		WHERE
 			member_id = #{memberId}
 	</update>

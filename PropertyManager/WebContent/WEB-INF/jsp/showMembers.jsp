@@ -25,19 +25,7 @@
 					$("#selectLower option").remove();
 					$("#selectLower").append("<option value=''>부서명(小)</option>");
 				} else {
-					$.ajax({
-						type : "POST",
-						url : "/loadLowDivision.tmon",
-						dataType : "json",
-						data : {"upperDivision" : $("#selectUpper").val()},
-						success : function(data){
-							$("#selectLower option").remove();
-							$("#selectLower").append("<option value=''>부서명(小)</option>");
-							$.each(data, function(index, element){
-								$("#selectLower").append("<option value='" + element.categoryName + "'>" + element.categoryName + "</option>");
-							});
-						}
-					});
+					callLowerDivision();
 				}
 			});
 			
@@ -129,6 +117,28 @@
 			});
 		})
 	});
+	
+	function callLowerDivision(){
+		$.ajax({
+			type : "POST",
+			url : "/loadLowerDivision.tmon",
+			dataType : "json",
+			data : {"upperDivision" : $("#selectUpper").val()},
+			success : function(data){
+				$("#selectLower option").remove();
+				$("#selectLower").append("<option value=''>부서명(小)</option>");
+				$.each(data, function(index, element){
+					if(element.categoryName == '${member.lowerDivision}'){
+						$("#selectLower").append("<option value='" + element.categoryName + "' selected>" + element.categoryName + "</option>");
+					} else {
+						$("#selectLower").append("<option value='" + element.categoryName + "'>" + element.categoryName + "</option>");
+					}
+				});
+				
+				$("#selectLower").append("<option value='directInput'>직접입력</option>");
+			}
+		});
+	}
 </script>
 </head>
 <body>

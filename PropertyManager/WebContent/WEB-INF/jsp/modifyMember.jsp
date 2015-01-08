@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,6 +22,8 @@
 	}
 	
 	$(document).ready(function(){
+		callLowerDivision();
+		
 		$("form").on("submit", function(event){
 			var checker = checkIntegrity();
 			var num_regx = /^[0-9]+$/;
@@ -84,7 +86,74 @@
 		$("#cancel").on("click", function(){
 			document.location.href="/showMembers.tmon";
 		});
+		
+		$("#selectUpper").on("change", function(){
+			if($("#selectUpper").val() == 'directInput'){
+				$("#inputDirectUpperDivision").removeAttr("disabled");
+				$("#selectUpper").removeAttr("name");
+				$("#inputDirectUpperDivision").attr("name", "upperDivision");
+				$("#inputDirectUpperDivision").val("");
+				
+				$("#selectLower option").remove();
+				$("#selectLower").val('directInput');
+				$("#selectLower").append("<option value='directInput'>직접입력</option>");
+				
+				$("#inputDirectLowerDivision").removeAttr("disabled");
+				$("#selectLower").removeAttr("name");
+				$("#inputDirectLowerDivision").attr("name", "lowerDivision");
+				$("#inputDirectLowerDivision").val("");
+			} else {
+				$("#selectUpper").attr("name", "upperDivision");
+				$("#inputDirectUpperDivision").attr("disabled", "disabled");
+				$("#inputDirectUpperDivision").removeAttr("name");
+				$("#inputDirectUpperDivision").val("직접입력");
+				
+				if($("#selectUpper").val() == ''){
+					$("#selectLower option").remove();
+					$("#selectLower").append("<option value=''>부서명(小)</option>");
+					$("#selectLower").append("<option value='directInput'>직접입력</option>");
+				} else {
+					callLowerDivision();
+				}
+			}
+		});
+		
+		$("#selectLower").on("change", function(){
+			if($("#selectLower").val() == 'directInput'){
+				$("#inputDirectLowerDivision").removeAttr("disabled");
+				$("#selectLower").removeAttr("name");
+				$("#inputDirectLowerDivision").attr("name", "lowerDivision");
+				$("#inputDirectLowerDivision").val("");
+			} else {
+				$("#selectLower").attr("name", "lowerDivision");
+				$("#inputDirectLowerDivision").attr("disabled", "disabled");
+				$("#inputDirectLowerDivision").removeAttr("name");
+				$("#inputDirectLowerDivision").val("직접입력");
+			}
+		});
 	})
+	
+	function callLowerDivision(){
+		$.ajax({
+			type : "POST",
+			url : "/loadLowerDivision.tmon",
+			dataType : "json",
+			data : {"upperDivision" : $("#selectUpper").val()},
+			success : function(data){
+				$("#selectLower option").remove();
+				$("#selectLower").append("<option value=''>부서명(小)</option>");
+				$.each(data, function(index, element){
+					if(element.categoryName == '${member.lowerDivision}'){
+						$("#selectLower").append("<option value='" + element.categoryName + "' selected>" + element.categoryName + "</option>");
+					} else {
+						$("#selectLower").append("<option value='" + element.categoryName + "'>" + element.categoryName + "</option>");
+					}
+				});
+				
+				$("#selectLower").append("<option value='directInput'>직접입력</option>");
+			}
+		});
+	}
 </script>
 </head>
 
@@ -94,8 +163,29 @@
 			<form method="post" name="inputForm">
 			사원번호 : <input type="text" name="memberId" value="${member.memberId }" readonly><br>
 			사 원 명 : <input type="text" name="memberName" value="${member.memberName }"><br>
-			부서명(大) : <input type="text" name="upperDivision" value="${member.upperDivision }"><br>
-			부서명(小) : <input type="text" name="lowerDivision" value="${member.lowerDivision }"><br>
+			부서명(大) : <select id="selectUpper" name="upperDivision">
+			<option value=''>부서명(大)</option>
+			<c:forEach var="category" items="${upperCategory }" varStatus="status">
+			<c:choose>
+			<c:when test="${category.categoryName eq member.upperDivision}">
+				<option value="${category.categoryName }" selected>${category.categoryName }</option>
+			</c:when>
+			<c:otherwise>
+				<option value="${category.categoryName }">${category.categoryName }</option>
+			</c:otherwise>
+			</c:choose>
+			</c:forEach>
+			<option value="directInput">직접입력</option>
+			</select>
+			<input type="text" id="inputDirectUpperDivision" disabled value="직접입력"><br>
+			부서명(小) : <select id="selectLower" name="lowerDivision">
+			<option value=''>부서명(소)</option>
+			<c:forEach var="category" items="${lowerCategory }" varStatus="status">
+			<option value="${category.categoryName }">${category.categoryName }</option>
+			</c:forEach>
+			<option value="directInput">직접입력</option>
+			</select>
+			<input type="text" id="inputDirectLowerDivision" disabled value="직접입력"><br>
 			AD계정 : <input type="text" name="adAccount" value="${member.adAccount }"><br>
 			내선번호 : <input type="text" name="officePhoneNumber" value="${member.officePhoneNumber }"><br>
 			<br><b>사원번호는 변경할 수 없습니다.</b><br>
