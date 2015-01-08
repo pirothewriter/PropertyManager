@@ -50,6 +50,8 @@
 			<if test="nameOfMember != ''">
 				AND M.member_name like #{nameOfMember}
 			</if>
+		ORDER BY
+			member_id DESC	
 		LIMIT
 			#{page}, #{viewSolePage}
 	</select>
@@ -136,6 +138,8 @@
 				<if test="nameOfMember != ''">
 					AND M.member_name like #{nameOfMember}
 				</if>
+		ORDER BY
+			member_id DESC
 		LIMIT
 			#{page}, #{viewSolePage}
 			

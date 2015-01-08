@@ -16,6 +16,61 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(document).ready(function(){
+			$("#selectUpper").on("change", function(){
+				$("#selectUpper").attr("name", "upperDivision");
+				$("#inputDirectUpperDivision").attr("disabled", "disabled");
+				$("#inputDirectUpperDivision").removeAttr("name");
+				
+				if($("#selectUpper").val() == ''){
+					$("#selectLower option").remove();
+					$("#selectLower").append("<option value=''>부서명(小)</option>");
+				} else {
+					$.ajax({
+						type : "POST",
+						url : "/loadLowDivision.tmon",
+						dataType : "json",
+						data : {"upperDivision" : $("#selectUpper").val()},
+						success : function(data){
+							$("#selectLower option").remove();
+							$("#selectLower").append("<option value=''>부서명(小)</option>");
+							$.each(data, function(index, element){
+								$("#selectLower").append("<option value='" + element.categoryName + "'>" + element.categoryName + "</option>");
+							});
+						}
+					});
+				}
+			});
+			
+			$("#selectLower").on("change", function(){
+				$("#selectLower").attr("name", "lowerDivision");
+				$("#inputDirectLowerDivision").attr("disabled", "disabled");
+				$("#inputDirectLowerDivision").removeAttr("name");
+			});
+			
+			$("#searcherSubmit").on("click", function(event){
+				event.preventDefault();
+				var url = "/retired.tmon";
+				var params = "?";
+				
+				if($("#selectUpper").val() != "")
+					params += "upperDivision=" + encodeURI(encodeURIComponent($("#selectUpper").val())) + "&";
+				
+				if($("#selectLower").val() != "")
+					params += "lowerDivision=" + encodeURI(encodeURIComponent($("#selectLower").val())) + "&";
+				
+				if($("#searchAdAccout").val() != "")
+					params += "adAccount=" + encodeURI(encodeURIComponent($("#searchAdAccout").val())) + "&";
+				
+				if($("#searchName").val() != "")
+					params += "nameOfMember=" + encodeURI(encodeURIComponent($("#searchName").val())) + "&";
+				
+				document.location.href = url + params;
+			});
+			
+			$("#initializer").on("click", function(){
+				document.location.href="retired.tmon";
+			});
+			
 			$(".view_log").click(function(){
 				var memberId = this.value;
 				var popupUrl = "/personalLog.tmon?memberId=" + memberId;
@@ -34,8 +89,22 @@
 <body>
 	<div id="wrapper">
 		<div id="seacher">
-			AD 계정 <input name = "adAccout">
-			사 원 명<input name = "name">
+			<form name="searcher">
+				부서명(大) : <select id="selectUpper" name="upperDivision">
+				<option value=''>부서명(大)</option>
+				<c:forEach var="category" items="${upperDivisions }" varStatus="status">
+				<option value="${category.categoryName }">${category.categoryName }</option>
+				</c:forEach>
+				</select>
+				부서명(小) : <select id="selectLower" name="lowerDivision">
+				<option value=''>부서명(小)</option>
+				</select>
+	
+				AD 계정 <input name = "adAccout" id="searchAdAccout">
+				사 원 명<input name = "nameOfMember" id="searchName">
+				<button type="button" id="searcherSubmit">검색</button>
+				<button type="button" id="initializer">초기화</button>
+			</form>
 		</div>
 		<div id="list">
 			<table id="memberTable">

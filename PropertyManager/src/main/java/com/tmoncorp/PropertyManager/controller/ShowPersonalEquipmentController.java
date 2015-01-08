@@ -61,6 +61,8 @@ public class ShowPersonalEquipmentController {
 	@RequestMapping("/retired")
 	public ModelAndView showRetired(HttpServletRequest request) throws UnsupportedEncodingException {
 		ModelAndView showRetiredMembersModelAndView = new ModelAndView();
+		List<CategoryModel> upperDivisions = categoryService.getAllUpperCategory();
+		showRetiredMembersModelAndView.addObject("upperDivisions", upperDivisions);
 		showRetiredMembersModelAndView = doPagenation(request, showRetiredMembersModelAndView, "retired");
 		showRetiredMembersModelAndView.setViewName("retired");
 
