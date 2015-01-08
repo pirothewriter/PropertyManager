@@ -7,8 +7,19 @@
 			cache : false,
 			success:function(msg){
 				var nowLocation = document.location.href;
+				var parameters = nowLocation.split('?')[1];
 				nowLocation = nowLocation.split('?')[0];
-				var url = nowLocation + "?page=" + index;
+				if(parameters.indexOf('page=') > -1){
+					var lastOfPageParam = parameters.indexOf('&');
+					if(lastOfPageParam > -1){
+						parameters = parameters.substr(lastOfPageParam, parameters.length);
+					} else {
+						parameters = "";
+					}
+				}
+
+				var url = nowLocation + "?page=" + index + "&" + parameters;
+					
 				document.location.href= url;
 			}
 		});
