@@ -85,7 +85,7 @@ public class ShowPersonalEquipmentController {
 		if (request.getParameter("viewSolePage") != null)
 			session.setAttribute("viewSolePage", request.getParameter("viewSolePage"));
 
-		if (session.getAttribute("viewSolePage") == null)
+		if (session.getAttribute("viewSolePage") == null || session.getAttribute("viewSolePage") =="")
 			viewSolePage = 20;
 		else {
 			viewSolePage = Integer.parseInt((String) session.getAttribute("viewSolePage"));

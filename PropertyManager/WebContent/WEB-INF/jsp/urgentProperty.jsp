@@ -24,6 +24,85 @@
 		return checkedPropertyNumber;
 	}
 	
+	function getPropertyHeadNumber(upperCategory, lowerCategory){
+		if(upperCategory == 'monitor' || upperCategory == 'desktop' || upperCategory == 'notebook')
+			$("input[name='propertyHeadNumber']").val('PCM');
+		else if(upperCategory == 'network')
+			$("input[name='propertyHeadNumber']").val('NET');
+		else if(upperCategory == 'server')
+			$("input[name='propertyHeadNumber']").val('SVR');
+		else if(upperCategory == 'phone'){
+			if(lowerCategory == 'SIP')
+				$("input[name='propertyHeadNumber']").val('SIP');
+			else
+				$("input[name='propertyHeadNumber']").val('IPT');
+		}
+		else if(upperCategory =='etc')
+			$("input[name='propertyHeadNumber']").val('ETC');
+	}
+	
+	function getLowerCategory(val){
+		if(val == "monitor"){
+			$("#selectLower option").remove();
+			$("#selectLower").append("<option value=''>소분류</option>");
+			$("#selectLower").append("<option value='work'>업무용</option>");
+			$("#selectLower").append("<option value='sub'>서브용</option>");
+			$("#selectLower").append("<option value='office'>사무용</option>");
+			$("#selectLower").append("<option value='develop'>개발용</option>");
+			$("#selectLower").append("<option value='design'>디자인용</option>");
+			$("#selectLower").append("<option value='etc'>기타</option>");
+			$("#selectLower").attr("readonly",false);
+			$("#selectLower").attr("disabled",false);
+		}
+		
+		else if(val == "desktop"){
+			$("#selectLower option").remove();
+			$("#selectLower").append("<option value=''>소분류</option>");
+			$("#selectLower").append("<option value='office'>사무용</option>");
+			$("#selectLower").append("<option value='design'>디자인용</option>");
+			$("#selectLower").append("<option value='develop'>개발용</option>");
+			$("#selectLower").append("<option value='etc'>기타</option>");
+			$("#selectLower").attr("readonly",false);
+			$("#selectLower").attr("disabled",false);
+		}
+		
+		else if(val == "phone"){
+			$("#selectLower option").remove();
+			$("#selectLower").append("<option value=''>소분류</option>");
+			$("#selectLower").append("<option value='IPT'>IPT</option>");
+			$("#selectLower").append("<option value='IPT'>IPT_IPCC</option>");
+			$("#selectLower").append("<option value='SIP'>SIP</option>");
+			$("#selectLower").append("<option value='etc'>기타</option>");
+			$("#selectLower").attr("readonly",false);
+			$("#selectLower").attr("disabled",false);
+		}
+		
+		else if(val == "notebook"){
+			$("#selectLower option").remove();
+			$("#selectLower").append("<option value=''>소분류</option>");
+			$("#selectLower").append("<option value='SPR'>망분리</option>");
+			$("#selectLower").append("<option value='office'>업무용</option>");
+			$("#selectLower").append("<option value='etc'>기타</option>");
+			$("#selectLower").attr("readonly",false);
+			$("#selectLower").attr("disabled",false);
+		}
+		
+		else if(val == ""){
+			$("#selectLower option").remove();
+			$("#selectLower").append("<option value=''>소분류</option>");
+			$("#selectLower").attr("readonly",false);
+			$("#selectLower").attr("disabled",false);
+		}
+		
+		else{
+			$("#selectLower option").remove();
+			$("#selectLower").append("<option value=''>소분류</option>");
+			$("#selectLower").append("<option value='etc'>기타</option>");
+			$("#selectLower").attr("disabled",false);
+			$("#selectLower").attr("readonly",false);
+		}
+	}
+	
 	$(document).ready(function(){
 		$("form").on("submit", function(event){
 			var urgentIt = confirm("해당 자산들을 추가하시겠습니까?");
@@ -42,6 +121,14 @@
 			}
 		});
 		
+		$("#selectUpper").change(function(){
+			getLowerCategory($("#selectUpper").val());
+			getPropertyHeadNumber($("#selectUpper").val(), $("#selectLower").val())
+		});
+		$("#selectLower").change(function(){
+			getPropertyHeadNumber($("#selectUpper").val(), $("#selectLower").val())
+		});
+		
 		$(".view_log").click(function(){
 			var propertyNumber = this.value;
 			var popupUrl = "/equipmentLog.tmon?propertyNumber=" + propertyNumber;
@@ -53,12 +140,47 @@
 		$("#cancelUrgenting").on("click", function(){
 			document.location.href="/memberInfo.tmon?memberId=${memberId}";
 		});
+		
+		$("#initializer").on("click", function(){
+			document.location.href="urgentProperty.tmon?memberId=${memberId }";
+		});
+		
+		$("#searcherSubmit").on("click", function(event){
+			event.preventDefault();
+			var url = "/urgentProperty.tmon";
+			var params = "?memberId=${memberId}&";
+			
+			if($("#selectUpper").val() != "")
+				params += "upperCategory=" + encodeURI(encodeURIComponent($("#selectUpper").val())) + "&";
+			
+			if($("#selectLower").val() != "")
+				params += "lowerCategory=" + encodeURI(encodeURIComponent($("#selectLower").val())) + "&";
+			
+			document.location.href = url + params;
+		});
 	})
 </script>
 </head>
 <body>
 	<div id="wrapper">
 		<div id="searcher">
+			<form name="searcher">
+				대분류 : <select id="selectUpper" name="upperCategory">
+					<option value=''>분류(大)</option>
+					<option value="monitor">모니터</option>
+					<option value="desktop">데스크탑</option>
+					<option value="notebook">노트북</option>
+					<option value="network">네트워크장비</option>
+					<option value="server">서버장비</option>
+					<option value="phone">전화기</option>
+					<option value="etc">기타장비</option>
+				</select>
+				부서명(小) : <select id="selectLower" name="lowerCategory">
+				<option value=''>분류(小)</option>
+				</select>
+				<button type="button" id="searcherSubmit">검색</button>
+				<button type="button" id="initializer">초기화</button>
+			</form>
 		</div>
 		<form method="post" name="mappingForm">
 			<div id="ownerlessProperties">

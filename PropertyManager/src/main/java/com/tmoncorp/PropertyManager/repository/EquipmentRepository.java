@@ -30,13 +30,14 @@ public class EquipmentRepository {
 		return equipmentMapper.selectPropertyOnMember(memberId);
 	}
 
-	public List<EquipmentModel> selectOwnerlessEquipments(int nowPage, int viewSolePage) {
+	public List<EquipmentModel> selectOwnerlessEquipments(int nowPage, int viewSolePage, String upperCategory, String lowerCategory) {
 		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
-		return equipmentMapper.selectOwnerlessEquipments(nowPage, viewSolePage);
+		return equipmentMapper.selectOwnerlessEquipments(nowPage, viewSolePage, upperCategory, lowerCategory);
 	}
 
 	public int selectAllOwnerlessEquipment() {
 		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
 		return equipmentMapper.selectCountAllOwnerlessEquipment();
 	}
+
 }

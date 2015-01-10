@@ -134,8 +134,6 @@
 						$("#selectLower").append("<option value='" + element.categoryName + "'>" + element.categoryName + "</option>");
 					}
 				});
-				
-				$("#selectLower").append("<option value='directInput'>직접입력</option>");
 			}
 		});
 	}

@@ -38,8 +38,8 @@ public class EquipmentService {
 		return equipmentRepository.selectPropertyOnMember(memberId);
 	}
 
-	public List<EquipmentModel> getOwnerlessEquipment(int nowPage, int viewSolePage) {
-		return equipmentRepository.selectOwnerlessEquipments(calculatePageToRow(nowPage, viewSolePage), viewSolePage);
+	public List<EquipmentModel> getOwnerlessEquipment(int nowPage, int viewSolePage, String upperCategory, String lowerCategory) {
+		return equipmentRepository.selectOwnerlessEquipments(calculatePageToRow(nowPage, viewSolePage), viewSolePage, upperCategory, lowerCategory);
 	}
 
 	public int insertMultipleEquipment(File csvFile) throws IOException, ParseException {

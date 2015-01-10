@@ -17,7 +17,7 @@ public interface EquipmentMapper {
 
 	public List<EquipmentModel> selectPropertyOnMember(String memberId);
 
-	public List<EquipmentModel> selectOwnerlessEquipments(@Param("nowPage") int nowPage, @Param("viewSolePage") int viewSolePage);
+	public List<EquipmentModel> selectOwnerlessEquipments(@Param("nowPage") int nowPage, @Param("viewSolePage") int viewSolePage, @Param("upperCategory") String upperCategory, @Param("lowerCategory") String lowerCategory);
 
 	public int selectCountAllOwnerlessEquipment();
 

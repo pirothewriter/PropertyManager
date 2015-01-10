@@ -1,5 +1,8 @@
 package com.tmoncorp.PropertyManager.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,8 +54,8 @@ public class MemberInfoController {
 		return memberInfoModelAndView;
 	}
 
-	@RequestMapping("/urgentProperty")
-	public ModelAndView urgentProperty(HttpServletRequest request) {
+	@RequestMapping(value = "/urgentProperty", method= RequestMethod.GET)
+	public ModelAndView urgentProperty(HttpServletRequest request) throws UnsupportedEncodingException, ParseException {
 		ModelAndView urgentingModelAndView = new ModelAndView();
 		urgentingModelAndView = doPagenation(request, urgentingModelAndView, "property");
 		urgentingModelAndView.addObject("memberId", request.getParameter("memberId"));
@@ -99,7 +102,7 @@ public class MemberInfoController {
 		return result;
 	}
 	
-	private ModelAndView doPagenation(HttpServletRequest request, ModelAndView modelAndView, String contentType) {
+	private ModelAndView doPagenation(HttpServletRequest request, ModelAndView modelAndView, String contentType) throws UnsupportedEncodingException, ParseException {
 		int nowPage;
 		int startPage;
 		int endPage;
@@ -121,12 +124,6 @@ public class MemberInfoController {
 			viewSolePage = Integer.parseInt((String)session.getAttribute("viewSolePage"));
 		}
 
-		if (contentType.compareTo("property") == 0) {
-			List<EquipmentModel> ownerlessEquipments = equipmentService.getOwnerlessEquipment(nowPage, viewSolePage);
-			maximumPage = equipmentService.getMaximumPage(viewSolePage);
-			modelAndView.addObject("ownerlessEquipment", ownerlessEquipments);
-		}
-
 		if (maximumPage > nowPage + 5)
 			endPage = nowPage + 5;
 		else
@@ -136,10 +133,27 @@ public class MemberInfoController {
 			startPage = nowPage - 5;
 		else
 			startPage = 1;
+		
+		String upperCategory = "";
+		String lowerCategory = "";
 
+		if (request.getParameter("upperCategory") != null) {
+			if (request.getParameter("upperCategory").compareTo("") != 0)
+				upperCategory = URLDecoder.decode(request.getParameter("upperCategory"), "UTF-8");
+		}
+
+		if (request.getParameter("lowerCategory") != null) {
+			if (request.getParameter("lowerCategory").compareTo("") != 0)
+				lowerCategory = URLDecoder.decode(request.getParameter("lowerCategory"), "UTF-8");
+		}
+
+		List<EquipmentModel> ownerlessEquipment = equipmentService.getOwnerlessEquipment(nowPage, viewSolePage, upperCategory, lowerCategory);
+		maximumPage = equipmentService.getMaximumPage(viewSolePage);
+		
 		modelAndView.addObject("startPage", startPage);
 		modelAndView.addObject("endPage", endPage);
 		modelAndView.addObject("viewSolePage", viewSolePage);
+		modelAndView.addObject("ownerlessEquipment", ownerlessEquipment);
 
 		return modelAndView;
 	}

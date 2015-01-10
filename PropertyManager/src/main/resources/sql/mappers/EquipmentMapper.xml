@@ -61,6 +61,12 @@
 			(E.property_number = J.property_number)
 		WHERE
 			J.member_id IS NULL
+				<if test="upperCategory != ''">
+					AND E.upper_category = #{upperCategory}
+				</if>
+				<if test="lowerCategory != ''">
+					AND E.lower_category = #{lowerCategory}
+				</if>
 		LIMIT
 			#{nowPage}, #{viewSolePage}
 	</select>

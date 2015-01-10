@@ -9,18 +9,20 @@
 				var nowLocation = document.location.href;
 				var parameters = nowLocation.split('?')[1];
 				nowLocation = nowLocation.split('?')[0];
-				if(parameters.indexOf('page=') > -1){
-					var lastOfPageParam = parameters.indexOf('&');
-					if(lastOfPageParam > -1){
-						parameters = parameters.substr(lastOfPageParam, parameters.length);
-					} else {
-						parameters = "";
+				var restructedParameters = "?page=" + index;
+				if(parameters != null){
+					splitedParameters = parameters.split('&');
+					for(var indexOfParams = 0; indexOfParams < splitedParameters.length; indexOfParams++){
+						if(indexOfParams+1 < splitedParameters.length || indexOfParams == 0){
+							restructedParameters += '&';
+						}
+						if(splitedParameters[indexOfParams].split('=')[0] != 'page'){
+							restructedParameters += splitedParameters[indexOfParams];
+						}
 					}
 				}
-
-				var url = nowLocation + "?page=" + index + "&" + parameters;
-					
-				document.location.href= url;
+				 
+				document.location.href= nowLocation + restructedParameters;
 			}
 		});
 	}
