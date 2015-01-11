@@ -11,6 +11,7 @@ public class CategoryModel {
 	private int categoryDivision;
 	private int categoryCode;
 	private int upperCategory;
+	private int lowerCategories;
 
 	public int getUpperCategory() {
 		return upperCategory;
@@ -42,6 +43,14 @@ public class CategoryModel {
 
 	public void setCategoryCode(int categoryCode) {
 		this.categoryCode = categoryCode;
+	}
+
+	public int getLowerCategories() {
+		return lowerCategories;
+	}
+
+	public void setLowerCategories(int lowerCategories) {
+		this.lowerCategories = lowerCategories;
 	}
 
 }

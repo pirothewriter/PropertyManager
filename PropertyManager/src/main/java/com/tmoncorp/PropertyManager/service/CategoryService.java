@@ -47,4 +47,8 @@ public class CategoryService {
 		return categoryRepository.selectSpecificCategory(categoryName);
 	}
 
+	public int selectUpperCategoryCount(int upperCategory) {
+		return categoryRepository.selectLowerCategoryCount(upperCategory);
+	}
+
 }

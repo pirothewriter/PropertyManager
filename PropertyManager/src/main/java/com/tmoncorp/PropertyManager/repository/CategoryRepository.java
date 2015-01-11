@@ -48,4 +48,9 @@ public class CategoryRepository {
 		CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
 		return categoryMapper.selectSpecificCategory(categoryName);
 	}
+
+	public int selectLowerCategoryCount(int upperCategory) {
+		CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
+		return categoryMapper.selectLowerCategoryCount(upperCategory);
+	}
 }

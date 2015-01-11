@@ -64,4 +64,13 @@
 		WHERE
 			category.category_name = #{divisionName}
 	</select>
+	
+	<select id="selectLowerCategoryCount" resultType="Integer">
+		SELECT
+			COUNT(category_name)
+		FROM
+			category
+		WHERE
+			upper_category = #{upperCategory}
+	</select>
 </mapper>
