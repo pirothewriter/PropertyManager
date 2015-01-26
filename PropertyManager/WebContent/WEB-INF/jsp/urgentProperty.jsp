@@ -115,7 +115,7 @@
 					data : $(this).serialize(),
 					success : function(msg){
 						alert("등록되었습니다!");
-						document.location.href = "/memberInfo.tmon?memberId=${memberId }";
+						document.location.href = "/memberInfo.tmon?adAccount=${adAccount }";
 					}
 				});
 			}
@@ -138,17 +138,17 @@
 		});
 		
 		$("#cancelUrgenting").on("click", function(){
-			document.location.href="/memberInfo.tmon?memberId=${memberId}";
+			document.location.href="/memberInfo.tmon?adAccount=${adAccount}";
 		});
 		
 		$("#initializer").on("click", function(){
-			document.location.href="urgentProperty.tmon?memberId=${memberId }";
+			document.location.href="urgentProperty.tmon?adAccount=${adAccount }";
 		});
 		
 		$("#searcherSubmit").on("click", function(event){
 			event.preventDefault();
 			var url = "/urgentProperty.tmon";
-			var params = "?memberId=${memberId}&";
+			var params = "?adAccount=${adAccount}&";
 			
 			if($("#selectUpper").val() != "")
 				params += "upperCategory=" + encodeURI(encodeURIComponent($("#selectUpper").val())) + "&";
@@ -184,7 +184,7 @@
 		</div>
 		<form method="post" name="mappingForm">
 			<div id="ownerlessProperties">
-				<input type="text" name="memberId" value="${memberId }" style="visibility:hidden; ">
+				<input type="text" name="adAccount" value="${adAccount }" style="visibility:hidden; ">
 				<table>
 					<tbody>
 					<tr>

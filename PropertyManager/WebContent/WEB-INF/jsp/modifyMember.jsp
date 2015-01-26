@@ -33,11 +33,6 @@
 				return false;
 			}
 			
-			else if(! num_regx.test($("input")[0].value)){
-				alert("사원번호는 숫자만 들어갈 수 있습니다!");
-				return false;
-			}
-			
 			else if(! num_regx.test($("input")[5].value)){
 				alert("내선번호는 숫자만 들어갈 수 있습니다!");
 				return false;
@@ -161,7 +156,6 @@
 	<div id="wrapper">
 		<div id="list">
 			<form method="post" name="inputForm">
-			사원번호 : <input type="text" name="memberId" value="${member.memberId }" readonly><br>
 			사 원 명 : <input type="text" name="memberName" value="${member.memberName }"><br>
 			부서명(大) : <select id="selectUpper" name="upperDivision">
 			<option value=''>부서명(大)</option>

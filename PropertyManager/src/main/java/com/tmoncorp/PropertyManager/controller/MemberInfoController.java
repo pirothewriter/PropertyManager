@@ -41,11 +41,11 @@ public class MemberInfoController {
 	@RequestMapping("/memberInfo")
 	public ModelAndView showMemberInfo(HttpServletRequest request) {
 		ModelAndView memberInfoModelAndView = new ModelAndView();
-		MemberModel member = memberService.selectAMember(request.getParameter("memberId"));
-		List<EquipmentModel> properties = equipmentService.selectPropertyOnMember(request.getParameter("memberId"));
+		MemberModel member = memberService.selectAMember(request.getParameter("adAccount"));
+		List<EquipmentModel> properties = equipmentService.selectPropertyOnMember(request.getParameter("adAccount"));
 
 		for (int index = 0; index < properties.size(); index++) {
-			properties.get(index).setUrgentDate(propertyLogService.getPropertyUrgentDateNow(properties.get(index).getPropertyNumber(), request.getParameter("memberId")));
+			properties.get(index).setUrgentDate(propertyLogService.getPropertyUrgentDateNow(properties.get(index).getPropertyNumber(), request.getParameter("adAccount")));
 		}
 
 		memberInfoModelAndView.addObject("memberInfo", member);
@@ -58,7 +58,7 @@ public class MemberInfoController {
 	public ModelAndView urgentProperty(HttpServletRequest request) throws UnsupportedEncodingException, ParseException {
 		ModelAndView urgentingModelAndView = new ModelAndView();
 		urgentingModelAndView = doPagenation(request, urgentingModelAndView, "property");
-		urgentingModelAndView.addObject("memberId", request.getParameter("memberId"));
+		urgentingModelAndView.addObject("adAccount", request.getParameter("adAccount"));
 		urgentingModelAndView.setViewName("urgentProperty");
 		return urgentingModelAndView;
 	}
@@ -69,8 +69,8 @@ public class MemberInfoController {
 		String msg = "SUCCESS";
 		
 		for(int index = 0; index < properties.length; index++){
-			propertyLogService.urgentProperty(request.getParameter("memberId"), properties[index]);
-			propertyLogService.urgentPropertyLog(request.getParameter("memberId"), properties[index]);
+			propertyLogService.urgentProperty(request.getParameter("adAccount"), properties[index]);
+			propertyLogService.urgentPropertyLog(request.getParameter("adAccount"), properties[index]);
 		}
 		return msg;
 	}
@@ -80,8 +80,8 @@ public class MemberInfoController {
 		String[] properties = request.getParameterValues("propertyNumber");
 		String msg = "SUCCESS";
 		for (int index = 0; index < properties.length; index++) {
-			propertyLogService.releaseProperty(request.getParameter("memberId"), properties[index]);
-			propertyLogService.releasePropertyLog(request.getParameter("memberId"), properties[index]);
+			propertyLogService.releaseProperty(request.getParameter("adAccount"), properties[index]);
+			propertyLogService.releasePropertyLog(request.getParameter("adAccount"), properties[index]);
 		}
 		return msg;
 	}
@@ -90,9 +90,9 @@ public class MemberInfoController {
 	public @ResponseBody String retireMember(HttpServletRequest request){
 		String result = "";
 		
-		int affectedRowsOnMemberTable = memberService.retireMember(request.getParameter("memberId"));
-		int affectedRowsOnMappingTable = propertyLogService.withdrawEqiupmentThatOwnedRetireMember(request.getParameter("memberId"));
-		int affectedRowsOnLogTable = propertyLogService.withdrawEqiupmentThatOwnedRetireMemberLog(request.getParameter("memberId"));
+		int affectedRowsOnMemberTable = memberService.retireMember(request.getParameter("adAccount"));
+		int affectedRowsOnMappingTable = propertyLogService.withdrawEqiupmentThatOwnedRetireMember(request.getParameter("adAccount"));
+		int affectedRowsOnLogTable = propertyLogService.withdrawEqiupmentThatOwnedRetireMemberLog(request.getParameter("adAccount"));
 		
 		if(affectedRowsOnLogTable * affectedRowsOnMappingTable * affectedRowsOnMemberTable == 0)
 			result = "ERROR";

@@ -10,7 +10,16 @@ import java.util.Date;
 
 public class PropertyLogModel {
 	private String propertyNumber;
-	private String memberId;
+	private String adAccount;
+
+	public String getAdAccount() {
+		return adAccount;
+	}
+
+	public void setAdAccount(String adAccount) {
+		this.adAccount = adAccount;
+	}
+
 	private Date urgentDate;
 	private Date withdrawDate;
 
@@ -20,14 +29,6 @@ public class PropertyLogModel {
 
 	public void setPropertyNumber(String propertyNumber) {
 		this.propertyNumber = propertyNumber;
-	}
-
-	public String getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
 	}
 
 	public Date getUrgentDate() {

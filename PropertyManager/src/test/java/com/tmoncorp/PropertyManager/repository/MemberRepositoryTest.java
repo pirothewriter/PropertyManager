@@ -59,19 +59,18 @@ public class MemberRepositoryTest {
 	@Test
 	public void 특정_사원정보를_들고오는지_테스트() {
 		memberMapper = sqlSession.getMapper(MemberMapper.class);
-		assertNotNull(memberMapper.selectAMember("201404016"));
+		assertNotNull(memberMapper.selectAMember("pirothewriter"));
 	}
 	
 	@Test
 	public void 조건절의_멤버를_들고오는지_테스트(){
 		memberMapper = sqlSession.getMapper(MemberMapper.class);
-		assertNotNull(memberMapper.selectMembers(0, 20, "서비스개발랩", "", "piro", ""));
+		assertNotNull(memberMapper.selectMembers(0, 20, "서비스개발랩", "", "pirothewriter", ""));
 	}
 
 	private MemberModel generateMember() {
 		MemberModel memberModel = new MemberModel();
 
-		memberModel.setMemberId("test");
 		memberModel.setMemberName("test");
 		memberModel.setUpperDivision("test");
 		memberModel.setLowerDivision("test");

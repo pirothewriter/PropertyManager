@@ -40,9 +40,9 @@ public class MemberRepository {
 		return memberMapper.selectLowerDivisions(upperDivision);
 	}
 
-	public MemberModel selectAMember(String memberId) {
+	public MemberModel selectAMember(String adAccount) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		return memberMapper.selectAMember(memberId);
+		return memberMapper.selectAMember(adAccount);
 	}
 
 	public int modifyMemberInformation(MemberModel parsememberInfomation) {
@@ -50,9 +50,9 @@ public class MemberRepository {
 		return memberMapper.modifyMember(parsememberInfomation);
 	}
 
-	public int retireMember(String memberId) {
+	public int retireMember(String adAccount) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		return memberMapper.retireMember(memberId);
+		return memberMapper.retireMember(adAccount);
 	}
 
 	public List<MemberModel> selectRetiredMembers(int page, int viewSolePage, String upperCategory, String lowerCategory, String adAccount, String nameOfMember) {

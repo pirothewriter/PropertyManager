@@ -21,11 +21,11 @@ public interface MemberMapper {
 
 	List<String> selectLowerDivisions(String upperDivision);
 
-	MemberModel selectAMember(String memberId);
+	MemberModel selectAMember(String adAccount);
 
 	int modifyMember(MemberModel memberModel);
 
-	int retireMember(String memberId);
+	int retireMember(String adAccount);
 
 	List<MemberModel> selectRetiredMembers(@Param("page") int page, @Param("viewSolePage") int viewSolePage, @Param("upperCategory") String upperCategory, @Param("lowerCategory") String lowerCategory, @Param("adAccount") String adAccount, @Param("nameOfMember") String nameOfMember);
 

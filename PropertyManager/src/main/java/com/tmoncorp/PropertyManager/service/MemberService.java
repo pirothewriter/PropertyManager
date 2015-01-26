@@ -43,8 +43,8 @@ public class MemberService {
 		return result;
 	}
 
-	public MemberModel selectAMember(String memberId) {
-		return memberRepository.selectAMember(memberId);
+	public MemberModel selectAMember(String adAccount) {
+		return memberRepository.selectAMember(adAccount);
 	}
 
 	public int modifyMemberInformation(HttpServletRequest request) {
@@ -52,8 +52,8 @@ public class MemberService {
 		return result;
 	}
 
-	public int retireMember(String memberId) {
-		int result = memberRepository.retireMember(memberId);
+	public int retireMember(String adAccount) {
+		int result = memberRepository.retireMember(adAccount);
 		return result;
 	}
 
@@ -72,7 +72,6 @@ public class MemberService {
 	private MemberModel parsememberInfomation(HttpServletRequest request) {
 		MemberModel memberModel = new MemberModel();
 
-		memberModel.setMemberId(request.getParameter("memberId"));
 		memberModel.setMemberName(request.getParameter("memberName"));
 		memberModel.setUpperDivision(request.getParameter("upperDivision"));
 		memberModel.setLowerDivision(request.getParameter("lowerDivision"));

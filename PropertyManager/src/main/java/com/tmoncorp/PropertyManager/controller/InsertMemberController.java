@@ -60,7 +60,7 @@ public class InsertMemberController {
 		List<CategoryModel> upperCategory = categoryService.getAllUpperCategory();
 		modifyMemberModelAndView.addObject("upperCategory", upperCategory);
 
-		modifyMemberModelAndView.addObject("member", memberService.selectAMember(request.getParameter("memberId")));
+		modifyMemberModelAndView.addObject("member", memberService.selectAMember(request.getParameter("adAccount")));
 		modifyMemberModelAndView.setViewName("modifyMember");
 		return modifyMemberModelAndView;
 	}

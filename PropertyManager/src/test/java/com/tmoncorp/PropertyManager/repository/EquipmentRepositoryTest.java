@@ -42,7 +42,7 @@ public class EquipmentRepositoryTest {
 
 	@Test
 	public void 특정사원의_자산정보를_들고오는지_테스트() {
-		List<EquipmentModel> result = equipmentMapper.selectPropertyOnMember("201404016");
+		List<EquipmentModel> result = equipmentMapper.selectPropertyOnMember("pirothewriter");
 		assertNotNull(result);
 	}
 

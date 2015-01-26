@@ -20,7 +20,7 @@
 		});
 		
 		$("#add_property").on("click", function(){
-			document.location.href = "/urgentProperty.tmon?memberId=" + ${memberInfo.memberId};
+			document.location.href = "/urgentProperty.tmon?adAccount=" + '${memberInfo.adAccount}';
 		});
 		
 		$("#propertyInfo form").on("submit", function(event){
@@ -49,8 +49,8 @@
 		});
 		
 		$("#personalLog").on("click", function(){
-			var memberId = ${memberInfo.memberId };
-			var popupUrl = "/personalLog.tmon?memberId=" + memberId;
+			var adAccount = '${memberInfo.adAccount }';
+			var popupUrl = "/personalLog.tmon?adAccount=" + adAccount;
 			var popupOption = "width=400, heignt=300, resizable=false, scrollbars=false";
 			
 			window.open(popupUrl, "", popupOption);
@@ -64,7 +64,6 @@
 		<table>
 			<tbody>
 				<tr>
-					<td><b>사   번 : </b></td><td>${memberInfo.memberId }</td>
 					<td><b>사원명 : </b></td><td>${memberInfo.memberName }</td>
 					<td><b>AD계정 : </b></td><td>${memberInfo.adAccount }</td>
 				</tr>
@@ -83,7 +82,7 @@
 	</div>
 	<div id="propertyInfo">
 		<form method="post" name="releaseForm">
-			<input type="text" name="memberId" value="${memberInfo.memberId }" style="visibility:hidden; ">
+			<input type="text" name="adAccount" value="${memberInfo.adAccount }" style="visibility:hidden; ">
 			<table>
 				<tbody>
 				<tr>

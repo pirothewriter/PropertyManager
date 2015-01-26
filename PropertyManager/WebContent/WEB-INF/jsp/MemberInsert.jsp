@@ -73,11 +73,6 @@
 		$("#inputForm").on("submit", function(event){
 			var num_regx = /^[0-9]+$/;
 			
-			if($("form input[name=memberId]").val() == ''){
-				alert("사원번호를 입력해주세요!");
-				return false;
-			}
-			
 			else if($("form input[name=memberName]").val() == ''){
 				alert("사원명을 입력해주세요!");
 				return false;
@@ -186,7 +181,6 @@
 	<div id="wrapper">
 		<div id="list">
 			<form id="inputForm" method="post" name="inputForm">
-			사원번호 : <input type="text" name="memberId"><br>
 			사 원 명 : <input type="text" name="memberName"><br>
 			부서명(大) : <select id="selectUpper" name="upperDivision">
 			<option value=''>부서명(大)</option>

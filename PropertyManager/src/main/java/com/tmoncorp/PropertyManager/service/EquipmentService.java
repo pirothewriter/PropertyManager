@@ -34,8 +34,8 @@ public class EquipmentService {
 		return affectedRows;
 	}
 
-	public List<EquipmentModel> selectPropertyOnMember(String memberId) {
-		return equipmentRepository.selectPropertyOnMember(memberId);
+	public List<EquipmentModel> selectPropertyOnMember(String adAccount) {
+		return equipmentRepository.selectPropertyOnMember(adAccount);
 	}
 
 	public List<EquipmentModel> getOwnerlessEquipment(int nowPage, int viewSolePage, String upperCategory, String lowerCategory) {

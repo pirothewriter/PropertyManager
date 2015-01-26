@@ -45,9 +45,9 @@
 		JOIN
 			member M
 				ON
-					(L.member_id = M.member_id)
+					(L.ad_account = M.ad_account)
 		WHERE
-			M.member_id = #{memberId}
+			M.ad_account = #{adAccount}
 	</select>
 	
 	<select id="selectOwnerlessEquipments" resultMap="EquipmentResult">
@@ -60,7 +60,7 @@
 		ON
 			(E.property_number = J.property_number)
 		WHERE
-			J.member_id IS NULL
+			J.ad_Account IS NULL
 				<if test="upperCategory != ''">
 					AND E.upper_category = #{upperCategory}
 				</if>
@@ -81,6 +81,6 @@
 		ON
 			(E.property_number = J.property_number)
 		WHERE
-			J.member_id IS NULL
+			J.ad_account IS NULL
 	</select>
 </mapper>

@@ -20,27 +20,27 @@ public class PropertyLogService {
 	@Autowired
 	private PropertyLogRepository propertyLogRepository;
 
-	public Date getPropertyUrgentDateNow(String propertyNumber, String memberId) {
-		return (Date) propertyLogRepository.getPropertyNowStatus(propertyNumber, memberId);
+	public Date getPropertyUrgentDateNow(String propertyNumber, String adAccount) {
+		return (Date) propertyLogRepository.getPropertyNowStatus(propertyNumber, adAccount);
 	}
 
-	public int urgentProperty(String memberId, String propertyNumber) {
-		int result = propertyLogRepository.insertUrgentProperty(memberId, propertyNumber);
+	public int urgentProperty(String adAccount, String propertyNumber) {
+		int result = propertyLogRepository.insertUrgentProperty(adAccount, propertyNumber);
 		return result;
 	}
 
-	public int urgentPropertyLog(String memberId, String propertyNumber) {
-		int result = propertyLogRepository.insertUrgentPropertyLog(memberId, propertyNumber);
+	public int urgentPropertyLog(String adAccount, String propertyNumber) {
+		int result = propertyLogRepository.insertUrgentPropertyLog(adAccount, propertyNumber);
 		return result;
 	}
 
-	public int releaseProperty(String memberId, String propertyNumber) {
-		int result = propertyLogRepository.deleteReleaseProperty(memberId, propertyNumber);
+	public int releaseProperty(String adAccount, String propertyNumber) {
+		int result = propertyLogRepository.deleteReleaseProperty(adAccount, propertyNumber);
 		return result;
 	}
 
-	public int releasePropertyLog(String memberId, String propertyNumber) {
-		int result = propertyLogRepository.updateReleaseLogProperty(memberId, propertyNumber);
+	public int releasePropertyLog(String adAccount, String propertyNumber) {
+		int result = propertyLogRepository.updateReleaseLogProperty(adAccount, propertyNumber);
 		return result;
 	}
 
@@ -55,18 +55,18 @@ public class PropertyLogService {
 		return result;
 	}
 
-	public int withdrawEqiupmentThatOwnedRetireMember(String memberId) {
-		int result = propertyLogRepository.releaseAllEquipmentOnRetireMember(memberId);
+	public int withdrawEqiupmentThatOwnedRetireMember(String adAccount) {
+		int result = propertyLogRepository.releaseAllEquipmentOnRetireMember(adAccount);
 		return result;
 	}
 
-	public int withdrawEqiupmentThatOwnedRetireMemberLog(String memberId) {
-		int result = propertyLogRepository.logWithdrawDateOfRetireMembersEquipment(memberId);
+	public int withdrawEqiupmentThatOwnedRetireMemberLog(String adAccount) {
+		int result = propertyLogRepository.logWithdrawDateOfRetireMembersEquipment(adAccount);
 		return result;
 	}
 
-	public List<PropertyLogModel> getPersonalLog(String memberId) {
-		List<PropertyLogModel> result = propertyLogRepository.selectPersonalLog(memberId);
+	public List<PropertyLogModel> getPersonalLog(String adAccount) {
+		List<PropertyLogModel> result = propertyLogRepository.selectPersonalLog(adAccount);
 		for (int index = 0; index < result.size(); index++) {
 			if (result.get(index).getUrgentDate() != null)
 				result.get(index).setUrgentDate(new java.sql.Date(result.get(index).getUrgentDate().getTime()));

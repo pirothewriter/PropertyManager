@@ -72,8 +72,8 @@
 			});
 			
 			$(".view_log").click(function(){
-				var memberId = this.value;
-				var popupUrl = "/personalLog.tmon?memberId=" + memberId;
+				var adAccount = this.value;
+				var popupUrl = "/personalLog.tmon?adAccount=" + adAccount;
 				var popupOption = "width=400, heignt=300, resizable=false, scrollbars=false";
 				
 				window.open(popupUrl, "", popupOption);
@@ -110,7 +110,6 @@
 			<table id="memberTable">
 			<tbody>
 				<tr>
-					<th>사원번호</th>
 					<th>사원명</th>
 					<th>소속부서(大)</th>
 					<th>소속부서(小)</th>
@@ -120,13 +119,12 @@
 				</tr>
 				 <c:forEach var="member" items="${retiredMembers}" varStatus="status">
 				 <tr>
-				    <td>${member.memberId }</td>
 				    <td>${member.memberName }</td>
 				    <td>${member.upperDivision }</td>
 				    <td>${member.lowerDivision }</td>
 				    <td>${member.adAccount }</td>
 				    <td>${member.officePhoneNumber }</td>
-				    <td><button type="button" class="view_log" value="${member.memberId }">보기</button></td>
+				    <td><button type="button" class="view_log" value="${member.adAccount }">보기</button></td>
 				</tr>
 				</c:forEach>
 			</tbody> 

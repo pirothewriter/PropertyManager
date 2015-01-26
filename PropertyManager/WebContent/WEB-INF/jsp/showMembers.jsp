@@ -35,9 +35,9 @@
 				$("#inputDirectLowerDivision").removeAttr("name");
 			});
 			
-			$(".modifyMember[id^='memberId']").on("click", function(){
+			$(".modifyMember[id^='adAccount']").on("click", function(){
 				var value = this.value;
-				document.location.href="/modifyMember.tmon?memberId=" + value;
+				document.location.href="/modifyMember.tmon?adAccount=" + value;
 			});
 			
 			$("#insertProperty").on("click", function(){
@@ -164,7 +164,6 @@
 			<table id="memberTable">
 			<tbody>
 				<tr>
-					<th>사원번호</th>
 					<th>사원명</th>
 					<th>소속부서(大)</th>
 					<th>소속부서(小)</th>
@@ -175,14 +174,13 @@
 				</tr>
 				 <c:forEach var="member" items="${members}" varStatus="status">
 				 <tr>
-				    <td>${member.memberId }</td>
 				    <td>${member.memberName }</td>
 				    <td>${member.upperDivision }</td>
 				    <td>${member.lowerDivision }</td>
 				    <td>${member.adAccount }</td>
 				    <td>${member.officePhoneNumber }</td>
-				    <td><button type="submit" name='memberId' class="showDetailInfo" value="${member.memberId }">보기</button></td>
-				    <td><button type="button" class="modifyMember" id="memberId${member.memberId }" value="${member.memberId }">수정</button></td>
+				    <td><button type="submit" name='adAccount' class="showDetailInfo" value="${member.adAccount }">보기</button></td>
+				    <td><button type="button" class="modifyMember" id="adAccount${member.adAccount }" value="${member.adAccount }">수정</button></td>
 				</tr>
 				</c:forEach>
 			</tbody> 

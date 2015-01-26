@@ -20,30 +20,30 @@ public class PropertyLogRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public Date getPropertyNowStatus(String propertyNumber, String memberId) {
+	public Date getPropertyNowStatus(String propertyNumber, String adAccount) {
 		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
-		Date result = propertyLogMapper.selectPropertyNow(propertyNumber, memberId);
+		Date result = propertyLogMapper.selectPropertyNow(propertyNumber, adAccount);
 		return new java.sql.Date(result.getTime());
 	}
 
-	public int insertUrgentProperty(String memberId, String propertyNumber) {
+	public int insertUrgentProperty(String adAccount, String propertyNumber) {
 		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
-		return propertyLogMapper.insertUrgentProperty(memberId, propertyNumber);
+		return propertyLogMapper.insertUrgentProperty(adAccount, propertyNumber);
 	}
 
-	public int insertUrgentPropertyLog(String memberId, String propertyNumber) {
+	public int insertUrgentPropertyLog(String adAccount, String propertyNumber) {
 		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
-		return propertyLogMapper.insertUrgentPropertyLog(memberId, propertyNumber);
+		return propertyLogMapper.insertUrgentPropertyLog(adAccount, propertyNumber);
 	}
 
-	public int deleteReleaseProperty(String memberId, String propertyNumber) {
+	public int deleteReleaseProperty(String adAccount, String propertyNumber) {
 		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
-		return propertyLogMapper.deleteReleaseProperty(memberId, propertyNumber);
+		return propertyLogMapper.deleteReleaseProperty(adAccount, propertyNumber);
 	}
 
-	public int updateReleaseLogProperty(String memberId, String propertyNumber) {
+	public int updateReleaseLogProperty(String adAccount, String propertyNumber) {
 		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
-		return propertyLogMapper.updateReleaseLogProperty(memberId, propertyNumber);
+		return propertyLogMapper.updateReleaseLogProperty(adAccount, propertyNumber);
 	}
 
 	public List<PropertyLogModel> selectEquipmentLog(String propertyNumber) {
@@ -51,19 +51,19 @@ public class PropertyLogRepository {
 		return propertyLogMapper.selectPropertyLog(propertyNumber);
 	}
 
-	public int releaseAllEquipmentOnRetireMember(String memberId) {
+	public int releaseAllEquipmentOnRetireMember(String adAccount) {
 		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
-		return propertyLogMapper.releaseAllEquipmentOnRetireMember(memberId);
+		return propertyLogMapper.releaseAllEquipmentOnRetireMember(adAccount);
 	}
 
-	public int logWithdrawDateOfRetireMembersEquipment(String memberId) {
+	public int logWithdrawDateOfRetireMembersEquipment(String adAccount) {
 		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
-		return propertyLogMapper.logWithdrawDateOfRetireMembersEquipment(memberId);
+		return propertyLogMapper.logWithdrawDateOfRetireMembersEquipment(adAccount);
 	}
 
-	public List<PropertyLogModel> selectPersonalLog(String memberId) {
+	public List<PropertyLogModel> selectPersonalLog(String adAccount) {
 		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
-		return propertyLogMapper.selectPersonalLog(memberId);
+		return propertyLogMapper.selectPersonalLog(adAccount);
 	}
 
 }

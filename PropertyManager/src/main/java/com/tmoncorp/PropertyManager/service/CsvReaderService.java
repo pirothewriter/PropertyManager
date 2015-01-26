@@ -40,7 +40,7 @@ public class CsvReaderService {
 
 	@Autowired
 	private CsvReaderRepository csvReaderRepository;
-	
+
 	@Autowired
 	private CategoryService categoryService;
 
@@ -81,13 +81,13 @@ public class CsvReaderService {
 		EquipmentModel equipmentModel = new EquipmentModel();
 
 		for (int index = CSV_START_ROW; index < mapped.size(); index++) {
-			String[] tempMember = new String[6];
+			String[] tempMember = new String[5];
 			String[] tempProperties = new String[11];
 
 			String[] tempArray = mapped.get(index);
 			tempArray = convertUtf8(tempArray);
-			System.arraycopy(tempArray, 0, tempMember, 0, 6);
-			System.arraycopy(tempArray, 6, tempProperties, 0, 11);
+			System.arraycopy(tempArray, 0, tempMember, 0, 5);
+			System.arraycopy(tempArray, 5, tempProperties, 0, 11);
 
 			if (checkNullValue(tempMember) == true) {
 				memberModel = generateMemberModel(tempMember);
@@ -101,8 +101,8 @@ public class CsvReaderService {
 			}
 
 			if (checkNullValue(tempMember) == true && checkNullValue(tempProperties) == true) {
-				propertyLogRepository.insertUrgentProperty(memberModel.getMemberId(), equipmentModel.getPropertyNumber());
-				propertyLogRepository.insertUrgentPropertyLog(memberModel.getMemberId(), equipmentModel.getPropertyNumber());
+				propertyLogRepository.insertUrgentProperty(memberModel.getAdAccount(), equipmentModel.getPropertyNumber());
+				propertyLogRepository.insertUrgentPropertyLog(memberModel.getAdAccount(), equipmentModel.getPropertyNumber());
 				result++;
 			}
 		}
@@ -115,13 +115,13 @@ public class CsvReaderService {
 		String[] correctForm;
 
 		if (inputType.compareTo("member") == 0) {
-			String tmp[] = { "사원번호", "사원명", "부서명(大)", "부서명(小)", "AD계정", "내선번호" };
+			String tmp[] = { "사원명", "부서명(大)", "부서명(小)", "AD계정", "내선번호" };
 			correctForm = tmp;
 		} else if (inputType.compareTo("property") == 0) {
 			String tmp[] = { "자산번호", "자산구분(大)", "자산구분(小)", "자산명", "자산정보1", "자산정보2", "자산입고일(IT유닛 입고 당일)", "자산입고일(재무팀 월말)", "자산제조사", "자산판매사", "자산구매단가" };
 			correctForm = tmp;
 		} else if (inputType.compareTo("mapped") == 0) {
-			String tmp[] = { "사원번호", "사원명", "부서명(大)", "부서명(小)", "AD계정", "내선번호", "자산번호", "자산구분(大)", "자산구분(小)", "자산명", "자산정보1", "자산정보2", "자산입고일(IT유닛 입고 당일)", "자산입고일(재무팀 월말)", "자산제조사", "자산판매사", "자산구매단가" };
+			String tmp[] = { "사원명", "부서명(大)", "부서명(小)", "AD계정", "내선번호", "자산번호", "자산구분(大)", "자산구분(小)", "자산명", "자산정보1", "자산정보2", "자산입고일(IT유닛 입고 당일)", "자산입고일(재무팀 월말)", "자산제조사", "자산판매사", "자산구매단가" };
 			correctForm = tmp;
 		} else {
 			return false;
@@ -172,12 +172,11 @@ public class CsvReaderService {
 
 	private MemberModel generateMemberModel(String[] csvParsedString) {
 		MemberModel memberModel = new MemberModel();
-		memberModel.setMemberId(csvParsedString[0]);
-		memberModel.setMemberName(csvParsedString[1]);
-		memberModel.setUpperDivision(csvParsedString[2]);
-		memberModel.setLowerDivision(csvParsedString[3]);
-		memberModel.setAdAccount(csvParsedString[4]);
-		memberModel.setOfficePhoneNumber(Integer.parseInt(csvParsedString[5]));
+		memberModel.setMemberName(csvParsedString[0]);
+		memberModel.setUpperDivision(csvParsedString[1]);
+		memberModel.setLowerDivision(csvParsedString[2]);
+		memberModel.setAdAccount(csvParsedString[3]);
+		memberModel.setOfficePhoneNumber(Integer.parseInt(csvParsedString[4]));
 
 		memberModel = setDivisionCode(memberModel);
 
@@ -226,7 +225,7 @@ public class CsvReaderService {
 		int code = NO_EXIST_CATEGORY_CODE;
 
 		for (int index = 0; index < categories.size(); index++) {
-			if (divisionName.compareTo(categories.get(index).getCategoryName()) == 0){
+			if (divisionName.compareTo(categories.get(index).getCategoryName()) == 0) {
 				code = categories.get(index).getCategoryCode();
 				break;
 			}

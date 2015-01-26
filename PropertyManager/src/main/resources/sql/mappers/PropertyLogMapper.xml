@@ -6,7 +6,7 @@
 <mapper namespace="com.tmoncorp.PropertyManager.repository.PropertyLogMapper">
 	<resultMap type="PropertyLogModel" id="PropertyLogResult">
 	<result property="propertyNumber" column="property_number" />
-	<result property="memberId" column="member_id" />
+	<result property="adAccount" column="ad_account" />
 	<result property="memberName" column="member_name" />
 	<result property="urgentDate" column ="urgent_date" />
 	<result property="withdrawDate" column="withdraw_date" />
@@ -14,13 +14,13 @@
 	
 	<select id="selectPropertyLog" resultMap="PropertyLogResult">
 		SELECT
-			L.property_number, M.member_name AS member_id, L.urgent_date, L.withdraw_date
+			L.property_number, M.member_name AS ad_account, L.urgent_date, L.withdraw_date
 		FROM
 			equipment_log L
 		LEFT JOIN
 			member M
 				ON
-					(L.member_id = M.member_id)
+					(L.ad_account = M.ad_account)
 		WHERE
 			L.property_number = #{propertyNumber}
 	</select>
@@ -33,30 +33,30 @@
 		WHERE
 			property_number = #{propertyNumber}
 				AND
-					member_id = #{memberId}
+					ad_account = #{adAccount}
 		LIMIT
 			1
 	</select>
 	
 	<insert id="insertUrgentProperty" parameterType="String">
 		INSERT
-			equipment_map_person(member_id, property_number)
+			equipment_map_person(ad_account, property_number)
 		VALUE
-			(#{memberId}, #{propertyNumber})
+			(#{adAccount}, #{propertyNumber})
 	</insert>
 	
 	<insert id="insertUrgentPropertyLog" parameterType="String">
 		INSERT
-			equipment_log(member_id, property_number, urgent_date)
+			equipment_log(ad_account, property_number, urgent_date)
 		VALUE
-			(#{memberId}, #{propertyNumber}, NOW())
+			(#{adAccount}, #{propertyNumber}, NOW())
 	</insert>
 	
 	<delete id="deleteReleaseProperty" parameterType="String">
 		DELETE FROM
 			equipment_map_person
 		WHERE
-			member_id = #{memberId} AND property_number = #{propertyNumber}
+			ad_account = #{adAccount} AND property_number = #{propertyNumber}
 	</delete>
 	
 	<update id="updateReleaseLogProperty" parameterType="String">
@@ -65,14 +65,14 @@
 		SET
 			withdraw_date = NOW()
 		WHERE
-			property_number = #{propertyNumber} AND member_id = #{memberId} 
+			property_number = #{propertyNumber} AND ad_account = #{adAccount} 
 	</update>
 		
 	<delete id="releaseAllEquipmentOnRetireMember" parameterType="String">
 		DELETE FROM
 			equipment_map_person
 		WHERE
-			member_id = #{memberId}
+			ad_account = #{adAccount}
 	</delete>
 	
 	<update id="logWithdrawDateOfRetireMembersEquipment" parameterType="String">
@@ -81,7 +81,7 @@
 		SET
 			withdraw_date = NOW()
 		WHERE
-			member_id = #{memberId} AND withdraw_date IS NULL
+			ad_account = #{adAccount} AND withdraw_date IS NULL
 	</update>
 	
 	<select id="selectPersonalLog" resultMap="PropertyLogResult">
@@ -90,6 +90,6 @@
 		FROM
 			equipment_log
 		WHERE
-			member_id = #{memberId}
+			ad_account = #{adAccount}
 	</select>
 </mapper>

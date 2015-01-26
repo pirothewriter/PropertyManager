@@ -25,9 +25,9 @@ public class EquipmentRepository {
 		return result;
 	}
 
-	public List<EquipmentModel> selectPropertyOnMember(String memberId) {
+	public List<EquipmentModel> selectPropertyOnMember(String adAccount) {
 		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
-		return equipmentMapper.selectPropertyOnMember(memberId);
+		return equipmentMapper.selectPropertyOnMember(adAccount);
 	}
 
 	public List<EquipmentModel> selectOwnerlessEquipments(int nowPage, int viewSolePage, String upperCategory, String lowerCategory) {

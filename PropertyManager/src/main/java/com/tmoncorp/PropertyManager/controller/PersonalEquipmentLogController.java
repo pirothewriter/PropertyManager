@@ -27,7 +27,7 @@ public class PersonalEquipmentLogController {
 	@RequestMapping(value="personalLog", method=RequestMethod.GET)
 	public ModelAndView showPersonalLog(HttpServletRequest request){
 		ModelAndView personalLogModelAndView = new ModelAndView();
-		List<PropertyLogModel> personalLog = propertyLogService.getPersonalLog(request.getParameter("memberId"));
+		List<PropertyLogModel> personalLog = propertyLogService.getPersonalLog(request.getParameter("adAccount"));
 		personalLogModelAndView.addObject("logs", personalLog);
 		personalLogModelAndView.setViewName("personalEquipmentLog");
 		return personalLogModelAndView;

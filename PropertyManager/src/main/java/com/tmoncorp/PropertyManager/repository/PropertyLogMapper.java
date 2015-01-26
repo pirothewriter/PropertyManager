@@ -16,19 +16,19 @@ import com.tmoncorp.PropertyManager.model.PropertyLogModel;
 public interface PropertyLogMapper {
 	List<PropertyLogModel> selectPropertyLog(String propertyNumber);
 
-	Date selectPropertyNow(@Param("propertyNumber") String propertyNumber, @Param("memberId") String memberId);
+	Date selectPropertyNow(@Param("propertyNumber") String propertyNumber, @Param("adAccount") String adAccount);
 
-	int insertUrgentProperty(@Param("memberId") String memberId, @Param("propertyNumber") String propertyNumber);
+	int insertUrgentProperty(@Param("adAccount") String adAccount, @Param("propertyNumber") String propertyNumber);
 
-	int insertUrgentPropertyLog(@Param("memberId") String memberId, @Param("propertyNumber") String propertyNumber);
+	int insertUrgentPropertyLog(@Param("adAccount") String adAccount, @Param("propertyNumber") String propertyNumber);
 
-	int deleteReleaseProperty(@Param("memberId") String memberId, @Param("propertyNumber") String propertyNumber);
+	int deleteReleaseProperty(@Param("adAccount") String adAccount, @Param("propertyNumber") String propertyNumber);
 	
-	int updateReleaseLogProperty(@Param("memberId") String memberId, @Param("propertyNumber") String propertyNumber);
+	int updateReleaseLogProperty(@Param("adAccount") String adAccount, @Param("propertyNumber") String propertyNumber);
 
-	int releaseAllEquipmentOnRetireMember(String memberId);
+	int releaseAllEquipmentOnRetireMember(String adAccount);
 
-	int logWithdrawDateOfRetireMembersEquipment(String memberId);
+	int logWithdrawDateOfRetireMembersEquipment(String adAccount);
 
-	List<PropertyLogModel> selectPersonalLog(String memberId);
+	List<PropertyLogModel> selectPersonalLog(String adAccount);
 }

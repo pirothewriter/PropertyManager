@@ -9,7 +9,6 @@ import java.sql.Date;
  */
 
 public class MemberModel {
-	private String memberId;
 	private String memberName;
 	private String upperDivision;
 	private String lowerDivision;
@@ -19,14 +18,6 @@ public class MemberModel {
 	private int officePhoneNumber;
 	private char isServed;
 	private Date retireDate;
-
-	public String getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
 
 	public String getMemberName() {
 		return memberName;
