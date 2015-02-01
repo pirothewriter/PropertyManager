@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Param;
  */
 
 public interface SecurityMapper {
-	public int insertUser(@Param("userName") String userName, @Param("password") String password);
+	public int insertUser(@Param("username") String userName);
+	
+	public int insertAuthority(@Param("username") String userName);
 
 }

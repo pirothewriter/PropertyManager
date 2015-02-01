@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tmoncorp.PropertyManager.model.CategoryModel;
 import com.tmoncorp.PropertyManager.service.CategoryService;
 import com.tmoncorp.PropertyManager.service.MemberService;
+import com.tmoncorp.PropertyManager.service.SecurityService;
 import com.tmoncorp.PropertyManager.util.JsonEncoding;
 
 /**
@@ -31,6 +32,9 @@ public class InsertMemberController {
 
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private SecurityService securityService;
 
 	@RequestMapping("/memberinsert")
 	public ModelAndView insertMember() {
@@ -67,13 +71,16 @@ public class InsertMemberController {
 
 	@RequestMapping(value = "/insertingMember", method = RequestMethod.POST)
 	public @ResponseBody String insertion(HttpServletRequest request) throws ParseException {
-		int affectedRows = memberService.insertMemberInfomation(request);
+		
+		int affectedRowsOfMemberTable = memberService.insertMemberInfomation(request);
+		int affectedRowsOfUserTable = securityService.insertUser(request.getParameter("adAccount"));
+		
 		String msg = "";
-		if (affectedRows == 0) {
+		if (affectedRowsOfMemberTable == 0 && affectedRowsOfUserTable == 0) {
 			msg = "FAIL";
 		}
 
-		else if (affectedRows == 1) {
+		else if (affectedRowsOfMemberTable == 1 && affectedRowsOfUserTable == 2) {
 			msg = "SUCCESS";
 		}
 

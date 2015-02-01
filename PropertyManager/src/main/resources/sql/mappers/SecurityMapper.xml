@@ -7,14 +7,22 @@
 	<resultMap type="SecurityModel" id="SecurityResult">
 	<result property="userName" column="username" />
 	<result property="password" column="password" />
-	<result property="authority" column="role" />
+	<result property="authority" column="authority" />
+	<result property="enabled" column="enabled" />
 	</resultMap>
 
-	<insert id = "insertUser">
+	<insert id="insertUser">
 		INSERT INTO
-			security
+			users
 		VALUES
-			(#{userName}, #{password}, 'ROLE_USER')
+			(#{username}, #{username}, 1)
 	</insert>
 	
+	<insert id="insertAuthority">
+		INSERT INTO
+			authorities
+		VALUES
+			(#{username}, 'ROLE_USER')
+	</insert>
+
 </mapper>

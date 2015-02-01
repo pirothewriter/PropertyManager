@@ -73,7 +73,7 @@
 		$("#inputForm").on("submit", function(event){
 			var num_regx = /^[0-9]+$/;
 			
-			else if($("form input[name=memberName]").val() == ''){
+			if($("form input[name=memberName]").val() == ''){
 				alert("사원명을 입력해주세요!");
 				return false;
 			}
@@ -108,12 +108,7 @@
 				return false;
 			}
 			
-			else if(! num_regx.test($("input")[0].value)){
-				alert("사원번호는 숫자만 들어갈 수 있습니다!");
-				return false;
-			}
-			
-			else if(! num_regx.test($("input")[5].value)){
+			else if(! num_regx.test($("input")[4].value)){
 				alert("내선번호는 숫자만 들어갈 수 있습니다!");
 				return false;
 			}
@@ -130,7 +125,7 @@
 							alert("등록되었습니다!");
 							location.reload(true);
 						} else {
-							alert("중복된 사원번호입니다. 다시 입력해주세요!");
+							alert("중복된 AD계정명입니다. 다시 입력해주세요!");
 						}
 					}
 				});

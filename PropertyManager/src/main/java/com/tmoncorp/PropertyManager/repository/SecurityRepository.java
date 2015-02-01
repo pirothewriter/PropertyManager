@@ -15,8 +15,11 @@ public class SecurityRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public int insertUser(String userName, String password) {
+	public int insertUser(String username) {
 		SecurityMapper securityMapper = sqlSession.getMapper(SecurityMapper.class);
-		return securityMapper.insertUser(userName, password);
+		int result = securityMapper.insertUser(username);
+		result += securityMapper.insertAuthority(username);
+
+		return result;
 	}
 }

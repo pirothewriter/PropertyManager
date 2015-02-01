@@ -10,20 +10,16 @@
 		<intercept-url pattern="../../js" access="permitAll" />
 		<intercept-url pattern="../../image" access="permitAll" />
 		<intercept-url pattern="../../csv" access="permitAll" />
+		<intercept-url pattern="/checkIsMember.tmon" access="permitAll" />
 		<intercept-url pattern="/login.tmon" access="permitAll" />
-		<intercept-url pattern="/*.tmon" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<form-login login-page="/login.tmon"
-			authentication-failure-url="/login.tmon?is_fail=true"
-			default-target-url="/showMembers.tmon" />
-		<logout logout-success-url="/login.tmon" invalidate-session="true" />
+		<intercept-url pattern="/*.tmon" access="hasAnyRole('ROLE_CREATER','ROLE_ADMIN','ROLE_USER')" />
 	</http>
 
 	<authentication-manager>
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query="SELECT username, password FROM security WHERE username = ?"
-				authorities-by-username-query="SELECT role as authority FROM security WHERE username = ?"
-				/>
+				users-by-username-query="SELECT username, password, enabled FROM users WHERE username = ?"
+				authorities-by-username-query="SELECT username, authority FROM authorities WHERE username = ?" />
 		</authentication-provider>
 	</authentication-manager>
 </beans:beans>
