@@ -43,6 +43,9 @@ public class CsvReaderService {
 
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private SecurityService securityService;
 
 	public int multipleMemberInsert(File csvFile) throws IOException {
 		List<String[]> membersList = csvReaderRepository.parsingCsv(csvFile);
@@ -53,6 +56,7 @@ public class CsvReaderService {
 			member = convertUtf8(member);
 			MemberModel model = generateMemberModel(member);
 
+			securityService.insertUser(model.getAdAccount());
 			result += memberRepository.insertMemberInfomation(model);
 		}
 
@@ -92,6 +96,7 @@ public class CsvReaderService {
 			if (checkNullValue(tempMember) == true) {
 				memberModel = generateMemberModel(tempMember);
 				memberRepository.insertMemberInfomation(memberModel);
+				securityService.insertUser(memberModel.getAdAccount());
 				result++;
 			}
 			if (checkNullValue(tempProperties) == true) {
