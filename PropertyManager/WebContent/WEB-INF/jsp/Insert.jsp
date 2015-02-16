@@ -130,7 +130,7 @@
 		    }
 	        });
 		
-		$("#inputForm").on("submit", function(event){
+		$("#inputForm").submit(function(event){
 			var num_regx = /^[0-9]+$/;
 			
 			if($("#propertyNumber").val() == ''){
@@ -200,8 +200,16 @@
 			}
 			
 			else if(! num_regx.test($("#propertyNumber").val())){
-				alert("자산번호 뒷자리는 숫자만 들어갈 수 있습니다!");
-				return false;
+				var propertyCode = $("#propertyNumber").val().substr(0, 3);
+				if(propertyCode == 'PCM' || propertyCode == 'SVR' || propertyCode == 'NET' || propertyCode == 'SIP' || propertyCode == 'IPT' || propertyCode == 'ETC'){
+					event.preventDefault();
+					$("#propertyHeadNumber").val(propertyCode);
+					$("#propertyNumber").val($("#propertyNumber").val().substr(3, $("#propertyNumber").val().length));
+					insertProperty();
+				} else {
+					alert("자산번호 뒷자리는 숫자만 들어갈 수 있습니다!");
+					return false;
+				}
 			}
 			
 			else if(! num_regx.test($("#propertyPrice").val())){
@@ -211,20 +219,7 @@
 			
 			else{
 				event.preventDefault();
-				$.ajax({
-					type : "POST",
-					cache : false,
-					url : 'inserting.tmon',
-					data : $(this).serialize(),
-					success : function(msg){
-						if(msg == 'SUCCESS'){
-							alert("등록되었습니다!");
-							location.reload(true);
-						} else {
-							alert("동일한 자산번호가 존재합니다!");
-						}
-					}
-				});
+				insertProperty();
 			}
 		});
 		
@@ -268,6 +263,23 @@
 			window.location.href = "csv/propertyinsert.csv";
 		});
 	})
+	
+	function insertProperty(){
+		$.ajax({
+			type : "POST",
+			cache : false,
+			url : 'inserting.tmon',
+			data : $("#inputForm").serialize(),
+			success : function(msg){
+				if(msg == 'SUCCESS'){
+					alert("등록되었습니다!");
+					location.reload(true);
+				} else {
+					alert("동일한 자산번호가 존재합니다!");
+				}
+			}
+		});
+	}
 </script>
 </head>
 <body>

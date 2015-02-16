@@ -21,4 +21,6 @@ public interface EquipmentMapper {
 
 	public int selectCountAllOwnerlessEquipment();
 
+	public EquipmentModel getPropertyInfomation(String propertyNumber);
+
 }

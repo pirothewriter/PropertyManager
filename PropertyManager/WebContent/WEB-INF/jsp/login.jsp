@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
 <head>
@@ -8,42 +9,29 @@
 <title>로그인</title>
 </head>
 <script type="text/javascript">
-$(document).ready(function(){
-	$("login").submit(function(event){
-		event.preventDefault();
-		$.ajax({
-			type:'POST',
-			cache:false,
-			url:'checkIsMember.tmon',
-			data:$(this).serialize(),
-			success:function(msg){
-				if(msg == 'LOGGED_IN')
-					alert("로그인 되었습니다!");
-				else if(msg == 'NO_MEMBER'){
-					alert("잘못된 아이디나 비밀번호입니다!");
-					location.reload(true);
-				}
-				return false;
-			},
-			error:function(msg){
-				alert('처리중 오류가 발생했습니다!');
-				return false;
-			}
-		});
-	});
-})
-
-	
+	function doLogin() {
+		if(frm.j_username.value == "") {
+			alert("아이디를 입력해주세요");
+			return false;
+		}
+		
+		if(frm.j_password.value == "") {
+			alert("패스워드를 입력해주세요");
+			return false;
+		}
+		
+		frm.submit();
+	}
 </script>
 <body>
 <div id="header">
 	티켓몬스터 자산관리 시스템입니다.
 </div>
 <div id="login_form">
-	<form id="login">
-		아이디 : <input type="text" id="username" class="username"><br>
-		비밀번호 : <input type="password" id="password" class="password"><br>
-		<input type="submit" value="로그인">
+	<form id="login" name="frm" action="j_spring_security_check" method="post">
+		아이디 : <input type="text" id="username" class="username" name="j_username"><br>
+		비밀번호 : <input type="password" id="password" class="password" name="j_password"><br>
+		<input type="submit" onClick="doLogin()" value="로그인">
 	</form>
 </div>
 </body>

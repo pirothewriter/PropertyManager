@@ -36,7 +36,7 @@ public class CategoryRepositoryTest {
 
 	@Test
 	public void 특정_카테고리를_정확히_셀렉하는지_테스트() {
-		assertEquals(categoryRepository.selectSpecificCategory("마케팅Wg"), 1);
+		assertEquals(categoryRepository.selectSpecificCategory("마케팅Wg"), 438);
 	}
 
 	@Transactional

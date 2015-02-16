@@ -40,4 +40,9 @@ public class EquipmentRepository {
 		return equipmentMapper.selectCountAllOwnerlessEquipment();
 	}
 
+	public EquipmentModel getPropertyInfomation(String propertyNumber) {
+		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
+		return equipmentMapper.getPropertyInfomation(propertyNumber);
+	}
+
 }

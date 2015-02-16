@@ -105,4 +105,8 @@ public class EquipmentService {
 	private int calculatePageToRow(int page, int viewSolePage) {
 		return (page - 1) * viewSolePage;
 	}
+
+	public EquipmentModel getPropertyInfomation(String propertyNumber) {
+		return equipmentRepository.getPropertyInfomation(propertyNumber);
+	}
 }

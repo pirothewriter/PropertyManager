@@ -55,6 +55,14 @@
 			
 			window.open(popupUrl, "", popupOption);
 		});
+		
+		$("#add_property_by_barcode").on("click", function(){
+			var adAccount = '${memberInfo.adAccount }';
+			var popupUrl = "/barcodeInput.tmon?adAccount=" + adAccount;
+			var popupOption = "width=500, heignt=200, resizable=false, scrollbars=false";
+			
+			window.open(popupUrl, "", popupOption);
+		});
 	})
 </script>
 </head>
@@ -76,9 +84,10 @@
 		</table>
 	</div>
 	<div id="navi">
-	<button type="button" id="back_to_list">목록으로</button>	
-	<button type="button" id="add_property">자산추가</button>
-	<button type="button" id="personalLog">개인장비 이력보기</button>
+		<button type="button" id="back_to_list">목록으로</button>	
+		<button type="button" id="add_property">자산추가</button>
+		<button type="button" id="add_property_by_barcode">바코드 입력</button>
+		<button type="button" id="personalLog">개인장비 이력보기</button>
 	</div>
 	<div id="propertyInfo">
 		<form method="post" name="releaseForm">

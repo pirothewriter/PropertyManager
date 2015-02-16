@@ -13,7 +13,7 @@
 		<result property="infomation2" column="infomation2" />
 		<result property="incommingItUnit" column="incomming_IT_Unit" />
 		<result property="incommingFinance" column="incomming_finance" />
-		<result property="producted" column="producted" />
+		<result property="productor" column="productor" />
 		<result property="seller" column="seller" />
 		<result property="price" column="price" />
 		<result property="user" column="user" />
@@ -82,5 +82,17 @@
 			(E.property_number = J.property_number)
 		WHERE
 			J.ad_account IS NULL
+	</select>
+	
+	<select id="getPropertyInfomation" parameterType="String" resultType="EquipmentModel">
+		SELECT
+			L.property_number, L.name, L.upper_category, L.lower_category, L.infomation1, L.infomation2, L.incomming_IT_Unit, L.incomming_finance, L.productor, L.seller, L.price, L.user
+		FROM
+			equipment L
+				LEFT JOIN 
+					equipment_map_person M
+						ON (M.property_number = L.property_number)
+		WHERE
+			L.property_number = #{propertyNumber} AND M.ad_account IS NULL
 	</select>
 </mapper>

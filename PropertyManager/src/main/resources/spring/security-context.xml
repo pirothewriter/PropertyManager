@@ -13,13 +13,11 @@
 		<intercept-url pattern="/checkIsMember.tmon" access="permitAll" />
 		<intercept-url pattern="/login.tmon" access="permitAll" />
 		<intercept-url pattern="/*.tmon" access="hasAnyRole('ROLE_CREATER','ROLE_ADMIN','ROLE_USER')" />
+		<form-login login-page="/login.tmon" default-target-url="/showMembers.tmon" />
+		<logout logout-success-url="/login.tmon" />
 	</http>
 
 	<authentication-manager>
-		<authentication-provider>
-			<jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query="SELECT username, password, enabled FROM users WHERE username = ?"
-				authorities-by-username-query="SELECT username, authority FROM authorities WHERE username = ?" />
-		</authentication-provider>
+		<authentication-provider user-service-ref="securityService" />
 	</authentication-manager>
 </beans:beans>

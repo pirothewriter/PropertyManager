@@ -175,7 +175,7 @@
 					<option value="phone">전화기</option>
 					<option value="etc">기타장비</option>
 				</select>
-				부서명(小) : <select id="selectLower" name="lowerCategory">
+				소분류 : <select id="selectLower" name="lowerCategory">
 				<option value=''>분류(小)</option>
 				</select>
 				<button type="button" id="searcherSubmit">검색</button>

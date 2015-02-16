@@ -22,4 +22,14 @@ public class SecurityRepository {
 
 		return result;
 	}
+
+	public String getPassword(String username) {
+		SecurityMapper securityMapper = sqlSession.getMapper(SecurityMapper.class);
+		return securityMapper.getPassword(username);
+	}
+
+	public String getRole(String username) {
+		SecurityMapper securityMapper = sqlSession.getMapper(SecurityMapper.class);
+		return securityMapper.getRole(username);
+	}
 }
