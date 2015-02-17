@@ -164,8 +164,8 @@
 <body>
 	<div id="wrapper">
 		<div id="searcher">
-			<form name="searcher">
-				대분류 : <select id="selectUpper" name="upperCategory">
+			<form name="searcher" role="form" class="form-inline">
+				대분류 : <select class="form-control" id="selectUpper" name="upperCategory">
 					<option value=''>분류(大)</option>
 					<option value="monitor">모니터</option>
 					<option value="desktop">데스크탑</option>
@@ -175,17 +175,17 @@
 					<option value="phone">전화기</option>
 					<option value="etc">기타장비</option>
 				</select>
-				소분류 : <select id="selectLower" name="lowerCategory">
+				소분류 : <select class="form-control" id="selectLower" name="lowerCategory">
 				<option value=''>분류(小)</option>
 				</select>
-				<button type="button" id="searcherSubmit">검색</button>
-				<button type="button" id="initializer">초기화</button>
+				<button type="button" class="btn btn-default" id="searcherSubmit">검색</button>
+				<button type="button" class="btn btn-danger" id="initializer">초기화</button>
 			</form>
 		</div>
-		<form method="post" name="mappingForm">
+		<form method="post" name="mappingForm" role="form" class="form-inline">
 			<div id="ownerlessProperties">
 				<input type="text" name="adAccount" value="${adAccount }" style="visibility:hidden; ">
-				<table>
+				<table class="table">
 					<tbody>
 					<tr>
 						<th>선택</th>
@@ -222,8 +222,8 @@
 					</tbody>
 				</table>
 				<%@ include file="pagenation.jsp" %>
-				<button type="submit" id="submitMapping">추가</button>
-				<button type="button" id="cancelUrgenting">취소</button>
+				<button class="btn btn-primary" type="submit" id="submitMapping">추가</button>
+				<button class="btn btn-default" type="button" id="cancelUrgenting">취소</button>
 			</div>
 		</form>
 	</div>

@@ -19,13 +19,13 @@
 			<form id="barcodeInput">
 				<input type="hidden" id="adAccount" name="adAccount" value="${adAccount }">
 				바코드 입력 : <input type="text" name="propertyNumber" id="barcode">
-				<button type="submit">입력</button>
+				<button class="btn btn-default" type="submit">입력</button>
 			</form>
 		</div>
 		<div id="properties">
 			<form id="urgentMultipleProperties">
 				<input type="hidden" id="adAccount" name="adAccount" value="${adAccount }">
-				<table id="toUrgentProperties">
+				<table id="toUrgentProperties" class="table">
 					<tbody>
 						<tr>
 							<th>선택</th>
@@ -33,7 +33,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<button type="submit">자산추가</button>
+				<button class="btn btn-primary" type="submit">자산추가</button>
 			</form>
 		</div>
 	</div>

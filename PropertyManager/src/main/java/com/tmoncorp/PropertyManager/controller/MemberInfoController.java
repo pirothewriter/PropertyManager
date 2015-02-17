@@ -94,7 +94,7 @@ public class MemberInfoController {
 		int affectedRowsOnMappingTable = propertyLogService.withdrawEqiupmentThatOwnedRetireMember(request.getParameter("adAccount"));
 		int affectedRowsOnLogTable = propertyLogService.withdrawEqiupmentThatOwnedRetireMemberLog(request.getParameter("adAccount"));
 		
-		if(affectedRowsOnLogTable * affectedRowsOnMappingTable * affectedRowsOnMemberTable == 0)
+		if(affectedRowsOnMemberTable == 0)
 			result = "ERROR";
 		else
 			result = "SUCCESS";
