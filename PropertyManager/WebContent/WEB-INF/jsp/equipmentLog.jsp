@@ -18,7 +18,7 @@
 </head>
 <body>
 	<div id="wrapper">
-		<table>
+		<table class='table'>
 			<tbody>
 				<tr>
 					<th>사용자</th>
@@ -27,7 +27,7 @@
 				</tr>
 				<c:forEach var="log" items="${equipmentLog}" varStatus="status">
 				 <tr>
-				    <td>${log.memberId }</td>
+				    <td>${log.adAccount }</td>
 				    <td>${log.urgentDate }</td>
 				    <td>${log.withdrawDate }</td>
 				</tr>

@@ -33,8 +33,6 @@
 	<nav class="navbar navbar-static-top navbar-default" role="navigation" style='border-bottom-style: solid; border-bottom-color: #666; padding-top: 10px; padding-bottom: 10px;'>
 	</nav>
 	<!-- navbar 끝 -->
-	
 	<decorator:body />
-</script>
 </body>
 </html>

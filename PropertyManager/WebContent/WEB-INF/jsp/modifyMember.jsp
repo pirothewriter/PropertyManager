@@ -65,7 +65,7 @@
 					type : "GET",
 					cache : false,
 					url : "/retireMember.tmon",
-					data : "memberId=${member.memberId}",
+					data : "adAccount=${member.adAccount}",
 					success : function(msg){
 						if(msg == 'SUCCESS'){
 							alert("정상적으로 퇴사처리되었습니다!");

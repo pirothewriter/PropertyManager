@@ -28,10 +28,10 @@
 	티켓몬스터 자산관리 시스템입니다.
 </div>
 <div id="login_form">
-	<form id="login" name="frm" action="j_spring_security_check" method="post">
-		아이디 : <input type="text" id="username" class="username" name="j_username"><br>
-		비밀번호 : <input type="password" id="password" class="password" name="j_password"><br>
-		<input type="submit" onClick="doLogin()" value="로그인">
+	<form id="login" class="form" name="frm" action="j_spring_security_check" method="post">
+		아이디 : <input class="form-control" type="text" id="username" class="username" name="j_username"><br>
+		비밀번호 : <input class="form-control" type="password" id="password" class="password" name="j_password"><br>
+		<input type="submit" class="btn btn-submit" onClick="doLogin()" value="로그인">
 	</form>
 </div>
 </body>

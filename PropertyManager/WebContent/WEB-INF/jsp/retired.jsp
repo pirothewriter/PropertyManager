@@ -88,52 +88,53 @@
 </head>
 <body>
 	<div id="wrapper">
-		<div id="seacher">
-			<form name="searcher">
-				부서명(大) : <select id="selectUpper" name="upperDivision">
-				<option value=''>부서명(大)</option>
-				<c:forEach var="category" items="${upperDivisions }" varStatus="status">
-				<option value="${category.categoryName }">${category.categoryName }</option>
-				</c:forEach>
-				</select>
-				부서명(小) : <select id="selectLower" name="lowerDivision">
-				<option value=''>부서명(小)</option>
-				</select>
-	
-				AD 계정 <input name = "adAccout" id="searchAdAccout">
-				사 원 명<input name = "nameOfMember" id="searchName">
-				<button type="button" id="searcherSubmit">검색</button>
-				<button type="button" id="initializer">초기화</button>
-			</form>
-		</div>
-		<div id="list">
-			<table id="memberTable">
-			<tbody>
-				<tr>
-					<th>사원명</th>
-					<th>소속부서(大)</th>
-					<th>소속부서(小)</th>
-					<th>AD 계정</th>
-					<th>내선번호</th>
-					<th>자산기록보기</th>
-				</tr>
-				 <c:forEach var="member" items="${retiredMembers}" varStatus="status">
-				 <tr>
-				    <td>${member.memberName }</td>
-				    <td>${member.upperDivision }</td>
-				    <td>${member.lowerDivision }</td>
-				    <td>${member.adAccount }</td>
-				    <td>${member.officePhoneNumber }</td>
-				    <td><button type="button" class="view_log" value="${member.adAccount }">보기</button></td>
-				</tr>
-				</c:forEach>
-			</tbody> 
+		<div id="seacher" class="form-group">
+				<span class="col-md-1" style="width:70%;">
+					<form class="form-inline" name="searcher">
+						<label>부서명(大)</label> <select class="form-control" id="selectUpper" name="upperDivision">
+						<option value=''>부서명(大)</option>
+						<c:forEach var="category" items="${upperDivisions }" varStatus="status">
+						<option value="${category.categoryName }">${category.categoryName }</option>
+						</c:forEach>
+						</select>
+						<label>부서명(小)</label> <select id="selectLower" class="form-control" name="lowerDivision">
+						<option value=''>부서명(小)</option>
+						</select>
+						<label>AD 계정</label> <input class="form-control" name = "adAccout" id="searchAdAccout">
+						<label>사원명</label><input class="form-control" name = "nameOfMember" id="searchName">
+						<button class="btn btn-default" type="button" id="searcherSubmit">검색</button>
+						<button class="btn btn-danger" type="button" id="initializer">초기화</button>
+					</form>
+				</span>
+			</div>
+			<div id="list">
+			<table id="memberTable" class="table table-condensed table-bordered">
+				<tbody>
+						<tr>
+							<th>사원명</th>
+							<th>소속부서(大)</th>
+							<th>소속부서(小)</th>
+							<th>AD 계정</th>
+							<th>내선번호</th>
+							<th>자산기록보기</th>
+						</tr>
+						 <c:forEach var="member" items="${retiredMembers}" varStatus="status">
+						 <tr>
+						    <td>${member.memberName }</td>
+						    <td>${member.upperDivision }</td>
+						    <td>${member.lowerDivision }</td>
+						    <td>${member.adAccount }</td>
+						    <td>${member.officePhoneNumber }</td>
+						    <td><button type="button" class="view_log btn btn-default" value="${member.adAccount }">보기</button></td>
+						</tr>
+						</c:forEach>
+				</tbody> 
 			</table>
-			<%@ include file="pagenation.jsp" %>
-		</div>
-		<div id="navi">
-		<button type="button" id="back_to_list">목록으로</button>
-		</div>
+				<%@ include file="pagenation.jsp" %>
+			</div>
+			<div id="navi">
+			<button type="button" id="back_to_list" class="btn btn-default">목록으로</button>
+			</div>
 	</div>
 </body>
 </html>

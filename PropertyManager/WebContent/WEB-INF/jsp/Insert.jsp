@@ -281,14 +281,17 @@
 		});
 	}
 </script>
+<style>
+#inputForm .form-control {width:15%;}
+</style>
 </head>
 <body>
 	<div id="wrapper">
 		<div id="list">
-			<form method="post" name="inputForm" id="inputForm">
-			자산번호 : <input type="text" id="propertyHeadNumber" name="propertyHeadNumber" readonly><input type="text" id="propertyNumber" name="propertyNumber"><br>
-			자산구분 : 
-			<select id="propertyUpperCategory" name="propertyUpperCategory">
+			<form method="post" name="inputForm" id="inputForm" role="form" class="form-inline">
+			<label>자산번호</label><input class="form-control" type="text" id="propertyHeadNumber" name="propertyHeadNumber" readonly><input class="form-control" type="text" id="propertyNumber" name="propertyNumber"><br>
+			<label>자산구분</label> 
+			<select class="form-control" id="propertyUpperCategory" name="propertyUpperCategory">
 				<option value="">대분류</option>
 				<option value="monitor">모니터</option>
 				<option value="desktop">데스크탑</option>
@@ -298,33 +301,28 @@
 				<option value="phone">전화기</option>
 				<option value="etc">기타장비</option>
 			</select>
-			<select id="propertyLowerCategory" name="propertyLowerCategory">
+			<select class="form-control" id="propertyLowerCategory" name="propertyLowerCategory">
 				<option value="">소분류</option>
-			</select>
-			<br>
-			자산명 : <input type="text" id="propertyName" name="propertyName"><br>
-			자산정보1 : <input type="text" id="propertyInfomation1" name="propertyInformation1"><br>
-			자산정보2 : <input type="text" id="propertyInfomation2" name="propertyInformation2"><br>
-			자산 입고일 : <input type="text" id="datepicker_it" name="propertyIncommingITUnit"><br>
-			(IT유닛 입고 당일)<br>
-			자산 입고일 : <input type="text" id="datepicker_finance" name="propertyIncommingFinance"><br>
-			(재무팀 월말)<br>
-			<p>
-			자산 제조사 : <input type="text" id="propertyProducted" name="propertyProducted"><br>
-			자산 판매사 : <input type="text" id="propertySeller" name="propertySeller"><br>
-			자산 구매 단가 : <input type="text" id="propertyPrice" name="propertyPrice"><br> 
-			
-			유저정보 : <input type="text" name="propertyUser" value="티켓몬스터" disabled><p>
-			<button type="submit" id="formSubmit">입력</button>
+			</select><br>
+			<label>자산명</label><input class="form-control" type="text" id="propertyName" name="propertyName"><br>
+			<label>자산정보1</label><input class="form-control" type="text" id="propertyInfomation1" name="propertyInformation1"><br>
+			<label>자산정보2</label><input class="form-control" type="text" id="propertyInfomation2" name="propertyInformation2"><br>
+			<label>자산 입고일<br>(IT유닛 입고 당일)</label><input class="form-control" type="text" id="datepicker_it" name="propertyIncommingITUnit"><br>
+			<label>자산 입고일<br>(재무팀 월말)</label><input class="form-control" type="text" id="datepicker_finance" name="propertyIncommingFinance"><br>
+			<label>자산 제조사</label><input class="form-control" type="text" id="propertyProducted" name="propertyProducted"><br>
+			<label>자산 판매사</label><input class="form-control" type="text" id="propertySeller" name="propertySeller"><br>
+			<label>자산 구매 단가</label><input class="form-control" type="text" id="propertyPrice" name="propertyPrice"><br>
+			<label>유저정보</label><input class="form-control" type="text" name="propertyUser" value="티켓몬스터" disabled><br>
+			<button type="submit" id="formSubmit" class="btn btn-success">입력</button>
 			</form>
 		</div>
-		<div id="csvForm">
-			<button type="button" id="btn_download_form">양식 다운로드</button><br>
+		<span id="csvForm" class="col-md-1" style="width:30%;">
 			<form id="submitForm" enctype="multipart/form-data">
-        		<input name="attachFile" id="attachFile" type="file" /><br/>
-        		<button type="button" id="btn_submit">upload</button>
-    		</form>
-		</div>
+				<input name="attachFile" id="attachFile" type="file" />
+				<button type="button" class="btn btn-primary" id="btn_submit">upload</button>
+				<button type="button" id="btn_download_form" class="btn btn-success">양식 다운로드</button>
+			</form>
+		</span>
 	</div>
 </body>
 </html>

@@ -49,7 +49,7 @@
 	<c:forEach var="index" begin="${startPage}" end="${endPage }" >
 	<span><a href="javascript:;" onclick="loadOtherPage(${index});">${index}</a></span>
 	</c:forEach>
-	<select name="viewSolePage" id="solePageSet">
+	<select name="viewSolePage" id="solePageSet" class="form-control" style="width:180px;">
 		<option value="">페이지 보기 설정</option>
 		<option value="10">10개씩 보기</option>
 		<option value="20">20개씩 보기</option>

@@ -175,36 +175,36 @@
 <body>
 	<div id="wrapper">
 		<div id="list">
-			<form id="inputForm" method="post" name="inputForm">
-			사 원 명 : <input type="text" name="memberName"><br>
-			부서명(大) : <select id="selectUpper" name="upperDivision">
+			<form id="inputForm" method="post" name="inputForm" role="form" class="form-inline">
+			<label>사원명</label><input class="form-control" type="text" name="memberName"><br>
+			<label>부서명(大)</label><select class="form-control" id="selectUpper" name="upperDivision">
 			<option value=''>부서명(大)</option>
 			<c:forEach var="category" items="${upperCategory }" varStatus="status">
 			<option value="${category.categoryName }">${category.categoryName }</option>
 			</c:forEach>
 			<option value="directInput">직접입력</option>
 			</select>
-			<input type="text" id="inputDirectUpperDivision" disabled value="직접입력"><br>
-			부서명(小) : <select id="selectLower" name="lowerDivision">
+			<input class="form-control" type="text" id="inputDirectUpperDivision" disabled value="직접입력"><br>
+			<label>부서명(小)</label><select class="form-control" id="selectLower" name="lowerDivision">
 			<option value=''>부서명(소)</option>
 			<c:forEach var="category" items="${lowerCategory }" varStatus="status">
 			<option value="${category.categoryName }">${category.categoryName }</option>
 			</c:forEach>
 			<option value="directInput">직접입력</option>
 			</select>
-			<input type="text" id="inputDirectLowerDivision" disabled value="직접입력"><br>
-			AD계정 : <input type="text" name="adAccount"><br>
-			내선번호 : <input type="text" name="officePhoneNumber"><br>
-			<button type="submit" id="formSubmit">입력</button>
+			<input class="form-control" type="text" id="inputDirectLowerDivision" disabled value="직접입력"><br>
+			<label>AD계정</label><input class="form-control" type="text" name="adAccount"><br>
+			<label>내선번호</label><input class="form-control" type="text" name="officePhoneNumber"><br>
+			<button type="submit" id="formSubmit" class="btn btn-success">입력</button>
 			</form>
 		</div>
-		<div id="csvForm">
-			<button type="button" id="btn_download_form">양식 다운로드</button><br>
+		<span id="csvForm" class="col-md-1" style="width:30%;">
 			<form id="submitForm" enctype="multipart/form-data">
-        		<input name="attachFile" id="attachFile" type="file" /><br/>
-        		<button type="button" id="btn_submit">upload</button>
-    		</form>
-		</div>
+				<input name="attachFile" id="attachFile" type="file" />
+				<button type="button" class="btn btn-primary" id="btn_submit">upload</button>
+				<button type="button" id="btn_download_form" class="btn btn-success">양식 다운로드</button>
+			</form>
+		</span>
 	</div>
 </body>
 </html>

@@ -35,7 +35,7 @@
 				$("#inputDirectLowerDivision").removeAttr("name");
 			});
 			
-			$(".modifyMember[id^='adAccount']").on("click", function(){
+			$("button[excute='modifyMember']").on("click", function(){
 				var value = this.value;
 				document.location.href="/modifyMember.tmon?adAccount=" + value;
 			});
@@ -141,27 +141,36 @@
 </head>
 <body>
 	<div id="wrapper">
-		<div id="seacher">
-			<form name="searcher">
-				부서명(大) : <select id="selectUpper" name="upperDivision">
-				<option value=''>부서명(大)</option>
-				<c:forEach var="category" items="${upperDivisions }" varStatus="status">
-				<option value="${category.categoryName }">${category.categoryName }</option>
-				</c:forEach>
-				</select>
-				부서명(小) : <select id="selectLower" name="lowerDivision">
-				<option value=''>부서명(小)</option>
-				</select>
-	
-				AD 계정 <input name = "adAccout" id="searchAdAccout">
-				사 원 명<input name = "nameOfMember" id="searchName">
-				<button type="button" id="searcherSubmit">검색</button>
-				<button type="button" id="initializer">초기화</button>
-			</form>
+		<div id="seacher" class="form-group">
+				<span class="col-md-1" style="width:70%;">
+					<form class="form-inline" name="searcher">
+						<label>부서명(大)</label> <select class="form-control" id="selectUpper" name="upperDivision">
+						<option value=''>부서명(大)</option>
+						<c:forEach var="category" items="${upperDivisions }" varStatus="status">
+						<option value="${category.categoryName }">${category.categoryName }</option>
+						</c:forEach>
+						</select>
+						<label>부서명(小)</label> <select id="selectLower" class="form-control" name="lowerDivision">
+						<option value=''>부서명(小)</option>
+						</select>
+						<label>AD 계정</label> <input class="form-control" name = "adAccout" id="searchAdAccout">
+						<label>사원명</label><input class="form-control" name = "nameOfMember" id="searchName">
+						<button class="btn btn-default" type="button" id="searcherSubmit">검색</button>
+						<button class="btn btn-danger" type="button" id="initializer">초기화</button>
+					</form>
+				</span>
+				
+				<span id="csvForm" class="col-md-1" style="width:30%;">
+					<form id="submitForm" enctype="multipart/form-data">
+		        		<input name="attachFile" id="attachFile" type="file" />
+		        		<button type="button" class="btn btn-primary" id="btn_submit">upload</button>
+		        		<button type="button" id="btn_download_form" class="btn btn-success">양식 다운로드</button>
+		    		</form>
+				</span>
 		</div>
 		<div id="list">
 			<form action="/memberInfo.tmon" method="get" name="members">
-			<table id="memberTable">
+			<table id="memberTable" class="table table-condensed table-bordered">
 			<tbody>
 				<tr>
 					<th>사원명</th>
@@ -179,8 +188,8 @@
 				    <td>${member.lowerDivision }</td>
 				    <td>${member.adAccount }</td>
 				    <td>${member.officePhoneNumber }</td>
-				    <td><button type="submit" name='adAccount' class="showDetailInfo" value="${member.adAccount }">보기</button></td>
-				    <td><button type="button" class="modifyMember" id="adAccount${member.adAccount }" value="${member.adAccount }">수정</button></td>
+				    <td><button type="submit" name='adAccount' class="btn btn-default" value="${member.adAccount }">보기</button></td>
+				    <td><button type="button" excute="modifyMember" class="btn btn-primary" id="adAccount${member.adAccount }" value="${member.adAccount }">수정</button></td>
 				</tr>
 				</c:forEach>
 			</tbody> 
@@ -188,17 +197,12 @@
 			<%@ include file="pagenation.jsp" %>
 			</form>
 		</div>
-		<div id="test">
-		<button type="button" id="insertProperty">자산등록</button>
-		<button type="button" id="insertMember">사원등록</button>
-		<button type="button" id="showRetired">퇴사자 보기</button>
-		</div>
-		<div id="csvForm">
-			<button type="button" id="btn_download_form">양식 다운로드</button><br>
-			<form id="submitForm" enctype="multipart/form-data">
-        		<input name="attachFile" id="attachFile" type="file" /><br/>
-        		<button type="button" id="btn_submit">upload</button>
-    		</form>
+		<div>
+		<span id="goOtherPage">
+		<button type="button" id="insertProperty" class="btn btn-info">자산등록</button>
+		<button type="button" id="insertMember" class="btn btn-info">사원등록</button>
+		<button type="button" id="showRetired" class="btn btn-warning">퇴사자 보기</button>
+		</span>
 		</div>
 	</div>
 </body>

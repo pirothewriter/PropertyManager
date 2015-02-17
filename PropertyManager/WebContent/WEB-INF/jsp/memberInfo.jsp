@@ -69,30 +69,28 @@
 <body>
 <div id="wrapper">
 	<div id="memberInfo">
-		<table>
+		<table class="table table-bordered">
 			<tbody>
 				<tr>
-					<td><b>사원명 : </b></td><td>${memberInfo.memberName }</td>
-					<td><b>AD계정 : </b></td><td>${memberInfo.adAccount }</td>
-				</tr>
-				<tr>
-					<td><b>소속부서(大) : </b></td><td>${memberInfo.upperDivision }</td>
-					<td><b>소속부서(小) : </b></td><td>${memberInfo.lowerDivision }</td>
-					<td><b>내선번호 : </b></td><td>${memberInfo.officePhoneNumber }</td>
+					<th>사원명</th><td>${memberInfo.memberName }</td>
+					<th>AD계정</th><td>${memberInfo.adAccount }</td>
+					<th>소속부서(大) : </th><td>${memberInfo.upperDivision }</td>
+					<th>소속부서(小) : </th><td>${memberInfo.lowerDivision }</td>
+					<th><b>내선번호 : </th><td>${memberInfo.officePhoneNumber }</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<div id="navi">
-		<button type="button" id="back_to_list">목록으로</button>	
-		<button type="button" id="add_property">자산추가</button>
-		<button type="button" id="add_property_by_barcode">바코드 입력</button>
-		<button type="button" id="personalLog">개인장비 이력보기</button>
+		<button class="btn btn-default" type="button" id="back_to_list">목록으로</button>	
+		<button class="btn btn-default" type="button" id="add_property">자산추가</button>
+		<button class="btn btn-default" type="button" id="add_property_by_barcode">바코드 입력</button>
+		<button class="btn btn-default" type="button" id="personalLog">개인장비 이력보기</button>
 	</div>
 	<div id="propertyInfo">
 		<form method="post" name="releaseForm">
 			<input type="text" name="adAccount" value="${memberInfo.adAccount }" style="visibility:hidden; ">
-			<table>
+			<table class="table">
 				<tbody>
 				<tr>
 					<th>선택</th>
@@ -125,12 +123,12 @@
 					<td>${property.seller }</td>
 					<td>${property.price }</td>
 					<td>${property.urgentDate }</td>
-					<td><button type="button" class="view_log" value="${property.propertyNumber }">보기</button>
+					<td><button type="button" class="view_log btn btn-default" value="${property.propertyNumber }">보기</button>
 				</tr>
 				</c:forEach>
 				</tbody>
 			</table>
-			<button type="submit" id="release_properties">자산회수</button>
+			<button class="btn btn-warning" type="submit" id="release_properties">자산회수</button>
 		</form>
 	</div>
 </div>
