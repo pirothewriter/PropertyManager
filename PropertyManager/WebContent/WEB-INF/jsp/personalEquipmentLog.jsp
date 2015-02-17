@@ -18,7 +18,7 @@
 </head>
 <body>
 	<div id="wrapper">
-		<table>
+		<table class="table">
 			<tbody>
 				<tr>
 					<th>장비번호</th>
