@@ -24,15 +24,14 @@
 	}
 </script>
 <body>
-<div id="header">
-	티켓몬스터 자산관리 시스템입니다.
-</div>
-<div id="login_form">
+<div align="center">
+<div style="width:500px;" id="login_form">
 	<form id="login" class="form" name="frm" action="j_spring_security_check" method="post">
-		아이디 : <input class="form-control" type="text" id="username" class="username" name="j_username"><br>
-		비밀번호 : <input class="form-control" type="password" id="password" class="password" name="j_password"><br>
-		<input type="submit" class="btn btn-submit" onClick="doLogin()" value="로그인">
+		<p align="left">아이디</p><input class="form-control" type="text" id="username" class="username" name="j_username"><br>
+		<p align="left">비밀번호</p><input class="form-control" type="password" id="password" class="password" name="j_password"><br>
+		<p align="right"><input type="submit" class="btn btn-primary"onClick="doLogin()" value="로그인"></p>
 	</form>
+</div>
 </div>
 </body>
 </html>

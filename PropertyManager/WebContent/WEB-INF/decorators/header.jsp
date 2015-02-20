@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=utf-8"%>
 
 <!doctype html>
@@ -31,8 +32,15 @@
 <body>
 <!-- navbar 생성 -->
 	<nav class="navbar navbar-static-top navbar-default" role="navigation" style='border-bottom-style: solid; border-bottom-color: #666; padding-top: 10px; padding-bottom: 10px;'>
+	<div class="col-md-1" style="width:600px;"><b><h1>티몬 자산관리 시스템</h1></b></div>
+	<div style="padding-top:20px;"class="col-md=1" align="right">
+		<a href="<c:url value='/j_spring_security_logout' />"><button type="button" id="logout_button" class="btn btn-warning">로그아웃</button></a>
+	</div>
 	</nav>
 	<!-- navbar 끝 -->
 	<decorator:body />
 </body>
+<script type="text/javascript">	
+</script>
+
 </html>

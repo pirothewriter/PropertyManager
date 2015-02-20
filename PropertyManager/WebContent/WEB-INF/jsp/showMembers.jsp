@@ -142,7 +142,7 @@
 <body>
 	<div id="wrapper">
 		<div id="seacher" class="form-group">
-				<span class="col-md-1" style="width:70%;">
+				<span align="left" class="col-md-1" style="width:70%;">
 					<form class="form-inline" name="searcher">
 						<label>부서명(大)</label> <select class="form-control" id="selectUpper" name="upperDivision">
 						<option value=''>부서명(大)</option>
@@ -160,7 +160,7 @@
 					</form>
 				</span>
 				
-				<span id="csvForm" class="col-md-1" style="width:30%;">
+				<span align="right" id="csvForm" class="col-md-1" style="width:30%;">
 					<form id="submitForm" enctype="multipart/form-data">
 		        		<input name="attachFile" id="attachFile" type="file" />
 		        		<button type="button" class="btn btn-primary" id="btn_submit">upload</button>
