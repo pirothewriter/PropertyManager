@@ -32,9 +32,21 @@
 <body>
 <!-- navbar 생성 -->
 	<nav class="navbar navbar-static-top navbar-default" role="navigation" style='border-bottom-style: solid; border-bottom-color: #666; padding-top: 10px; padding-bottom: 10px;'>
-	<div class="col-md-1" style="width:600px;"><b><h1>티몬 자산관리 시스템</h1></b></div>
-	<div style="padding-top:20px;"class="col-md=1" align="right">
-		<a href="<c:url value='/j_spring_security_logout' />"><button type="button" id="logout_button" class="btn btn-warning">로그아웃</button></a>
+	<div class="page-header" style="margin-top:0px;">
+		<div class="col-md-1" align="left" style="padding-top:0px; width:70%;">
+			<h1>티몬 자산관리 시스템</h1>
+		</div>
+		<div class="col-md-1" align="right" style="padding-top:40px;width:30%;">
+			<a href="<c:url value='/j_spring_security_logout' />"><button type="button" id="logout_button" class="btn btn-warning">로그아웃</button></a>
+		</div>
+	</div>
+	<div>
+		<ul class="nav nav-pills">
+			<li><a href="/memberinsert.tmon">사원 추가</a></li>
+			<li><a href="/insert.tmon">자산 추가</a></li>
+			<li><a href="/showMembers.tmon">사원 목록</a></li>
+			<li><a href="/retired.tmon">퇴사자 목록</a></li>
+		</ul>
 	</div>
 	</nav>
 	<!-- navbar 끝 -->

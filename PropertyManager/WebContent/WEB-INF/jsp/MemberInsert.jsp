@@ -176,25 +176,35 @@
 	<div id="wrapper">
 		<div id="list">
 			<form id="inputForm" method="post" name="inputForm" role="form" class="form-inline">
-			<label>사원명</label><input class="form-control" type="text" name="memberName"><br>
-			<label>부서명(大)</label><select class="form-control" id="selectUpper" name="upperDivision">
-			<option value=''>부서명(大)</option>
-			<c:forEach var="category" items="${upperCategory }" varStatus="status">
-			<option value="${category.categoryName }">${category.categoryName }</option>
-			</c:forEach>
-			<option value="directInput">직접입력</option>
-			</select>
-			<input class="form-control" type="text" id="inputDirectUpperDivision" disabled value="직접입력"><br>
-			<label>부서명(小)</label><select class="form-control" id="selectLower" name="lowerDivision">
-			<option value=''>부서명(소)</option>
-			<c:forEach var="category" items="${lowerCategory }" varStatus="status">
-			<option value="${category.categoryName }">${category.categoryName }</option>
-			</c:forEach>
-			<option value="directInput">직접입력</option>
-			</select>
-			<input class="form-control" type="text" id="inputDirectLowerDivision" disabled value="직접입력"><br>
-			<label>AD계정</label><input class="form-control" type="text" name="adAccount"><br>
-			<label>내선번호</label><input class="form-control" type="text" name="officePhoneNumber"><br>
+			<table class="table table-striped">
+				<tr><th>사원명</th><td><input class="form-control" type="text" name="memberName"></td></tr>
+				<tr><th>부서명(大)</th>
+				<td>
+					<select class="form-control" id="selectUpper" name="upperDivision">
+					<option value=''>부서명(大)</option>
+					<c:forEach var="category" items="${upperCategory }" varStatus="status">
+					<option value="${category.categoryName }">${category.categoryName }</option>
+					</c:forEach>
+					<option value="directInput">직접입력</option>
+					</select>
+					<input class="form-control" type="text" id="inputDirectUpperDivision" disabled value="직접입력">
+				</td></tr>
+				<tr><th>부서명(小)</th>
+				<td>
+					<select class="form-control" id="selectLower" name="lowerDivision">
+					<option value=''>부서명(소)</option>
+					<c:forEach var="category" items="${lowerCategory }" varStatus="status">
+					<option value="${category.categoryName }">${category.categoryName }</option>
+					</c:forEach>
+					<option value="directInput">직접입력</option>
+					</select>
+					<input class="form-control" type="text" id="inputDirectLowerDivision" disabled value="직접입력">
+				</td></tr>
+				<tr><th>AD계정</th>
+				<td><input class="form-control" type="text" name="adAccount"></td></tr>
+				<tr><th>내선번호</th>
+				<td><input class="form-control" type="text" name="officePhoneNumber"></td></tr>
+			</table>
 			<button type="submit" id="formSubmit" class="btn btn-success">입력</button>
 			</form>
 		</div>

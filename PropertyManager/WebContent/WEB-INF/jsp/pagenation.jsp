@@ -46,15 +46,23 @@
 	})
 </script>
 <div id="pagenation">
-	<c:forEach var="index" begin="${startPage}" end="${endPage }" >
-	<span><a href="javascript:;" onclick="loadOtherPage(${index});">${index}</a></span>
-	</c:forEach>
-	<select name="viewSolePage" id="solePageSet" class="form-control" style="width:180px;">
-		<option value="">페이지 보기 설정</option>
-		<option value="10">10개씩 보기</option>
-		<option value="20">20개씩 보기</option>
-		<option value="30">30개씩 보기</option>
-		<option value="40">40개씩 보기</option>
-		<option value="50">50개씩 보기</option>
-	</select>
+<div>
+	<div class="col-mid-5" style="height:80px;">
+		<c:forEach var="index" begin="${startPage}" end="${endPage }" >
+		<ul class="pagination">
+			<li><a href="javascript:;" onclick="loadOtherPage(${index});">${index}</a></li>
+		</ul>
+		</c:forEach>
+	</div>
+	<div class="col-mid-5" style="height:80px;">
+		<select name="viewSolePage" id="solePageSet" class="form-control" style="width:180px;">
+			<option value="">페이지 보기 설정</option>
+			<option value="10">10개씩 보기</option>
+			<option value="20">20개씩 보기</option>
+			<option value="30">30개씩 보기</option>
+			<option value="40">40개씩 보기</option>
+			<option value="50">50개씩 보기</option>
+		</select>
+	</div>
+</div>
 </div>

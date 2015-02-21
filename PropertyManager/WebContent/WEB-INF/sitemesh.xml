@@ -4,7 +4,6 @@
         <parser default="true" class="com.opensymphony.module.sitemesh.parser.DefaultPageParser"/>
         <parser content-type="text/html" class="com.opensymphony.module.sitemesh.parser.FastPageParser"/>
     </page-parsers>
-    <excludes file="WEB-INF/decorators/exclude.xml"/>
     <decorator-mappers>
         
         <mapper class="com.opensymphony.module.sitemesh.mapper.PageDecoratorMapper">

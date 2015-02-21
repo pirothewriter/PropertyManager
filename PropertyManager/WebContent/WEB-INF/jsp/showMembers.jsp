@@ -142,7 +142,7 @@
 <body>
 	<div id="wrapper">
 		<div id="seacher" class="form-group">
-				<span align="left" class="col-md-1" style="width:70%;">
+				<span>
 					<form class="form-inline" name="searcher">
 						<label>부서명(大)</label> <select class="form-control" id="selectUpper" name="upperDivision">
 						<option value=''>부서명(大)</option>
@@ -158,14 +158,6 @@
 						<button class="btn btn-default" type="button" id="searcherSubmit">검색</button>
 						<button class="btn btn-danger" type="button" id="initializer">초기화</button>
 					</form>
-				</span>
-				
-				<span align="right" id="csvForm" class="col-md-1" style="width:30%;">
-					<form id="submitForm" enctype="multipart/form-data">
-		        		<input name="attachFile" id="attachFile" type="file" />
-		        		<button type="button" class="btn btn-primary" id="btn_submit">upload</button>
-		        		<button type="button" id="btn_download_form" class="btn btn-success">양식 다운로드</button>
-		    		</form>
 				</span>
 		</div>
 		<div id="list">
@@ -197,12 +189,12 @@
 			<%@ include file="pagenation.jsp" %>
 			</form>
 		</div>
-		<div>
-		<span id="goOtherPage">
-		<button type="button" id="insertProperty" class="btn btn-info">자산등록</button>
-		<button type="button" id="insertMember" class="btn btn-info">사원등록</button>
-		<button type="button" id="showRetired" class="btn btn-warning">퇴사자 보기</button>
-		</span>
+		<div id="csvForm" class="col-md-2" style="width:30%;">
+			<form id="submitForm" enctype="multipart/form-data">
+				<input name="attachFile" id="attachFile" type="file" />
+			    <button type="button" class="btn btn-primary" id="btn_submit">upload</button>
+			    <button type="button" id="btn_download_form" class="btn btn-success">양식 다운로드</button>
+			</form>
 		</div>
 	</div>
 </body>
