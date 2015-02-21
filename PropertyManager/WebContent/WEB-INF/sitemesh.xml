@@ -45,5 +45,6 @@
         </mapper>
         
     </decorator-mappers>
-    
+    <property name="decorators" value="/WEB-INF/decorators/decorators.xml" />
+	<excludes file="${decorators}" />
 </sitemesh>

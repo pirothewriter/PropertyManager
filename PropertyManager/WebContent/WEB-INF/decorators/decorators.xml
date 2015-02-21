@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <decorators defaultdir="/decorators">
+	<excludes>
+		<pattern>/login.tmon</pattern>
+		<pattern>/equipmentLog.tmon*</pattern>
+		<pattern>/personalLog.tmon*</pattern>
+		<pattern>/barcodeInput.tmon*</pattern>
+	</excludes>
 	<decorator name="header" page="/WEB-INF/decorators/header.jsp">
 		<pattern>*.tmon*</pattern>
 	</decorator>
