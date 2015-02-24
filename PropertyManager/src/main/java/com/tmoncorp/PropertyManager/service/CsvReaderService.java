@@ -181,7 +181,10 @@ public class CsvReaderService {
 		memberModel.setUpperDivision(csvParsedString[1]);
 		memberModel.setLowerDivision(csvParsedString[2]);
 		memberModel.setAdAccount(csvParsedString[3]);
-		memberModel.setOfficePhoneNumber(Integer.parseInt(csvParsedString[4]));
+		if(csvParsedString[4] == "")
+			memberModel.setOfficePhoneNumber(0);
+		else 
+			memberModel.setOfficePhoneNumber(Integer.parseInt(csvParsedString[4]));
 
 		memberModel = setDivisionCode(memberModel);
 

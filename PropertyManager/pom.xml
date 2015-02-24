@@ -14,8 +14,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-		<maven.compiler.target>1.7</maven.compiler.target>
-		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
 
 		<!-- spring -->
 		<spring-groupId>org.springframework</spring-groupId>
@@ -143,10 +143,12 @@
 				</plugin>
 
 				<plugin>
-					<artifactId>maven-war-plugin</artifactId>
-					<configuration>
-						<warSourceDirectory>${basedir}/webContent</warSourceDirectory>
-					</configuration>
+				  <groupId>org.apache.maven.plugins</groupId>
+				  <artifactId>maven-war-plugin</artifactId>
+				  <version>2.2</version>
+				  <configuration>
+				    <failOnMissingWebXml>false</failOnMissingWebXml>
+				  </configuration>
 				</plugin>
 
 				<plugin>
@@ -269,7 +271,7 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring-version}</version>
 		</dependency>
-		
+
 		<!-- DB -->
 
 		<dependency>

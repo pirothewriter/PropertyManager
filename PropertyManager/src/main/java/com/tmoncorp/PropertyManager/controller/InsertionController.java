@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tmoncorp.PropertyManager.model.EquipmentModel;
 import com.tmoncorp.PropertyManager.service.EquipmentService;
-import com.tmoncorp.PropertyManager.util.JsonEncoding;
 
 /**
  * 

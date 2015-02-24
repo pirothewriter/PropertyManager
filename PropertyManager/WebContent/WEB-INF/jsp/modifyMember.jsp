@@ -156,32 +156,35 @@
 	<div id="wrapper">
 		<div id="list">
 			<form role="form" method="post" name="inputForm" class="form-inline">
-			사 원 명 : <input class="form-control" type="text" name="memberName" value="${member.memberName }"><br>
-			부서명(大) : <select class="form-control" id="selectUpper" name="upperDivision">
-			<option value=''>부서명(大)</option>
-			<c:forEach var="category" items="${upperCategory }" varStatus="status">
-			<c:choose>
-			<c:when test="${category.categoryName eq member.upperDivision}">
-				<option value="${category.categoryName }" selected>${category.categoryName }</option>
-			</c:when>
-			<c:otherwise>
-				<option value="${category.categoryName }">${category.categoryName }</option>
-			</c:otherwise>
-			</c:choose>
-			</c:forEach>
-			<option value="directInput">직접입력</option>
-			</select>
-			<input type="text" class="form-control" id="inputDirectUpperDivision" disabled value="직접입력"><br>
-			부서명(小) : <select id="selectLower" class="form-control" name="lowerDivision">
-			<option value=''>부서명(소)</option>
-			<c:forEach var="category" items="${lowerCategory }" varStatus="status">
-			<option value="${category.categoryName }">${category.categoryName }</option>
-			</c:forEach>
-			<option value="directInput">직접입력</option>
-			</select>
-			<input type="text" id="inputDirectLowerDivision" class="form-control" disabled value="직접입력"><br>
-			AD계정 : <input type="text" name="adAccount" class="form-control" value="${member.adAccount }"><br>
-			내선번호 : <input type="text" name="officePhoneNumber" class="form-control" value="${member.officePhoneNumber }"><br>
+			<table class="table table-striped">
+				<tr><th>사원명</th><td><input class="form-control" type="text" name="memberName"></td></tr>
+				<tr><th>부서명(大)</th>
+				<td>
+					<select class="form-control" id="selectUpper" name="upperDivision">
+					<option value=''>부서명(大)</option>
+					<c:forEach var="category" items="${upperCategory }" varStatus="status">
+					<option value="${category.categoryName }">${category.categoryName }</option>
+					</c:forEach>
+					<option value="directInput">직접입력</option>
+					</select>
+					<input class="form-control" type="text" id="inputDirectUpperDivision" disabled value="직접입력">
+				</td></tr>
+				<tr><th>부서명(小)</th>
+				<td>
+					<select class="form-control" id="selectLower" name="lowerDivision">
+					<option value=''>부서명(소)</option>
+					<c:forEach var="category" items="${lowerCategory }" varStatus="status">
+					<option value="${category.categoryName }">${category.categoryName }</option>
+					</c:forEach>
+					<option value="directInput">직접입력</option>
+					</select>
+					<input class="form-control" type="text" id="inputDirectLowerDivision" disabled value="직접입력">
+				</td></tr>
+				<tr><th>AD계정</th>
+				<td><input class="form-control" type="text" name="adAccount"></td></tr>
+				<tr><th>내선번호</th>
+				<td><input class="form-control" type="text" name="officePhoneNumber"></td></tr>
+			</table>
 			<button type="submit" class="btn btn-success" id="formSubmit">수정</button>
 			<button type="button" class="btn btn-danger" id="retire">퇴사처리</button>
 			<button type="button" class="btn btn-default" id="cancel">취소</button>
