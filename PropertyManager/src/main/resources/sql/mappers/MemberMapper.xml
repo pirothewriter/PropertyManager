@@ -50,7 +50,7 @@
 				AND M.member_name like #{nameOfMember}
 			</if>
 		ORDER BY
-			ad_account DESC	
+			M.member_name ASC	
 		LIMIT
 			#{page}, #{viewSolePage}
 	</select>

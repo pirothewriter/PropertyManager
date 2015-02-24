@@ -59,7 +59,7 @@ public class MemberRepositoryTest {
 	@Test
 	public void 특정_사원정보를_들고오는지_테스트() {
 		memberMapper = sqlSession.getMapper(MemberMapper.class);
-		assertNotNull(memberMapper.selectAMember("test01"));
+		assertNotNull(memberMapper.selectAMember("pirothewriter"));
 	}
 	
 	@Test
