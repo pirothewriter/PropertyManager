@@ -42,4 +42,22 @@
 		WHERE
 			username = #{username}
 	</select>
+	
+	<update id="grantAdmin" parameterType="String">
+		UPDATE
+			authorities
+		SET
+			authority = "ROLE_ADMIN"
+		WHERE
+			username = #{adAccount}
+	</update>
+	
+	<update id="revokeAdmin" parameterType="String">
+		UPDATE
+			authorities
+		SET
+			authority = "ROLE_USER"
+		WHERE
+			username = #{adAccount}
+	</update>
 </mapper>

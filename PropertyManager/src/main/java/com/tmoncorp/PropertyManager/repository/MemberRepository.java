@@ -70,4 +70,14 @@ public class MemberRepository {
 		return (memberMapper.selectMaximumRowRetired(upperCategory, lowerCategory, adAccount, nameOfMember) / viewSolePage) + 1;
 	}
 
+	public int recoverRetirement(String adAccount) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.recoverRetirement(adAccount);
+	}
+
+	public List<MemberModel> getAdmins() {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.getAdmins();
+	}
+
 }

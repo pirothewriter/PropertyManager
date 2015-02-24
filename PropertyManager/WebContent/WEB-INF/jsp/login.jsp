@@ -40,6 +40,7 @@
 		<p align="left">비밀번호</p><input class="form-control" type="password" id="password" class="password" name="j_password"><br>
 		<p align="right"><input type="submit" class="btn btn-primary"onClick="doLogin()" value="로그인"></p>
 	</form>
+	<p align="left" style="color: red;'">* 최초 비밀번호는 AD 계정명과 동일합니다</p>
 </div>
 </div>
 </body>

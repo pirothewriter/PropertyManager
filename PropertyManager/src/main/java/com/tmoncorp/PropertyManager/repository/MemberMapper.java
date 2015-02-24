@@ -37,4 +37,8 @@ public interface MemberMapper {
 
 	List<MemberModel> selectConditionedMembersRetired(String condition);
 
+	int recoverRetirement(String adAccount);
+
+	List<MemberModel> getAdmins();
+
 }

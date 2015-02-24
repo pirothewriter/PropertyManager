@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +22,7 @@ import com.tmoncorp.PropertyManager.model.MemberModel;
 import com.tmoncorp.PropertyManager.service.EquipmentService;
 import com.tmoncorp.PropertyManager.service.MemberService;
 import com.tmoncorp.PropertyManager.service.PropertyLogService;
+import com.tmoncorp.PropertyManager.service.SecurityService;
 
 /**
  * 
@@ -29,6 +32,8 @@ import com.tmoncorp.PropertyManager.service.PropertyLogService;
 
 @Controller
 public class MemberInfoController {
+	private static final int BASIC_VIEW_SOLE_PAGE = 20;
+
 	@Autowired
 	private MemberService memberService;
 
@@ -37,6 +42,9 @@ public class MemberInfoController {
 
 	@Autowired
 	private PropertyLogService propertyLogService;
+	
+	@Autowired
+	private SecurityService securityService;
 
 	@RequestMapping("/memberInfo")
 	public ModelAndView showMemberInfo(HttpServletRequest request) {
@@ -44,9 +52,8 @@ public class MemberInfoController {
 		MemberModel member = memberService.selectAMember(request.getParameter("adAccount"));
 		List<EquipmentModel> properties = equipmentService.selectPropertyOnMember(request.getParameter("adAccount"));
 
-		for (int index = 0; index < properties.size(); index++) {
+		for (int index = 0; index < properties.size(); index++)
 			properties.get(index).setUrgentDate(propertyLogService.getPropertyUrgentDateNow(properties.get(index).getPropertyNumber(), request.getParameter("adAccount")));
-		}
 
 		memberInfoModelAndView.addObject("memberInfo", member);
 		memberInfoModelAndView.addObject("propertyInfo", properties);
@@ -54,7 +61,29 @@ public class MemberInfoController {
 		return memberInfoModelAndView;
 	}
 
-	@RequestMapping(value = "/urgentProperty", method= RequestMethod.GET)
+	@RequestMapping("/index")
+	public ModelAndView doIndex(HttpServletRequest request) {
+		ModelAndView indexModelAndView = new ModelAndView();
+
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String adAccount = user.getUsername();
+		String authority = securityService.getAuthority(adAccount);
+
+		MemberModel loginedUser = memberService.selectAMember(adAccount);
+		List<EquipmentModel> properties = equipmentService.selectPropertyOnMember(adAccount);
+
+		for (int index = 0; index < properties.size(); index++)
+			properties.get(index).setUrgentDate(propertyLogService.getPropertyUrgentDateNow(properties.get(index).getPropertyNumber(), adAccount));
+
+		indexModelAndView.addObject("memberInfo", loginedUser);
+		indexModelAndView.addObject("propertyInfo", properties);
+		indexModelAndView.addObject("authority", authority);
+		
+		indexModelAndView.setViewName("myInfo");
+		return indexModelAndView;
+	}
+
+	@RequestMapping(value = "/urgentProperty", method = RequestMethod.GET)
 	public ModelAndView urgentProperty(HttpServletRequest request) throws UnsupportedEncodingException, ParseException {
 		ModelAndView urgentingModelAndView = new ModelAndView();
 		urgentingModelAndView = doPagenation(request, urgentingModelAndView, "property");
@@ -67,8 +96,8 @@ public class MemberInfoController {
 	public @ResponseBody String mapping(HttpServletRequest request) {
 		String[] properties = request.getParameterValues("propertyNumber");
 		String msg = "SUCCESS";
-		
-		for(int index = 0; index < properties.length; index++){
+
+		for (int index = 0; index < properties.length; index++) {
 			propertyLogService.urgentProperty(request.getParameter("adAccount"), properties[index]);
 			propertyLogService.urgentPropertyLog(request.getParameter("adAccount"), properties[index]);
 		}
@@ -85,23 +114,36 @@ public class MemberInfoController {
 		}
 		return msg;
 	}
-	
-	@RequestMapping(value = "retireMember", method=RequestMethod.GET)
-	public @ResponseBody String retireMember(HttpServletRequest request){
+
+	@RequestMapping(value = "retireMember", method = RequestMethod.GET)
+	public @ResponseBody String retireMember(HttpServletRequest request) {
 		String result = "";
-		
+
 		int affectedRowsOnMemberTable = memberService.retireMember(request.getParameter("adAccount"));
 		int affectedRowsOnMappingTable = propertyLogService.withdrawEqiupmentThatOwnedRetireMember(request.getParameter("adAccount"));
 		int affectedRowsOnLogTable = propertyLogService.withdrawEqiupmentThatOwnedRetireMemberLog(request.getParameter("adAccount"));
-		
-		if(affectedRowsOnMemberTable == 0)
+
+		if (affectedRowsOnMemberTable == 0)
 			result = "ERROR";
 		else
 			result = "SUCCESS";
-		
+
 		return result;
 	}
-	
+
+	@RequestMapping(value = "recoverRetirement", method = RequestMethod.GET)
+	public @ResponseBody String recoverRetirement(HttpServletRequest request) {
+		String result = "";
+		int affectedRow = memberService.recoverRetirement(request.getParameter("adAccount"));
+
+		if (affectedRow == 0)
+			result = "ERROR";
+		else
+			result = "SUCCESS";
+
+		return result;
+	}
+
 	private ModelAndView doPagenation(HttpServletRequest request, ModelAndView modelAndView, String contentType) throws UnsupportedEncodingException, ParseException {
 		int nowPage;
 		int startPage;
@@ -109,19 +151,19 @@ public class MemberInfoController {
 		int viewSolePage;
 		int maximumPage = 0;
 		HttpSession session = request.getSession();
-		
+
 		if (request.getParameter("page") == null)
 			nowPage = 1;
 		else
 			nowPage = Integer.parseInt(request.getParameter("page"));
 
 		if (request.getParameter("viewSolePage") != null)
-			session.setAttribute("viewSolePage",  request.getParameter("viewSolePage"));
-		
+			session.setAttribute("viewSolePage", request.getParameter("viewSolePage"));
+
 		if (session.getAttribute("viewSolePage") == null)
-			viewSolePage = 20;
+			viewSolePage = BASIC_VIEW_SOLE_PAGE;
 		else {
-			viewSolePage = Integer.parseInt((String)session.getAttribute("viewSolePage"));
+			viewSolePage = Integer.parseInt((String) session.getAttribute("viewSolePage"));
 		}
 
 		if (maximumPage > nowPage + 5)
@@ -133,7 +175,7 @@ public class MemberInfoController {
 			startPage = nowPage - 5;
 		else
 			startPage = 1;
-		
+
 		String upperCategory = "";
 		String lowerCategory = "";
 
@@ -149,7 +191,7 @@ public class MemberInfoController {
 
 		List<EquipmentModel> ownerlessEquipment = equipmentService.getOwnerlessEquipment(nowPage, viewSolePage, upperCategory, lowerCategory);
 		maximumPage = equipmentService.getMaximumPage(viewSolePage);
-		
+
 		modelAndView.addObject("startPage", startPage);
 		modelAndView.addObject("endPage", endPage);
 		modelAndView.addObject("viewSolePage", viewSolePage);

@@ -24,7 +24,7 @@
 	
 	<select id="selectMembers" resultMap="MembertResult">
 		SELECT
-			M.member_name, C1.category_name AS upper_division, C2.category_name AS lower_division, M.ad_account, M.office_phone_number
+			M.member_name, C1.category_name AS upper_division, C2.category_name AS lower_division, M.ad_account, M.office_phone_number, M.is_served
 		FROM
 			member M
 		JOIN
@@ -36,7 +36,7 @@
 				ON
 					(C2.category_code = M.lower_division)
 		WHERE
-			is_served = 'Y'
+			1=1
 			<if test="upperCategory != ''">
 				AND C1.category_name = #{upperCategory}
 			</if>
@@ -202,4 +202,29 @@
 			</if>
 	</select>
 	
+	<update id="recoverRetirement" parameterType="String">
+		UPDATE
+			member
+		SET
+			is_served = 'Y', retire_date = null
+		WHERE
+			ad_account = #{adAccount}
+	</update>
+	
+	<select id="getAdmins" resultMap="MembertResult">
+		SELECT
+			M.member_name, C1.category_name AS upper_division, C2.category_name AS lower_division, M.ad_account, M.office_phone_number
+		FROM
+			member M
+				JOIN authorities A
+					ON (A.authority = 'ROLE_ADMIN' AND M.ad_account = A.username)
+						JOIN
+							category C1
+								ON
+									(C1.category_code = M.upper_division)
+							JOIN
+								category C2
+									ON
+										(C2.category_code = M.lower_division)
+	</select>
 </mapper>

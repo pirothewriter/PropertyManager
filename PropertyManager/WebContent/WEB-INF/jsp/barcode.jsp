@@ -73,7 +73,7 @@
 						data : $(this).serialize(),
 						success : function(msg){
 							alert("등록되었습니다!");
-							window.close();
+							closewin();
 						}
 					});
 				}
@@ -81,10 +81,19 @@
 		});
 	})
 	
+	function closewin() {
+    	// opener는 원래창의 참조
+    	if ( parent.opener != null ) {
+    		parent.opener._childwin = null;
+    		parent.opener.location.reload(); 
+    		self.close(); 
+    	}
+	}
+	
 	function callPropertyInfo(propertyNumber){
 		$.ajax({
 			cache:false,
-			data : $("#barcodeInput").serialize(),
+			data : {propertyNumber : propertyNumber},
 			type : 'POST',
 			url : 'getPropertyInfomation.tmon',
 			success : function(msg){
@@ -99,13 +108,10 @@
 					
 					if(isAlreadyChecked == false)
 						$("#toUrgentProperties tbody").append("<tr><td><input type='checkbox' name='propertyNumber' checked value="+ propertyNumber + "></td><td>"+ propertyNumber + "</td></tr>");
-					else 
-						alert("이미 추가된 자산입니다!");
 					
 					$("#barcode").val('');
+					window.stop();
 				}
-				
-				window.stop();
 				return false;
 			},
 			error : function(msg) {

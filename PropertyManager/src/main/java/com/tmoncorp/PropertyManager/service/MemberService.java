@@ -135,4 +135,12 @@ public class MemberService {
 
 		return code;
 	}
+
+	public int recoverRetirement(String adAccount) {
+		return memberRepository.recoverRetirement(adAccount);
+	}
+
+	public List<MemberModel> getAdmins() {
+		return memberRepository.getAdmins();
+	}
 }

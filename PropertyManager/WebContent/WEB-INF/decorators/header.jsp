@@ -41,18 +41,25 @@
 		</div>
 	</div>
 	<div>
-		<ul class="nav nav-pills">
-			<li><a href="/memberinsert.tmon">사원 추가</a></li>
-			<li><a href="/insert.tmon">자산 추가</a></li>
-			<li><a href="/showMembers.tmon">사원 목록</a></li>
-			<li><a href="/retired.tmon">퇴사자 목록</a></li>
+		<ul id="navigation_bar" class="nav nav-pills">
+			<li><a href="/">내 자산 정보</a></li>
 		</ul>
 	</div>
 	</nav>
 	<!-- navbar 끝 -->
 	<decorator:body />
 </body>
-<script type="text/javascript">	
+<script type="text/javascript">
+	$(document).ready(function(){
+		var authority = '${authority}';
+		
+		if(!authority || (authority == "ROLE_CREATER" || authority == "ROLE_ADMIN")) {
+			$("#navigation_bar").append("<li><a href='/memberinsert.tmon'>사원 추가</a></li>");
+			$("#navigation_bar").append("<li><a href='/insert.tmon'>자산 추가</a></li>");
+			$("#navigation_bar").append("<li><a href='/showMembers.tmon'>사원 목록</a></li>");
+			$("#navigation_bar").append("<li><a href='/retired.tmon'>퇴사자 목록</a></li>");
+			$("#navigation_bar").append("<li><a href='/adminList.tmon'>관리자 목록</a></li>");
+		}
+	});
 </script>
-
 </html>

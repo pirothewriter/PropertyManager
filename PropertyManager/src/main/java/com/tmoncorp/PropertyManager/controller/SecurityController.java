@@ -1,20 +1,30 @@
 package com.tmoncorp.PropertyManager.controller;
 
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tmoncorp.PropertyManager.model.MemberModel;
+import com.tmoncorp.PropertyManager.service.MemberService;
 import com.tmoncorp.PropertyManager.service.SecurityService;
 
 @Controller
 public class SecurityController {
 	@Autowired
 	private SecurityService securityService;
+
+	@Autowired
+	private MemberService memberService;
 
 	@RequestMapping("/login")
 	public void login(@RequestParam Map<String, Object> paramMap, ModelMap model) throws Throwable {
@@ -26,5 +36,36 @@ public class SecurityController {
 		ModelAndView loginFailModelAndView = new ModelAndView();
 		loginFailModelAndView.setViewName("loginFail");
 		return loginFailModelAndView;
+	}
+
+	@RequestMapping("/adminList")
+	public ModelAndView administratorList() {
+		ModelAndView grantModelAndView = new ModelAndView();
+		List<MemberModel> admins = memberService.getAdmins();
+		grantModelAndView.addObject("members", admins);
+		grantModelAndView.setViewName("adminList");
+		return grantModelAndView;
+	}
+
+	@RequestMapping(value = "grantAdmin", method = RequestMethod.GET)
+	public @ResponseBody String grantAdmin(HttpServletRequest request) {
+		int affectedRow = securityService.grantAdmin(request.getParameter("adAccount"));
+
+		if (affectedRow == 1)
+			return "SUCCESS";
+		else
+			return "ERROR";
+
+	}
+
+	@RequestMapping(value = "revokeAdmin", method = RequestMethod.GET)
+	public @ResponseBody String revokeAdmin(HttpServletRequest request) {
+		int affectedRow = securityService.revokeAdmin(request.getParameter("adAccount"));
+
+		if (affectedRow == 1)
+			return "SUCCESS";
+		else
+			return "ERROR";
+
 	}
 }

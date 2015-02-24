@@ -173,7 +173,7 @@
 																var adAccount = this.value;
 																var popupUrl = "/personalLog.tmon?adAccount="
 																		+ adAccount;
-																var popupOption = "width=400, heignt=300, resizable=false, scrollbars=false";
+																var popupOption = "width=400, height=500, toolbar=no, location=no, status=no, menubar=no, resizable=no";
 
 																window
 																		.open(
@@ -181,6 +181,29 @@
 																				"",
 																				popupOption);
 															});
+											
+											$(".recover_retirement").click(function(){
+												var adAccount = this.value;
+												var recoveryThis = confirm("퇴사처리를 취소하시겠습니까?");
+												if(recoveryThis == true){
+													$.ajax({
+														url: '/recoverRetirement.tmon',
+											            type: "GET",
+											            data: {adAccount : adAccount},
+											            success: function(msg){
+															if(msg == "SUCCESS") {
+																alert("원복처리 되었습니다!");
+																location.reload(true);
+															} else {
+																alert("실패했습니다!");
+																return false;
+															}
+														}
+													});
+												} else {
+													return false;
+												}
+											});
 
 											$("#back_to_list")
 													.on(
@@ -225,6 +248,7 @@
 						<th>AD 계정</th>
 						<th>내선번호</th>
 						<th>자산기록보기</th>
+						<th>퇴사취소</th>
 					</tr>
 					<c:forEach var="member" items="${retiredMembers}"
 						varStatus="status">
@@ -234,8 +258,8 @@
 							<td>${member.lowerDivision }</td>
 							<td>${member.adAccount }</td>
 							<td>${member.officePhoneNumber }</td>
-							<td><button type="button" class="view_log btn btn-default"
-									value="${member.adAccount }">보기</button></td>
+							<td><button type="button" class="view_log btn btn-default" value="${member.adAccount }">보기</button></td>
+							<td><button type="button" class="recover_retirement btn btn-warning" value="${member.adAccount }">퇴사취소</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>

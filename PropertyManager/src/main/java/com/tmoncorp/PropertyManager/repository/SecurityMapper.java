@@ -17,4 +17,8 @@ public interface SecurityMapper {
 
 	public String getRole(String username);
 
+	public int grantAdmin(String adAccount);
+	
+	public int revokeAdmin(String adAccount);
+
 }

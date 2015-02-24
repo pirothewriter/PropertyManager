@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!doctype html>
 <html>
 <head>
@@ -15,31 +16,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#back_to_list").on("click", function(){
-			document.location.href="/showMembers.tmon";
-		});
-		
-		$("#add_property").on("click", function(){
-			document.location.href = "/urgentProperty.tmon?adAccount=" + '${memberInfo.adAccount}';
-		});
-		
-		$("#propertyInfo form").on("submit", function(event){
-			var isRelease = confirm("자산을 회수하시겠습니까?");
-			if(isRelease == true){
-				event.preventDefault();
-				$.ajax({
-					type : "POST",
-					cache : false,
-					url : 'releasing.tmon',
-					data : $(this).serialize(),
-					success : function(msg){
-						alert("회수되었습니다!");
-						location.reload(true);
-					}
-				});
-			}
-		});
-		
 		$(".view_log").click(function(){
 			var propertyNumber = this.value;
 			var popupUrl = "/equipmentLog.tmon?propertyNumber=" + propertyNumber;
@@ -55,16 +31,6 @@
 			
 			window.open(popupUrl, "", popupOption);
 		});
-		
-		$("#add_property_by_barcode").on("click", function(){
-			var adAccount = '${memberInfo.adAccount }';
-			var popupUrl = "/barcodeInput.tmon?adAccount=" + adAccount;
-			var popupOption = "width=400, height=500, toolbar=no, location=no, status=no, menubar=no, resizable=no";
-			
-			window.open(popupUrl, "", popupOption);
-		});
-		
-		
 	})
 </script>
 </head>
@@ -84,10 +50,6 @@
 		</table>
 	</div>
 	<div id="navi">
-		<button class="btn btn-default" type="button" id="back_to_list">목록으로</button>	
-		<button class="btn btn-default" type="button" id="add_property">자산추가</button>
-		<button class="btn btn-default" type="button" id="add_property_by_barcode">바코드 입력</button>
-		<button class="btn btn-default" type="button" id="personalLog">개인장비 이력보기</button>
 	</div>
 	<div id="propertyInfo">
 		<form method="post" name="releaseForm">
@@ -130,7 +92,6 @@
 				</c:forEach>
 				</tbody>
 			</table>
-			<button class="btn btn-warning" type="submit" id="release_properties">자산회수</button>
 		</form>
 	</div>
 </div>

@@ -12,6 +12,11 @@
 		<intercept-url pattern="../../csv" access="permitAll" />
 		<intercept-url pattern="/checkIsMember.tmon" access="permitAll" />
 		<intercept-url pattern="/login.tmon" access="permitAll" />
+		<intercept-url pattern="/showMembers.tmon" access="hasAnyRole('ROLE_CREATER', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/insert.tmon" access="hasAnyRole('ROLE_CREATER', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/memberinsert.tmon" access="hasAnyRole('ROLE_CREATER', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/retired.tmon" access="hasAnyRole('ROLE_CREATER', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/adminList.tmon" access="hasAnyRole('ROLE_CREATER', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/*.tmon" access="hasAnyRole('ROLE_CREATER','ROLE_ADMIN','ROLE_USER')" />
 		<form-login login-page="/login.tmon" default-target-url="/showMembers.tmon" authentication-failure-url="/loginFail.tmon" />
 		<logout logout-success-url="/login.tmon" />

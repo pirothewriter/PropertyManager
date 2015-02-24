@@ -16,6 +16,10 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(document).ready(function(){
+			$("tr[isserved='N']").css("background-color", "#cd5c5c");
+			$("tr[isserved='N'] td button").prop("disabled", true)
+			$("tr[isserved='N'] td button").css("text-decoration", "line-through");
+			
 			$("#selectUpper").on("change", function(){
 				$("#selectUpper").attr("name", "upperDivision");
 				$("#inputDirectUpperDivision").attr("disabled", "disabled");
@@ -92,7 +96,7 @@
 				window.location.href = "csv/properties.csv";
 			});
 			
-			$("#searcherSubmit").on("click", function(event){
+			$("#searcher").submit(function(event){
 				event.preventDefault();
 				var url = "/showMembers.tmon";
 				var params = "?";
@@ -143,7 +147,7 @@
 	<div id="wrapper">
 		<div id="seacher" class="form-group">
 				<span>
-					<form class="form-inline" name="searcher">
+					<form class="form-inline" name="searcher" id="searcher">
 						<label>부서명(大)</label> <select class="form-control" id="selectUpper" name="upperDivision">
 						<option value=''>부서명(大)</option>
 						<c:forEach var="category" items="${upperDivisions }" varStatus="status">
@@ -155,7 +159,7 @@
 						</select>
 						<label>AD 계정</label> <input class="form-control" name = "adAccout" id="searchAdAccout">
 						<label>사원명</label><input class="form-control" name = "nameOfMember" id="searchName">
-						<button class="btn btn-default" type="button" id="searcherSubmit">검색</button>
+						<button class="btn btn-default" type="submit" id="searcherSubmit">검색</button>
 						<button class="btn btn-danger" type="button" id="initializer">초기화</button>
 					</form>
 				</span>
@@ -174,7 +178,7 @@
 					<th>사원정보수정</th>
 				</tr>
 				 <c:forEach var="member" items="${members}" varStatus="status">
-				 <tr>
+				 <tr isServed = ${member.isServed }>
 				    <td>${member.memberName }</td>
 				    <td>${member.upperDivision }</td>
 				    <td>${member.lowerDivision }</td>
