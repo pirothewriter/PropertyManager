@@ -66,4 +66,13 @@ public class PropertyLogRepository {
 		return propertyLogMapper.selectPersonalLog(adAccount);
 	}
 
+	public PropertyLogModel getPropertyInfomation(String propertyNumber) {
+		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
+		List<PropertyLogModel> result = propertyLogMapper.getPropertyInfomation(propertyNumber);
+		if (result.size() > 0)
+			return result.get(0);
+		else
+			return null;
+	}
+
 }

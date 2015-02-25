@@ -20,6 +20,10 @@ public class PropertyLogService {
 	@Autowired
 	private PropertyLogRepository propertyLogRepository;
 
+	public void setPropertyLogRepository(PropertyLogRepository propertyLog) {
+		propertyLogRepository = propertyLog;
+	}
+
 	public Date getPropertyUrgentDateNow(String propertyNumber, String adAccount) {
 		return (Date) propertyLogRepository.getPropertyNowStatus(propertyNumber, adAccount);
 	}
@@ -73,8 +77,21 @@ public class PropertyLogService {
 			if (result.get(index).getWithdrawDate() != null)
 				result.get(index).setWithdrawDate(new java.sql.Date(result.get(index).getWithdrawDate().getTime()));
 		}
-		
+
 		return result;
+	}
+
+	public String getPropertyInfomation(String propertyNumber) {
+		PropertyLogModel mappedInfo = propertyLogRepository.getPropertyInfomation(propertyNumber);
+		
+		if(mappedInfo == null)
+			return "NO_EXIST";
+		else {
+			if(mappedInfo.getAdAccount() == null)
+				return "SUCCESS";
+			else
+				return mappedInfo.getAdAccount();
+		}
 	}
 
 }

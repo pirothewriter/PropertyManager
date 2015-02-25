@@ -110,10 +110,6 @@ public class EquipmentService {
 		return (page - 1) * viewSolePage;
 	}
 
-	public EquipmentModel getPropertyInfomation(String propertyNumber) {
-		return equipmentRepository.getPropertyInfomation(propertyNumber);
-	}
-
 	public List<EquipmentModel> getAllEquipment(int nowPage, int viewSolePage, String upperCategory, String lowerCategory) {
 		return equipmentRepository.selectAllEquipment(calculatePageToRow(nowPage, viewSolePage), viewSolePage, upperCategory, lowerCategory);
 	}

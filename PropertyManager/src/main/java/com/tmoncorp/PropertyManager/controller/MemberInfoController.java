@@ -1,12 +1,8 @@
 package com.tmoncorp.PropertyManager.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -81,14 +77,10 @@ public class MemberInfoController {
 		return indexModelAndView;
 	}
 
-	@RequestMapping(value = "/getPropertyInfomation", method = RequestMethod.POST)
+	@RequestMapping(value = "/getPropertyInfomation", method = RequestMethod.GET)
 	public @ResponseBody String getPropertyInfomation(HttpServletRequest request) {
-		EquipmentModel equipment = equipmentService.getPropertyInfomation(request.getParameter("propertyNumber"));
-		if (equipment == null) {
-			return "NO_EXIST";
-		} else {
-			return "EXIST";
-		}
+		String result = propertyLogService.getPropertyInfomation(request.getParameter("propertyNumber"));
+		return result;
 	}
 
 	@RequestMapping(value = "retireMember", method = RequestMethod.GET)

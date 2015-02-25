@@ -92,4 +92,17 @@
 		WHERE
 			ad_account = #{adAccount}
 	</select>
+	
+	<select id="getPropertyInfomation" resultMap="PropertyLogResult">
+		SELECT
+			E.property_number, M.ad_account
+		FROM
+			equipment E
+		LEFT JOIN
+			equipment_map_person M
+		ON
+			(E.property_number = M.property_number)
+		WHERE
+			E.property_number = #{propertyNumber}
+	</select>
 </mapper>

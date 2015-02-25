@@ -13,7 +13,4 @@
 	<context:component-scan base-package="com.tmoncorp.PropertyManager">
    	    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	
-	<bean id="securityService" class="com.tmoncorp.PropertyManager.service.SecurityService">
-	</bean>
 </beans>

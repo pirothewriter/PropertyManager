@@ -94,25 +94,28 @@
 		$.ajax({
 			cache:false,
 			data : {propertyNumber : propertyNumber},
-			type : 'POST',
+			type : 'GET',
 			url : 'getPropertyInfomation.tmon',
 			success : function(msg){
-				if(msg == "NO_EXIST"){
-					alert("잘못된 자산번호이거나 이미 할당된 자산번호입니다.\n자산번호를 다시금 확인해주세요");
-				} else if(msg == 'EXIST') {
+				if(msg == "SUCCESS") {
 					var isAlreadyChecked = false;
 					for(var index = 0; index < $("#toUrgentProperties input").length; index++){
 						if($("#toUrgentProperties input")[index].value == propertyNumber)
 							isAlreadyChecked = true;
 					}
-					
 					if(isAlreadyChecked == false)
 						$("#toUrgentProperties tbody").append("<tr><td><input type='checkbox' name='propertyNumber' checked value="+ propertyNumber + "></td><td>"+ propertyNumber + "</td></tr>");
 					
 					$("#barcode").val('');
 					window.stop();
+					return false;
+				} else if (msg == "NO_EXIST") {
+					alert("잘못된 자산번호입니다");
+					return false;
+				} else {
+					alert(msg + "님에게 이미 할당된 자산번호입니다.");
+					return false;
 				}
-				return false;
 			},
 			error : function(msg) {
 				alert("오류가 발생하였습니다!");

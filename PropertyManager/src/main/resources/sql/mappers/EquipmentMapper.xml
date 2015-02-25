@@ -84,18 +84,6 @@
 			J.ad_account IS NULL
 	</select>
 	
-	<select id="getPropertyInfomation" parameterType="String" resultType="EquipmentModel">
-		SELECT
-			L.property_number, L.name, L.upper_category, L.lower_category, L.infomation1, L.infomation2, L.incomming_IT_Unit, L.incomming_finance, L.productor, L.seller, L.price, L.user
-		FROM
-			equipment L
-				LEFT JOIN 
-					equipment_map_person M
-						ON (M.property_number = L.property_number)
-		WHERE
-			L.property_number = #{propertyNumber} AND M.ad_account IS NULL
-	</select>
-	
 	<select id="selectAllEquipment" resultMap="EquipmentResult">
 		SELECT 
 				E.property_number, E.name, E.upper_category, E.lower_category, E.infomation1, E.infomation2, E.incomming_It_Unit, E.incomming_finance, E.productor, E.seller, E.price, J.ad_account as user

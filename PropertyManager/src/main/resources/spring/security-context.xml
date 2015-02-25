@@ -10,6 +10,7 @@
 		<intercept-url pattern="../../js" access="permitAll" />
 		<intercept-url pattern="../../image" access="permitAll" />
 		<intercept-url pattern="../../csv" access="permitAll" />
+		<intercept-url pattern="/getPropertyInfomation.tmon" access="permitAll" />
 		<intercept-url pattern="/checkIsMember.tmon" access="permitAll" />
 		<intercept-url pattern="/login.tmon" access="permitAll" />
 		<intercept-url pattern="/showMembers.tmon" access="hasAnyRole('ROLE_CREATER', 'ROLE_ADMIN')" />

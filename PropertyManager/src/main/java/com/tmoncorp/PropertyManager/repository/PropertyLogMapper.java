@@ -23,7 +23,7 @@ public interface PropertyLogMapper {
 	int insertUrgentPropertyLog(@Param("adAccount") String adAccount, @Param("propertyNumber") String propertyNumber);
 
 	int deleteReleaseProperty(@Param("adAccount") String adAccount, @Param("propertyNumber") String propertyNumber);
-	
+
 	int updateReleaseLogProperty(@Param("adAccount") String adAccount, @Param("propertyNumber") String propertyNumber);
 
 	int releaseAllEquipmentOnRetireMember(String adAccount);
@@ -31,4 +31,6 @@ public interface PropertyLogMapper {
 	int logWithdrawDateOfRetireMembersEquipment(String adAccount);
 
 	List<PropertyLogModel> selectPersonalLog(String adAccount);
+
+	List<PropertyLogModel> getPropertyInfomation(String propertyNumber);
 }

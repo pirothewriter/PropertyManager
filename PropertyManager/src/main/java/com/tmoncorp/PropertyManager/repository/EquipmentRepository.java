@@ -40,11 +40,6 @@ public class EquipmentRepository {
 		return equipmentMapper.selectCountAllOwnerlessEquipment();
 	}
 
-	public EquipmentModel getPropertyInfomation(String propertyNumber) {
-		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
-		return equipmentMapper.getPropertyInfomation(propertyNumber);
-	}
-
 	public List<EquipmentModel> selectAllEquipment(int nowPage, int viewSolePage, String upperCategory, String lowerCategory) {
 		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
 		return equipmentMapper.selectAllEquipment(nowPage, viewSolePage, upperCategory, lowerCategory);
