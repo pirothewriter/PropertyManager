@@ -23,4 +23,6 @@ public interface EquipmentMapper {
 
 	public EquipmentModel getPropertyInfomation(String propertyNumber);
 
+	public List<EquipmentModel> selectAllEquipment(@Param("nowPage") int nowPage, @Param("viewSolePage") int viewSolePage, @Param("upperCategory") String upperCategory, @Param("lowerCategory") String lowerCategory);
+
 }

@@ -95,4 +95,25 @@
 		WHERE
 			L.property_number = #{propertyNumber} AND M.ad_account IS NULL
 	</select>
+	
+	<select id="selectAllEquipment" resultMap="EquipmentResult">
+		SELECT 
+				E.property_number, E.name, E.upper_category, E.lower_category, E.infomation1, E.infomation2, E.incomming_It_Unit, E.incomming_finance, E.productor, E.seller, E.price, J.ad_account as user
+			FROM
+				equipment E
+			LEFT JOIN 
+				equipment_map_person J
+			ON
+				(E.property_number = J.property_number)
+			WHERE
+				1=1
+					<if test="upperCategory != ''">
+						AND E.upper_category = #{upperCategory}
+					</if>
+					<if test="lowerCategory != ''">
+						AND E.lower_category = #{lowerCategory}
+					</if>
+			LIMIT
+				#{nowPage}, #{viewSolePage}
+	</select>
 </mapper>

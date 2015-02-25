@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tmoncorp.PropertyManager.model.EquipmentModel;
 import com.tmoncorp.PropertyManager.service.EquipmentService;
 
 /**
@@ -47,21 +46,4 @@ public class InsertionController {
 		return msg;
 	}
 
-	@RequestMapping("/barcodeInput")
-	public ModelAndView barcodeInput(HttpServletRequest request) {
-		ModelAndView barcodeModelAndView = new ModelAndView();
-		barcodeModelAndView.addObject("adAccount", request.getParameter("adAccount"));
-		barcodeModelAndView.setViewName("barcode");
-		return barcodeModelAndView;
-	}
-
-	@RequestMapping(value = "/getPropertyInfomation", method = RequestMethod.POST)
-	public @ResponseBody String getPropertyInfomation(HttpServletRequest request) {
-		EquipmentModel equipment = equipmentService.getPropertyInfomation(request.getParameter("propertyNumber"));
-		if (equipment == null) {
-			return "NO_EXIST";
-		} else {
-			return "EXIST";
-		}
-	}
 }

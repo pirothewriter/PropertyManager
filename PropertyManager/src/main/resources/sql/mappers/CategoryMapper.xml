@@ -18,6 +18,8 @@
 			category
 		WHERE
 			category_division = #{division}
+		ORDER BY
+			category_name ASC
 	</select>
 	
 	<select id="selectUpperCategories" resultMap="CategoryResult">

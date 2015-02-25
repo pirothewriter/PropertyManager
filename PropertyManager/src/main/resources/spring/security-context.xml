@@ -15,6 +15,7 @@
 		<intercept-url pattern="/showMembers.tmon" access="hasAnyRole('ROLE_CREATER', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/insert.tmon" access="hasAnyRole('ROLE_CREATER', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/memberinsert.tmon" access="hasAnyRole('ROLE_CREATER', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/showAllProperties.tmon" access="hasAnyRole('ROLE_CREATER', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/retired.tmon" access="hasAnyRole('ROLE_CREATER', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/adminList.tmon" access="hasAnyRole('ROLE_CREATER', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/*.tmon" access="hasAnyRole('ROLE_CREATER','ROLE_ADMIN','ROLE_USER')" />

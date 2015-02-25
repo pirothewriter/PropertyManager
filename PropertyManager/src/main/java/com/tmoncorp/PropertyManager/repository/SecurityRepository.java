@@ -42,4 +42,9 @@ public class SecurityRepository {
 		SecurityMapper securityMapper = sqlSession.getMapper(SecurityMapper.class);
 		return securityMapper.revokeAdmin(adAccount);
 	}
+	
+	public int revokeUser(String adAccount) {
+		SecurityMapper securityMapper = sqlSession.getMapper(SecurityMapper.class);
+		return securityMapper.revokeUser(adAccount);
+	}
 }

@@ -15,112 +15,110 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$(document).ready(function(){
-			$("tr[isserved='N']").css("background-color", "#cd5c5c");
-			$("tr[isserved='N'] td button").prop("disabled", true)
-			$("tr[isserved='N'] td button").css("text-decoration", "line-through");
+		$("tr[isserved='N']").css("background-color", "#cd5c5c");
+		$("tr[isserved='N'] td button").prop("disabled", true)
+		$("tr[isserved='N'] td button").css("text-decoration", "line-through");
+		
+		$("#selectUpper").on("change", function(){
+			$("#selectUpper").attr("name", "upperDivision");
+			$("#inputDirectUpperDivision").attr("disabled", "disabled");
+			$("#inputDirectUpperDivision").removeAttr("name");
 			
-			$("#selectUpper").on("change", function(){
-				$("#selectUpper").attr("name", "upperDivision");
-				$("#inputDirectUpperDivision").attr("disabled", "disabled");
-				$("#inputDirectUpperDivision").removeAttr("name");
-				
-				if($("#selectUpper").val() == ''){
-					$("#selectLower option").remove();
-					$("#selectLower").append("<option value=''>부서명(小)</option>");
-				} else {
-					callLowerDivision();
-				}
-			});
+			if($("#selectUpper").val() == ''){
+				$("#selectLower option").remove();
+				$("#selectLower").append("<option value=''>부서명(小)</option>");
+			} else {
+				callLowerDivision();
+			}
+		});
+		
+		$("#selectLower").on("change", function(){
+			$("#selectLower").attr("name", "lowerDivision");
+			$("#inputDirectLowerDivision").attr("disabled", "disabled");
+			$("#inputDirectLowerDivision").removeAttr("name");
+		});
+		
+		$("button[excute='modifyMember']").on("click", function(){
+			var value = this.value;
+			document.location.href="/modifyMember.tmon?adAccount=" + value;
+		});
+		
+		$("#insertProperty").on("click", function(){
+			document.location.href="/insert.tmon";
+		});
+		
+		$("#insertMember").on("click", function(){
+			document.location.href="/memberinsert.tmon";
+		});
+		
+		$("#showRetired").on("click", function(){
+			document.location.href="/retired.tmon";
+		});
+		
+		$('#btn_submit').on("click", function() {
+	        var data = new FormData();
+	        $.each($('#attachFile')[0].files, function(i, file) {
+	            data.append('file-' + i, file);
+	        });
+	 
+	        $.ajax({
+	            url: '/uploadMappedProperty.tmon',
+	            type: "post",
+	            dataType: "text",
+	            data: data,
+	            processData: false,
+	            contentType: false,
+	            success: function(msg, textStatus, jqXHR) {
+	                if(msg == 'NOT CSV'){
+	                	alert("csv파일만 업로드 가능합니다!");
+	                	return false;
+	                } else if(msg == 'NO FILE'){
+	                	alert("파일을 선택해주세요!");
+	                	return false;
+	                } else if(msg == "INCORRECT FORM"){
+	                	alert("잘못된 양식의 csv파일입니다!");
+	                	location.reload(true);
+	                } else if(msg == 'SUCCESS'){
+	                	alert("등록 성공!");
+	                	location.reload(true);
+	                } else {
+	                	alert("서버 에러");
+	                	location.reload(true);
+	                }
+	            },
+	            error: function(jqXHR, textStatus, errorThrown) {}
+	        });
+	    });
+		
+		$("#btn_download_form").click(function(event){
+			event.preventDefault();
+			window.location.href = "csv/properties.csv";
+		});
+		
+		$("#searcher").submit(function(event){
+			event.preventDefault();
+			var url = "/showMembers.tmon";
+			var params = "?";
 			
-			$("#selectLower").on("change", function(){
-				$("#selectLower").attr("name", "lowerDivision");
-				$("#inputDirectLowerDivision").attr("disabled", "disabled");
-				$("#inputDirectLowerDivision").removeAttr("name");
-			});
+			if($("#selectUpper").val() != "")
+				params += "upperDivision=" + encodeURI(encodeURIComponent($("#selectUpper").val())) + "&";
 			
-			$("button[excute='modifyMember']").on("click", function(){
-				var value = this.value;
-				document.location.href="/modifyMember.tmon?adAccount=" + value;
-			});
+			if($("#selectLower").val() != "")
+				params += "lowerDivision=" + encodeURI(encodeURIComponent($("#selectLower").val())) + "&";
 			
-			$("#insertProperty").on("click", function(){
-				document.location.href="/insert.tmon";
-			});
+			if($("#searchAdAccout").val() != "")
+				params += "adAccount=" + encodeURI(encodeURIComponent($("#searchAdAccout").val())) + "&";
 			
-			$("#insertMember").on("click", function(){
-				document.location.href="/memberinsert.tmon";
-			});
+			if($("#searchName").val() != "")
+				params += "nameOfMember=" + encodeURI(encodeURIComponent($("#searchName").val())) + "&";
 			
-			$("#showRetired").on("click", function(){
-				document.location.href="/retired.tmon";
-			});
-			
-			$('#btn_submit').on("click", function() {
-		        var data = new FormData();
-		        $.each($('#attachFile')[0].files, function(i, file) {
-		            data.append('file-' + i, file);
-		        });
-		 
-		        $.ajax({
-		            url: '/uploadMappedProperty.tmon',
-		            type: "post",
-		            dataType: "text",
-		            data: data,
-		            processData: false,
-		            contentType: false,
-		            success: function(msg, textStatus, jqXHR) {
-		                if(msg == 'NOT CSV'){
-		                	alert("csv파일만 업로드 가능합니다!");
-		                	return false;
-		                } else if(msg == 'NO FILE'){
-		                	alert("파일을 선택해주세요!");
-		                	return false;
-		                } else if(msg == "INCORRECT FORM"){
-		                	alert("잘못된 양식의 csv파일입니다!");
-		                	location.reload(true);
-		                } else if(msg == 'SUCCESS'){
-		                	alert("등록 성공!");
-		                	location.reload(true);
-		                } else {
-		                	alert("서버 에러");
-		                	location.reload(true);
-		                }
-		            },
-		            error: function(jqXHR, textStatus, errorThrown) {}
-		        });
-		    });
-			
-			$("#btn_download_form").click(function(event){
-				event.preventDefault();
-				window.location.href = "csv/properties.csv";
-			});
-			
-			$("#searcher").submit(function(event){
-				event.preventDefault();
-				var url = "/showMembers.tmon";
-				var params = "?";
-				
-				if($("#selectUpper").val() != "")
-					params += "upperDivision=" + encodeURI(encodeURIComponent($("#selectUpper").val())) + "&";
-				
-				if($("#selectLower").val() != "")
-					params += "lowerDivision=" + encodeURI(encodeURIComponent($("#selectLower").val())) + "&";
-				
-				if($("#searchAdAccout").val() != "")
-					params += "adAccount=" + encodeURI(encodeURIComponent($("#searchAdAccout").val())) + "&";
-				
-				if($("#searchName").val() != "")
-					params += "nameOfMember=" + encodeURI(encodeURIComponent($("#searchName").val())) + "&";
-				
-				document.location.href = url + params;
-			});
-			
-			$("#initializer").on("click", function(){
-				document.location.href="showMembers.tmon";
-			});
-		})
-	});
+			document.location.href = url + params;
+		});
+		
+		$("#initializer").on("click", function(){
+			document.location.href="showMembers.tmon";
+		});
+	})
 	
 	function callLowerDivision(){
 		$.ajax({

@@ -45,4 +45,9 @@ public class EquipmentRepository {
 		return equipmentMapper.getPropertyInfomation(propertyNumber);
 	}
 
+	public List<EquipmentModel> selectAllEquipment(int nowPage, int viewSolePage, String upperCategory, String lowerCategory) {
+		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
+		return equipmentMapper.selectAllEquipment(nowPage, viewSolePage, upperCategory, lowerCategory);
+	}
+
 }

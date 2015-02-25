@@ -20,5 +20,7 @@ public interface SecurityMapper {
 	public int grantAdmin(String adAccount);
 	
 	public int revokeAdmin(String adAccount);
+	
+	public int revokeUser(String adAccount);
 
 }

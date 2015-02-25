@@ -57,6 +57,7 @@
 			$("#navigation_bar").append("<li><a href='/memberinsert.tmon'>사원 추가</a></li>");
 			$("#navigation_bar").append("<li><a href='/insert.tmon'>자산 추가</a></li>");
 			$("#navigation_bar").append("<li><a href='/showMembers.tmon'>사원 목록</a></li>");
+			$("#navigation_bar").append("<li><a href='/showAllProperties.tmon'>자산 목록</a></li>");
 			$("#navigation_bar").append("<li><a href='/retired.tmon'>퇴사자 목록</a></li>");
 			$("#navigation_bar").append("<li><a href='/adminList.tmon'>관리자 목록</a></li>");
 		}

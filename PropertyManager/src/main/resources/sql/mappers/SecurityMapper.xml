@@ -60,4 +60,13 @@
 		WHERE
 			username = #{adAccount}
 	</update>
+	
+	<update id="revokeUser" parameterType="String">
+		UPDATE
+			authorities
+		SET
+			authority = "ROLE_RETIRED"
+		WHERE
+			username = #{adAccount}
+	</update>
 </mapper>

@@ -97,8 +97,12 @@ public class EquipmentService {
 		equipment.setUser("티켓몬스터");
 		return equipment;
 	}
-
+	
 	public int getMaximumPage(int viewSolePage) {
+		return ((equipmentRepository.selectAllOwnerlessEquipment() - 1) / viewSolePage) + 1;
+	}
+
+	public int getMaximumPageOfOwnerless(int viewSolePage) {
 		return ((equipmentRepository.selectAllOwnerlessEquipment() - 1) / viewSolePage) + 1;
 	}
 
@@ -108,5 +112,9 @@ public class EquipmentService {
 
 	public EquipmentModel getPropertyInfomation(String propertyNumber) {
 		return equipmentRepository.getPropertyInfomation(propertyNumber);
+	}
+
+	public List<EquipmentModel> getAllEquipment(int nowPage, int viewSolePage, String upperCategory, String lowerCategory) {
+		return equipmentRepository.selectAllEquipment(calculatePageToRow(nowPage, viewSolePage), viewSolePage, upperCategory, lowerCategory);
 	}
 }

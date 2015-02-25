@@ -49,4 +49,8 @@ public class SecurityService implements UserDetailsService {
 	public int revokeAdmin(String adAccount) {
 		return securityRepository.revokeAdmin(adAccount);
 	}
+	
+	public int revokeUser(String adAccount) {
+		return securityRepository.revokeUser(adAccount);
+	}
 }

@@ -19,7 +19,7 @@
 			var revokeIt = confirm("관리자계정을 해제하겠습니까?");
 			if(revokeIt == true){
 				$.ajax({
-					type : "GET",
+					type : "POST",
 					data : {adAccount : $(this).val()},
 					url : "/revokeAdmin.tmon",
 					cache : false,

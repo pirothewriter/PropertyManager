@@ -35,7 +35,7 @@
 							var isGrant = confirm("관리자 권한을 부여하겠습니까?");
 							if(isGrant == true){
 								$.ajax({
-									type : "GET",
+									type : "POST",
 									cache : false,
 									url : 'grantAdmin.tmon',
 									data : "adAccount=${member.adAccount}",

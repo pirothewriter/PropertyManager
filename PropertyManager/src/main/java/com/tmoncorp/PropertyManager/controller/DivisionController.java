@@ -23,7 +23,7 @@ public class DivisionController {
 		ModelAndView divisionModelAndView = new ModelAndView();
 		List<CategoryModel> upperDivisions = categoryService.getAllUpperCategory();
 		List<CategoryModel> allLowerDivisions = categoryService.getAllLowerCategory();
-
+		
 		for (int index = 0; index < upperDivisions.size(); index++) {
 			int divisionCode = upperDivisions.get(index).getCategoryCode();
 			upperDivisions.get(index).setLowerCategories(categoryService.selectUpperCategoryCount(divisionCode));

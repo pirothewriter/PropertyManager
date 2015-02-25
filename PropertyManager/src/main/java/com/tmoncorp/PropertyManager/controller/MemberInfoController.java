@@ -32,7 +32,8 @@ import com.tmoncorp.PropertyManager.service.SecurityService;
 
 @Controller
 public class MemberInfoController {
-	private static final int BASIC_VIEW_SOLE_PAGE = 20;
+	@Autowired
+	private SecurityService securityService;
 
 	@Autowired
 	private MemberService memberService;
@@ -42,9 +43,6 @@ public class MemberInfoController {
 
 	@Autowired
 	private PropertyLogService propertyLogService;
-	
-	@Autowired
-	private SecurityService securityService;
 
 	@RequestMapping("/memberInfo")
 	public ModelAndView showMemberInfo(HttpServletRequest request) {
@@ -78,41 +76,19 @@ public class MemberInfoController {
 		indexModelAndView.addObject("memberInfo", loginedUser);
 		indexModelAndView.addObject("propertyInfo", properties);
 		indexModelAndView.addObject("authority", authority);
-		
+
 		indexModelAndView.setViewName("myInfo");
 		return indexModelAndView;
 	}
 
-	@RequestMapping(value = "/urgentProperty", method = RequestMethod.GET)
-	public ModelAndView urgentProperty(HttpServletRequest request) throws UnsupportedEncodingException, ParseException {
-		ModelAndView urgentingModelAndView = new ModelAndView();
-		urgentingModelAndView = doPagenation(request, urgentingModelAndView, "property");
-		urgentingModelAndView.addObject("adAccount", request.getParameter("adAccount"));
-		urgentingModelAndView.setViewName("urgentProperty");
-		return urgentingModelAndView;
-	}
-
-	@RequestMapping(value = "/mapping", method = RequestMethod.POST)
-	public @ResponseBody String mapping(HttpServletRequest request) {
-		String[] properties = request.getParameterValues("propertyNumber");
-		String msg = "SUCCESS";
-
-		for (int index = 0; index < properties.length; index++) {
-			propertyLogService.urgentProperty(request.getParameter("adAccount"), properties[index]);
-			propertyLogService.urgentPropertyLog(request.getParameter("adAccount"), properties[index]);
+	@RequestMapping(value = "/getPropertyInfomation", method = RequestMethod.POST)
+	public @ResponseBody String getPropertyInfomation(HttpServletRequest request) {
+		EquipmentModel equipment = equipmentService.getPropertyInfomation(request.getParameter("propertyNumber"));
+		if (equipment == null) {
+			return "NO_EXIST";
+		} else {
+			return "EXIST";
 		}
-		return msg;
-	}
-
-	@RequestMapping(value = "/releasing", method = RequestMethod.POST)
-	public @ResponseBody String releasing(HttpServletRequest request) {
-		String[] properties = request.getParameterValues("propertyNumber");
-		String msg = "SUCCESS";
-		for (int index = 0; index < properties.length; index++) {
-			propertyLogService.releaseProperty(request.getParameter("adAccount"), properties[index]);
-			propertyLogService.releasePropertyLog(request.getParameter("adAccount"), properties[index]);
-		}
-		return msg;
 	}
 
 	@RequestMapping(value = "retireMember", method = RequestMethod.GET)
@@ -122,6 +98,7 @@ public class MemberInfoController {
 		int affectedRowsOnMemberTable = memberService.retireMember(request.getParameter("adAccount"));
 		int affectedRowsOnMappingTable = propertyLogService.withdrawEqiupmentThatOwnedRetireMember(request.getParameter("adAccount"));
 		int affectedRowsOnLogTable = propertyLogService.withdrawEqiupmentThatOwnedRetireMemberLog(request.getParameter("adAccount"));
+		int affectedRowsOnSecurityTable = securityService.revokeUser(request.getParameter("adAccount"));
 
 		if (affectedRowsOnMemberTable == 0)
 			result = "ERROR";
@@ -134,69 +111,14 @@ public class MemberInfoController {
 	@RequestMapping(value = "recoverRetirement", method = RequestMethod.GET)
 	public @ResponseBody String recoverRetirement(HttpServletRequest request) {
 		String result = "";
-		int affectedRow = memberService.recoverRetirement(request.getParameter("adAccount"));
+		int affectedRowsOnMemberTable = memberService.recoverRetirement(request.getParameter("adAccount"));
+		int affectedRowOnSecurityTable = securityService.revokeAdmin(request.getParameter("adAccount"));
 
-		if (affectedRow == 0)
+		if (affectedRowsOnMemberTable == 0 && affectedRowOnSecurityTable == 0)
 			result = "ERROR";
 		else
 			result = "SUCCESS";
 
 		return result;
-	}
-
-	private ModelAndView doPagenation(HttpServletRequest request, ModelAndView modelAndView, String contentType) throws UnsupportedEncodingException, ParseException {
-		int nowPage;
-		int startPage;
-		int endPage;
-		int viewSolePage;
-		int maximumPage = 0;
-		HttpSession session = request.getSession();
-
-		if (request.getParameter("page") == null)
-			nowPage = 1;
-		else
-			nowPage = Integer.parseInt(request.getParameter("page"));
-
-		if (request.getParameter("viewSolePage") != null)
-			session.setAttribute("viewSolePage", request.getParameter("viewSolePage"));
-
-		if (session.getAttribute("viewSolePage") == null)
-			viewSolePage = BASIC_VIEW_SOLE_PAGE;
-		else {
-			viewSolePage = Integer.parseInt((String) session.getAttribute("viewSolePage"));
-		}
-
-		if (maximumPage > nowPage + 5)
-			endPage = nowPage + 5;
-		else
-			endPage = maximumPage;
-
-		if (nowPage - 5 > 0)
-			startPage = nowPage - 5;
-		else
-			startPage = 1;
-
-		String upperCategory = "";
-		String lowerCategory = "";
-
-		if (request.getParameter("upperCategory") != null) {
-			if (request.getParameter("upperCategory").compareTo("") != 0)
-				upperCategory = URLDecoder.decode(request.getParameter("upperCategory"), "UTF-8");
-		}
-
-		if (request.getParameter("lowerCategory") != null) {
-			if (request.getParameter("lowerCategory").compareTo("") != 0)
-				lowerCategory = URLDecoder.decode(request.getParameter("lowerCategory"), "UTF-8");
-		}
-
-		List<EquipmentModel> ownerlessEquipment = equipmentService.getOwnerlessEquipment(nowPage, viewSolePage, upperCategory, lowerCategory);
-		maximumPage = equipmentService.getMaximumPage(viewSolePage);
-
-		modelAndView.addObject("startPage", startPage);
-		modelAndView.addObject("endPage", endPage);
-		modelAndView.addObject("viewSolePage", viewSolePage);
-		modelAndView.addObject("ownerlessEquipment", ownerlessEquipment);
-
-		return modelAndView;
 	}
 }

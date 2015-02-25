@@ -47,7 +47,7 @@ public class SecurityController {
 		return grantModelAndView;
 	}
 
-	@RequestMapping(value = "grantAdmin", method = RequestMethod.GET)
+	@RequestMapping(value = "grantAdmin", method = RequestMethod.POST)
 	public @ResponseBody String grantAdmin(HttpServletRequest request) {
 		int affectedRow = securityService.grantAdmin(request.getParameter("adAccount"));
 
@@ -58,7 +58,7 @@ public class SecurityController {
 
 	}
 
-	@RequestMapping(value = "revokeAdmin", method = RequestMethod.GET)
+	@RequestMapping(value = "revokeAdmin", method = RequestMethod.POST)
 	public @ResponseBody String revokeAdmin(HttpServletRequest request) {
 		int affectedRow = securityService.revokeAdmin(request.getParameter("adAccount"));
 
