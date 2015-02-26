@@ -43,6 +43,7 @@
 	<div>
 		<ul id="navigation_bar" class="nav nav-pills">
 			<li><a href="/">내 자산 정보</a></li>
+			<li><a href="/changePassword.tmon">비밀번호 변경</a></li>
 		</ul>
 	</div>
 	</nav>

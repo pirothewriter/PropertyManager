@@ -16,6 +16,8 @@ import com.tmoncorp.PropertyManager.model.MemberModel;
 
 @Service
 public class PagenationService {
+	private static final int DEFAULT_SOLE_PAGE = 20;
+
 	@Autowired
 	private MemberService memberService;
 
@@ -28,6 +30,12 @@ public class PagenationService {
 		int endPage;
 		int viewSolePage;
 		int maximumPage = 0;
+		
+		String upperDivision = "";
+		String lowerDivision = "";
+		String adAccount = "";
+		String nameOfMember = "";
+		
 		HttpSession session = request.getSession();
 
 		if (request.getParameter("page") == null)
@@ -39,62 +47,38 @@ public class PagenationService {
 			session.setAttribute("viewSolePage", request.getParameter("viewSolePage"));
 
 		if (session.getAttribute("viewSolePage") == null || session.getAttribute("viewSolePage") == "")
-			viewSolePage = 20;
-		else {
+			viewSolePage = DEFAULT_SOLE_PAGE;
+		else 
 			viewSolePage = Integer.parseInt((String) session.getAttribute("viewSolePage"));
+		
+		
+		if (request.getParameter("upperDivision") != null) {
+			if (request.getParameter("upperDivision").compareTo("") != 0)
+				upperDivision = URLDecoder.decode(request.getParameter("upperDivision"), "UTF-8");
 		}
 
-		String upperDivision = "";
-		String lowerDivision = "";
-		String adAccount = "";
-		String nameOfMember = "";
+		if (request.getParameter("lowerDivision") != null) {
+			if (request.getParameter("lowerDivision").compareTo("") != 0)
+				lowerDivision = URLDecoder.decode(request.getParameter("lowerDivision"), "UTF-8");
+		}
+
+		if (request.getParameter("adAccount") != null) {
+			if (request.getParameter("adAccount").compareTo("") != 0)
+				adAccount = URLDecoder.decode(request.getParameter("adAccount"), "UTF-8");
+		}
+
+		if (request.getParameter("nameOfMember") != null) {
+			if (request.getParameter("nameOfMember").compareTo("") != 0)
+				nameOfMember = URLDecoder.decode(request.getParameter("nameOfMember"), "UTF-8");
+		}
 
 		if (contentType.compareTo("member") == 0) {
-			if (request.getParameter("upperDivision") != null) {
-				if (request.getParameter("upperDivision").compareTo("") != 0)
-					upperDivision = URLDecoder.decode(request.getParameter("upperDivision"), "UTF-8");
-			}
-
-			if (request.getParameter("lowerDivision") != null) {
-				if (request.getParameter("lowerDivision").compareTo("") != 0)
-					lowerDivision = URLDecoder.decode(request.getParameter("lowerDivision"), "UTF-8");
-			}
-
-			if (request.getParameter("adAccount") != null) {
-				if (request.getParameter("adAccount").compareTo("") != 0)
-					adAccount = URLDecoder.decode(request.getParameter("adAccount"), "UTF-8");
-			}
-
-			if (request.getParameter("nameOfMember") != null) {
-				if (request.getParameter("nameOfMember").compareTo("") != 0)
-					nameOfMember = URLDecoder.decode(request.getParameter("nameOfMember"), "UTF-8");
-			}
-
 			List<MemberModel> members = memberService.selectMembers(nowPage, viewSolePage, upperDivision, lowerDivision, adAccount, nameOfMember);
 			maximumPage = memberService.getMaximumPage(viewSolePage, upperDivision, lowerDivision, adAccount, nameOfMember);
 			modelAndView.addObject("members", members);
 		}
 
 		else if (contentType.compareTo("retired") == 0) {
-			if (request.getParameter("upperDivision") != null) {
-				if (request.getParameter("upperDivision").compareTo("") != 0)
-					upperDivision = URLDecoder.decode(request.getParameter("upperDivision"), "UTF-8");
-			}
-
-			if (request.getParameter("lowerDivision") != null) {
-				if (request.getParameter("lowerDivision").compareTo("") != 0)
-					lowerDivision = URLDecoder.decode(request.getParameter("lowerDivision"), "UTF-8");
-			}
-
-			if (request.getParameter("adAccount") != null) {
-				if (request.getParameter("adAccount").compareTo("") != 0)
-					adAccount = URLDecoder.decode(request.getParameter("adAccount"), "UTF-8");
-			}
-
-			if (request.getParameter("nameOfMember") != null) {
-				if (request.getParameter("nameOfMember").compareTo("") != 0)
-					nameOfMember = URLDecoder.decode(request.getParameter("nameOfMember"), "UTF-8");
-			}
 			List<MemberModel> retiredMembers = memberService.getRetiredMembers(nowPage, viewSolePage, upperDivision, lowerDivision, adAccount, nameOfMember);
 			maximumPage = memberService.getMaximumPageRetired(viewSolePage, upperDivision, lowerDivision, adAccount, nameOfMember);
 			modelAndView.addObject("retiredMembers", retiredMembers);
@@ -123,6 +107,10 @@ public class PagenationService {
 		int endPage;
 		int viewSolePage;
 		int maximumPage = 0;
+		
+		String upperCategory = "";
+		String lowerCategory = "";
+		
 		HttpSession session = request.getSession();
 
 		if (request.getParameter("page") == null)
@@ -134,23 +122,9 @@ public class PagenationService {
 			session.setAttribute("viewSolePage", request.getParameter("viewSolePage"));
 
 		if (session.getAttribute("viewSolePage") == null)
-			viewSolePage = 20;
-		else {
+			viewSolePage = DEFAULT_SOLE_PAGE;
+		else 
 			viewSolePage = Integer.parseInt((String) session.getAttribute("viewSolePage"));
-		}
-
-		if (maximumPage > nowPage + 5)
-			endPage = nowPage + 5;
-		else
-			endPage = maximumPage;
-
-		if (nowPage - 5 > 0)
-			startPage = nowPage - 5;
-		else
-			startPage = 1;
-
-		String upperCategory = "";
-		String lowerCategory = "";
 
 		if (request.getParameter("upperCategory") != null) {
 			if (request.getParameter("upperCategory").compareTo("") != 0)
@@ -170,9 +144,19 @@ public class PagenationService {
 
 		else if (contentType.compareTo("all") == 0) {
 			List<EquipmentModel> properties = equipmentService.getAllEquipment(nowPage, viewSolePage, upperCategory, lowerCategory);
-			maximumPage = equipmentService.getMaximumPageOfOwnerless(viewSolePage);
+			maximumPage = equipmentService.getMaximumPage(viewSolePage);
 			modelAndView.addObject("properties", properties);
 		}
+		
+		if (maximumPage > nowPage + 5)
+			endPage = nowPage + 5;
+		else
+			endPage = maximumPage;
+
+		if (nowPage - 5 > 0)
+			startPage = nowPage - 5;
+		else
+			startPage = 1;
 
 		modelAndView.addObject("startPage", startPage);
 		modelAndView.addObject("endPage", endPage);

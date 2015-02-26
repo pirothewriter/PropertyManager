@@ -24,7 +24,7 @@
 		<logout logout-success-url="/login.tmon" />
 	</http>
 
-	<authentication-manager>
+	<authentication-manager erase-credentials="false">
 		<authentication-provider user-service-ref="securityService" />
 	</authentication-manager>
 </beans:beans>

@@ -16,32 +16,6 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-
-</head>
-<body>
-	<div id="wrapper">
-		<div id="barcodeArea">
-			<form id="barcodeInput">
-				<input type="hidden" id="adAccount" name="adAccount" value="${adAccount }">
-				바코드 입력 : <input type="text" name="propertyNumber" id="barcode">
-				<button class="btn btn-default" type="submit">입력</button>
-			</form>
-		</div>
-		<div id="properties">
-			<form id="urgentMultipleProperties">
-				<input type="hidden" id="adAccount" name="adAccount" value="${adAccount }">
-				<table id="toUrgentProperties" class="table">
-					<tbody>
-						<tr>
-							<th>선택</th>
-							<th>자산번호</th>
-						</tr>
-					</tbody>
-				</table>
-				<button class="btn btn-primary" type="submit">자산추가</button>
-			</form>
-		</div>
-	</div>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var adAccount = '${adAccount}';
@@ -124,5 +98,30 @@
 		});
 	}
 </script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="barcodeArea">
+			<form id="barcodeInput">
+				<input type="hidden" id="adAccount" name="adAccount" value="${adAccount }">
+				바코드 입력 : <input type="text" name="propertyNumber" id="barcode">
+				<button class="btn btn-default" type="submit">입력</button>
+			</form>
+		</div>
+		<div id="properties">
+			<form id="urgentMultipleProperties">
+				<input type="hidden" id="adAccount" name="adAccount" value="${adAccount }">
+				<table id="toUrgentProperties" class="table">
+					<tbody>
+						<tr>
+							<th>선택</th>
+							<th>자산번호</th>
+						</tr>
+					</tbody>
+				</table>
+				<button class="btn btn-primary" type="submit">자산추가</button>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

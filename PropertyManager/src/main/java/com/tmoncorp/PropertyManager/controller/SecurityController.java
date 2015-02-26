@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +57,6 @@ public class SecurityController {
 			return "SUCCESS";
 		else
 			return "ERROR";
-
 	}
 
 	@RequestMapping(value = "revokeAdmin", method = RequestMethod.POST)
@@ -66,6 +67,29 @@ public class SecurityController {
 			return "SUCCESS";
 		else
 			return "ERROR";
+	}
 
+	@RequestMapping("/changePassword")
+	public ModelAndView changePassword() {
+		ModelAndView changePasswordModelAndView = new ModelAndView();
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String adAccount = user.getUsername();
+		String password = user.getPassword();
+		changePasswordModelAndView.addObject("adAccount", adAccount);
+		changePasswordModelAndView.addObject("password", password);
+		changePasswordModelAndView.setViewName("changePw");
+		return changePasswordModelAndView;
+	}
+
+	@RequestMapping(value = "/changingPassword", method = RequestMethod.POST)
+	public @ResponseBody String changingPassword(HttpServletRequest request) {
+		String adAccount = request.getParameter("adAccount");
+		String password = request.getParameter("toBePassword");
+		int result = securityService.changePassword(adAccount, password);
+
+		if (result == 0)
+			return "ERROR";
+		else
+			return "SUCCESS";
 	}
 }

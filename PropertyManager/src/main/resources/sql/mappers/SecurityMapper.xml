@@ -69,4 +69,13 @@
 		WHERE
 			username = #{adAccount}
 	</update>
+	
+	<update id="changePassword">
+		UPDATE
+			users
+		SET
+			password = #{password}
+		WHERE
+			username = #{adAccount}
+	</update>
 </mapper>

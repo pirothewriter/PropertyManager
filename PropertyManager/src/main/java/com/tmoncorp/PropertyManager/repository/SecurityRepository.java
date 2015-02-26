@@ -47,4 +47,9 @@ public class SecurityRepository {
 		SecurityMapper securityMapper = sqlSession.getMapper(SecurityMapper.class);
 		return securityMapper.revokeUser(adAccount);
 	}
+	
+	public int changePassword(String adAccount, String password) {
+		SecurityMapper securityMapper = sqlSession.getMapper(SecurityMapper.class);
+		return securityMapper.changePassword(adAccount, password);
+	}
 }

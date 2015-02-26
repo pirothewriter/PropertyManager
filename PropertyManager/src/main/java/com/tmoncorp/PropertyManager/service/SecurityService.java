@@ -53,4 +53,8 @@ public class SecurityService implements UserDetailsService {
 	public int revokeUser(String adAccount) {
 		return securityRepository.revokeUser(adAccount);
 	}
+	
+	public int changePassword(String adAccount, String password) {
+		return securityRepository.changePassword(adAccount, password);
+	}
 }
