@@ -9,8 +9,11 @@
 <title>로그인 실패!</title>
 </head>
 <script type="text/javascript">
-	alert("아이디나 비밀번호가 잘못되었습니다!\n다시 시도해주세요!");
-	document.location.href="/login.tmon";
+	$(document).ready(function(){
+		var isClicked = alert("아이디나 비밀번호가 잘못되었습니다!\n다시 시도해주세요!");
+		if(isClicked == true)
+			document.location.href="/login.tmon";		
+	})
 </script>
 <body>
 </body>

@@ -64,7 +64,13 @@
 			window.open(popupUrl, "", popupOption);
 		});
 		
-		
+		$("#printIt").click(function(){
+			var adAccount = '${memberInfo.adAccount }';
+			var popupUrl = "/printUrgentingProperties.tmon?adAccount=" + adAccount;
+			var popupOption = "toolbar=no, location=no, status=no, menubar=no, resizable=no, width=21cm";
+			
+			window.open(popupUrl, "", popupOption);
+		});
 	})
 </script>
 </head>
@@ -88,6 +94,7 @@
 		<button class="btn btn-default" type="button" id="add_property">자산추가</button>
 		<button class="btn btn-default" type="button" id="add_property_by_barcode">바코드 입력</button>
 		<button class="btn btn-default" type="button" id="personalLog">개인장비 이력보기</button>
+		<button class="btn btn-success" type="button" id="printIt">자산 확인 인수서 인쇄</button>
 	</div>
 	<div id="propertyInfo">
 		<form method="post" name="releaseForm">

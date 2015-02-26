@@ -27,7 +27,7 @@ public class SecurityController {
 
 	@Autowired
 	private MemberService memberService;
-
+	
 	@RequestMapping("/login")
 	public void login(@RequestParam Map<String, Object> paramMap, ModelMap model) throws Throwable {
 
@@ -75,6 +75,7 @@ public class SecurityController {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String adAccount = user.getUsername();
 		String password = user.getPassword();
+		
 		changePasswordModelAndView.addObject("adAccount", adAccount);
 		changePasswordModelAndView.addObject("password", password);
 		changePasswordModelAndView.setViewName("changePw");
@@ -83,7 +84,8 @@ public class SecurityController {
 
 	@RequestMapping(value = "/changingPassword", method = RequestMethod.POST)
 	public @ResponseBody String changingPassword(HttpServletRequest request) {
-		String adAccount = request.getParameter("adAccount");
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String adAccount = user.getUsername();
 		String password = request.getParameter("toBePassword");
 		int result = securityService.changePassword(adAccount, password);
 

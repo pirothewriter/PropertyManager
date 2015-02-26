@@ -15,7 +15,7 @@
 		INSERT INTO
 			users
 		VALUES
-			(#{username}, #{username}, 1)
+			(#{username}, #{password}, 1)
 	</insert>
 	
 	<insert id="insertAuthority">

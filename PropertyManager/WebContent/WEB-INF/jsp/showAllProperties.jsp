@@ -134,7 +134,7 @@
 	<div id="wrapper">
 		<div id="searcher">
 			<form name="searcher" id="propertySearcher" role="form" class="form-inline">
-				대분류 : <select class="form-control" id="selectUpper" name="upperCategory">
+				<label>대분류</label><select class="form-control" id="selectUpper" name="upperCategory" class="form-control">
 					<option value=''>분류(大)</option>
 					<option value="monitor">모니터</option>
 					<option value="desktop">데스크탑</option>
@@ -144,9 +144,10 @@
 					<option value="phone">전화기</option>
 					<option value="etc">기타장비</option>
 				</select>
-				소분류 : <select class="form-control" id="selectLower" name="lowerCategory">
+				<label>소분류</label><select class="form-control" id="selectLower" name="lowerCategory" class="form-control">
 				<option value=''>분류(小)</option>
 				</select>
+				<label>자산번호</label><input type="text" id="propertyNumber" name="propertyNumber" class="form-control" />
 				<button type="submit" class="btn btn-default" id="searcherSubmit">검색</button>
 				<button type="button" class="btn btn-danger" id="initializer">초기화</button>
 			</form>

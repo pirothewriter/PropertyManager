@@ -71,7 +71,6 @@ public class InsertMemberController {
 
 	@RequestMapping(value = "/insertingMember", method = RequestMethod.POST)
 	public @ResponseBody String insertion(HttpServletRequest request) throws ParseException {
-		
 		int affectedRowsOfMemberTable = memberService.insertMemberInfomation(request);
 		int affectedRowsOfUserTable = securityService.insertUser(request.getParameter("adAccount"));
 		

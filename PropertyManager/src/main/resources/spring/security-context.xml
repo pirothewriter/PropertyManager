@@ -25,6 +25,8 @@
 	</http>
 
 	<authentication-manager erase-credentials="false">
-		<authentication-provider user-service-ref="securityService" />
+		<authentication-provider user-service-ref="securityService">
+			<password-encoder ref="passwordEncoder" />
+		</authentication-provider>
 	</authentication-manager>
 </beans:beans>

@@ -30,12 +30,12 @@ public class PagenationService {
 		int endPage;
 		int viewSolePage;
 		int maximumPage = 0;
-		
+
 		String upperDivision = "";
 		String lowerDivision = "";
 		String adAccount = "";
 		String nameOfMember = "";
-		
+
 		HttpSession session = request.getSession();
 
 		if (request.getParameter("page") == null)
@@ -48,10 +48,9 @@ public class PagenationService {
 
 		if (session.getAttribute("viewSolePage") == null || session.getAttribute("viewSolePage") == "")
 			viewSolePage = DEFAULT_SOLE_PAGE;
-		else 
+		else
 			viewSolePage = Integer.parseInt((String) session.getAttribute("viewSolePage"));
-		
-		
+
 		if (request.getParameter("upperDivision") != null) {
 			if (request.getParameter("upperDivision").compareTo("") != 0)
 				upperDivision = URLDecoder.decode(request.getParameter("upperDivision"), "UTF-8");
@@ -107,10 +106,11 @@ public class PagenationService {
 		int endPage;
 		int viewSolePage;
 		int maximumPage = 0;
-		
+
 		String upperCategory = "";
 		String lowerCategory = "";
-		
+		String propertyNumber = "";
+
 		HttpSession session = request.getSession();
 
 		if (request.getParameter("page") == null)
@@ -123,7 +123,7 @@ public class PagenationService {
 
 		if (session.getAttribute("viewSolePage") == null)
 			viewSolePage = DEFAULT_SOLE_PAGE;
-		else 
+		else
 			viewSolePage = Integer.parseInt((String) session.getAttribute("viewSolePage"));
 
 		if (request.getParameter("upperCategory") != null) {
@@ -136,18 +136,23 @@ public class PagenationService {
 				lowerCategory = URLDecoder.decode(request.getParameter("lowerCategory"), "UTF-8");
 		}
 
+		if (request.getParameter("propertyNumber") != null) {
+			if (request.getParameter("propertyNumber").compareTo("") != 0)
+				propertyNumber = URLDecoder.decode(request.getParameter("propertyNumber"), "UTF-8");
+		}
+
 		if (contentType.compareTo("ownerless") == 0) {
-			List<EquipmentModel> ownerlessEquipment = equipmentService.getOwnerlessEquipment(nowPage, viewSolePage, upperCategory, lowerCategory);
-			maximumPage = equipmentService.getMaximumPage(viewSolePage);
+			List<EquipmentModel> ownerlessEquipment = equipmentService.getOwnerlessEquipment(nowPage, viewSolePage, upperCategory, lowerCategory, propertyNumber);
+			maximumPage = equipmentService.getMaximumPageOfOwnerless(viewSolePage, upperCategory, lowerCategory, propertyNumber);
 			modelAndView.addObject("ownerlessEquipment", ownerlessEquipment);
 		}
 
 		else if (contentType.compareTo("all") == 0) {
-			List<EquipmentModel> properties = equipmentService.getAllEquipment(nowPage, viewSolePage, upperCategory, lowerCategory);
-			maximumPage = equipmentService.getMaximumPage(viewSolePage);
+			List<EquipmentModel> properties = equipmentService.getAllEquipment(nowPage, viewSolePage, upperCategory, lowerCategory, propertyNumber);
+			maximumPage = equipmentService.getMaximumPage(viewSolePage, upperCategory, lowerCategory, propertyNumber);
 			modelAndView.addObject("properties", properties);
 		}
-		
+
 		if (maximumPage > nowPage + 5)
 			endPage = nowPage + 5;
 		else

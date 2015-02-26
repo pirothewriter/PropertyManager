@@ -38,8 +38,8 @@ public class EquipmentService {
 		return equipmentRepository.selectPropertyOnMember(adAccount);
 	}
 
-	public List<EquipmentModel> getOwnerlessEquipment(int nowPage, int viewSolePage, String upperCategory, String lowerCategory) {
-		return equipmentRepository.selectOwnerlessEquipments(calculatePageToRow(nowPage, viewSolePage), viewSolePage, upperCategory, lowerCategory);
+	public List<EquipmentModel> getOwnerlessEquipment(int nowPage, int viewSolePage, String upperCategory, String lowerCategory, String propertyNumber) {
+		return equipmentRepository.selectOwnerlessEquipments(calculatePageToRow(nowPage, viewSolePage), viewSolePage, upperCategory, lowerCategory, propertyNumber);
 	}
 
 	public int insertMultipleEquipment(File csvFile) throws IOException, ParseException {
@@ -98,19 +98,19 @@ public class EquipmentService {
 		return equipment;
 	}
 	
-	public int getMaximumPage(int viewSolePage) {
-		return ((equipmentRepository.selectAllOwnerlessEquipment() - 1) / viewSolePage) + 1;
+	public int getMaximumPage(int viewSolePage, String upperCategory, String lowerCategory, String propertyNumber) {
+		return ((equipmentRepository.selectAllEquipment(upperCategory, lowerCategory, propertyNumber) - 1) / viewSolePage) + 1;
 	}
 
-	public int getMaximumPageOfOwnerless(int viewSolePage) {
-		return ((equipmentRepository.selectAllOwnerlessEquipment() - 1) / viewSolePage) + 1;
+	public int getMaximumPageOfOwnerless(int viewSolePage, String upperCategory, String lowerCategory, String propertyNumber) {
+		return ((equipmentRepository.selectAllOwnerlessEquipment(upperCategory, lowerCategory, propertyNumber) - 1) / viewSolePage) + 1;
 	}
 
 	private int calculatePageToRow(int page, int viewSolePage) {
 		return (page - 1) * viewSolePage;
 	}
 
-	public List<EquipmentModel> getAllEquipment(int nowPage, int viewSolePage, String upperCategory, String lowerCategory) {
-		return equipmentRepository.selectAllEquipment(calculatePageToRow(nowPage, viewSolePage), viewSolePage, upperCategory, lowerCategory);
+	public List<EquipmentModel> getAllEquipment(int nowPage, int viewSolePage, String upperCategory, String lowerCategory, String propertyNumber) {
+		return equipmentRepository.selectAllEquipment(calculatePageToRow(nowPage, viewSolePage), viewSolePage, upperCategory, lowerCategory, propertyNumber);
 	}
 }

@@ -67,6 +67,9 @@
 				<if test="lowerCategory != ''">
 					AND E.lower_category = #{lowerCategory}
 				</if>
+				<if test="propertyNumber != ''">
+					AND E.property_number = #{propertyNumber}
+				</if>
 		LIMIT
 			#{nowPage}, #{viewSolePage}
 	</select>
@@ -81,7 +84,16 @@
 		ON
 			(E.property_number = J.property_number)
 		WHERE
-			J.ad_account IS NULL
+			J.ad_Account IS NULL
+				<if test="upperCategory != ''">
+					AND E.upper_category = #{upperCategory}
+				</if>
+				<if test="lowerCategory != ''">
+					AND E.lower_category = #{lowerCategory}
+				</if>
+				<if test="propertyNumber != ''">
+					AND E.property_number = #{propertyNumber}
+				</if>
 	</select>
 	
 	<select id="selectAllEquipment" resultMap="EquipmentResult">
@@ -101,7 +113,32 @@
 					<if test="lowerCategory != ''">
 						AND E.lower_category = #{lowerCategory}
 					</if>
+					<if test="propertyNumber != ''">
+						AND E.property_number = #{propertyNumber}
+					</if>
 			LIMIT
 				#{nowPage}, #{viewSolePage}
+	</select>
+	
+	<select id="selectCountAllEquipment" resultType = "Integer">
+		SELECT 
+			COUNT(E.property_number)
+		FROM
+				equipment E
+			LEFT JOIN 
+				equipment_map_person J
+			ON
+				(E.property_number = J.property_number)
+			WHERE
+				1=1
+					<if test="upperCategory != ''">
+						AND E.upper_category = #{upperCategory}
+					</if>
+					<if test="lowerCategory != ''">
+						AND E.lower_category = #{lowerCategory}
+					</if>
+					<if test="propertyNumber != ''">
+						AND E.property_number = #{propertyNumber}
+					</if>
 	</select>
 </mapper>

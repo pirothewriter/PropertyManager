@@ -49,8 +49,6 @@
 			<if test="nameOfMember != ''">
 				AND M.member_name like #{nameOfMember}
 			</if>
-		ORDER BY
-			M.member_name ASC	
 		LIMIT
 			#{page}, #{viewSolePage}
 	</select>

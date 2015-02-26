@@ -28,5 +28,10 @@ public class ExchangeDateBetweenStringTest {
 		Date resultDate = exchangeDateBetweenString.stringToDate(testDate);
 		System.out.println(resultDate);
 	}
+	
+	@Test
+	public void 현재날짜를_정상적으로_반환하는지_테스트() {
+		System.out.println(exchangeDateBetweenString.returnNowDate());
+	}
 
 }

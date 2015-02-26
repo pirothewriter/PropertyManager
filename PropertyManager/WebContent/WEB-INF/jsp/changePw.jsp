@@ -23,11 +23,6 @@
 		});
 		
 		$("#changePw").submit(function(){
-			if($("#currentPassword").val() == "") {
-				alert("현재 비밀번호를 입력해주세요!");
-				return false;
-			}
-			
 			if($("#toBePassword").val() == "") {
 				alert("변경될 비밀번호를 입력해주세요!");
 				return false;
@@ -35,16 +30,6 @@
 			
 			if($("#checkPassword").val() == "") {
 				alert("변경될 비밀번호와 동일한 비밀번호를 입력해주세요!");
-				return false;
-			}
-			
-			if($("#nowPassword").val() != $("#currentPassword").val()) {
-				alert("현재 비밀번호가 일치하지 않습니다!");
-				return false;
-			}
-			
-			if($("#currentPassword").val() == $("#toBePassword").val()) {
-				alert("현재 비밀번호와 변경될 비밀번호가 같을 수 없습니다");
 				return false;
 			}
 			
@@ -56,8 +41,7 @@
 			$.ajax({
 				type : "POST",
 				url : "/changingPassword.tmon",
-				data : {adAccount : $("#adAccount").val(),
-						toBePassword : $("#toBePassword").val()},
+				data : {toBePassword : $("#toBePassword").val()},
 				success : function(msg) {
 					if(msg == "SUCCESS") {
 						alert("비밀번호가 변경되었습니다!");
@@ -65,9 +49,6 @@
 						alert("비밀번호 변경에 실패하였습니다!");
 					}
 				},
-				error : function(msg) {
-					alert("서버 오류입니다!");
-				}
 			});
 			
 			document.location.href="/";
@@ -79,15 +60,10 @@
 	<div id="wrapper">
 		<form class="form-inline" id="changePw">
 			<input type="hidden" id="adAccount" name="adAccount" value="${adAccount}" />
-			<input type="hidden" id="nowPassword" name="nowPassword" value="${password}" />
 			<table class="table">
 				<tbody>
 					<tr>
 						<td colspan="2">비밀번호 변경</td>
-					</tr>
-					<tr>
-						<th>현재 비밀번호</th>
-						<td><input type="password" name="currentPassword" id="currentPassword"></td>
 					</tr>
 					<tr>
 						<th>변경할 비밀번호</th>

@@ -6,6 +6,7 @@
 		<pattern>/equipmentLog.tmon*</pattern>
 		<pattern>/personalLog.tmon*</pattern>
 		<pattern>/barcodeInput.tmon*</pattern>
+		<pattern>/printUrgentingProperties.tmon*</pattern>
 	</excludes>
 	<decorator name="header" page="/WEB-INF/decorators/header.jsp">
 		<pattern>*.tmon*</pattern>

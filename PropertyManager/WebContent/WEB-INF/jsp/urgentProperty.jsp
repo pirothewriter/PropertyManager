@@ -104,7 +104,7 @@
 	}
 	
 	$(document).ready(function(){
-		$("form").on("submit", function(event){
+		$("#mappingForm").on("submit", function(event){
 			var urgentIt = confirm("해당 자산들을 추가하시겠습니까?");
 			if(urgentIt == true) {
 				event.preventDefault();
@@ -156,6 +156,9 @@
 			if($("#selectLower").val() != "")
 				params += "lowerCategory=" + encodeURI(encodeURIComponent($("#selectLower").val())) + "&";
 			
+			if($("#propertyNumber").val() != "")
+				params += "propertyNumber=" + encodeURI(encodeURIComponent($("#propertyNumber").val())) + "&";
+			
 			document.location.href = url + params;
 		});
 	})
@@ -165,7 +168,7 @@
 	<div id="wrapper">
 		<div id="searcher">
 			<form name="searcher" id="propertySearcher" role="form" class="form-inline">
-				대분류 : <select class="form-control" id="selectUpper" name="upperCategory">
+				<label>대분류</label><select class="form-control" id="selectUpper" name="upperCategory" class="form-control">
 					<option value=''>분류(大)</option>
 					<option value="monitor">모니터</option>
 					<option value="desktop">데스크탑</option>
@@ -175,14 +178,15 @@
 					<option value="phone">전화기</option>
 					<option value="etc">기타장비</option>
 				</select>
-				소분류 : <select class="form-control" id="selectLower" name="lowerCategory">
+				<label>소분류</label><select class="form-control" id="selectLower" name="lowerCategory" class="form-control">
 				<option value=''>분류(小)</option>
 				</select>
+				<label>자산번호</label><input type="text" id="propertyNumber" name="propertyNumber" class="form-control" />
 				<button type="button" class="btn btn-default" id="searcherSubmit">검색</button>
 				<button type="button" class="btn btn-danger" id="initializer">초기화</button>
 			</form>
 		</div>
-		<form method="post" name="mappingForm" role="form" class="form-inline">
+		<form method="post" id="mappingForm" name="mappingForm" role="form" class="form-inline">
 			<div id="ownerlessProperties">
 				<input type="text" name="adAccount" value="${adAccount }" style="visibility:hidden; ">
 				<table class="table">
