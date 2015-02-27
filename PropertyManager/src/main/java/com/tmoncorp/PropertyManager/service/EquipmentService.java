@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tmoncorp.PropertyManager.model.EquipmentModel;
+import com.tmoncorp.PropertyManager.model.MemberModel;
 import com.tmoncorp.PropertyManager.repository.CsvReaderRepository;
 import com.tmoncorp.PropertyManager.repository.EquipmentRepository;
+import com.tmoncorp.PropertyManager.repository.MemberRepository;
 import com.tmoncorp.PropertyManager.util.ExchangeCharacterSet;
 import com.tmoncorp.PropertyManager.util.ExchangeDateBetweenString;
 
@@ -27,6 +29,10 @@ public class EquipmentService {
 	@Autowired
 	private EquipmentRepository equipmentRepository;
 
+	@Autowired
+	private MemberRepository memberRepository;
+
+	@Autowired
 	private CsvReaderRepository csvReaderRepository;
 
 	public int equipmentInsertion(HttpServletRequest request) throws ParseException {
@@ -68,7 +74,15 @@ public class EquipmentService {
 	}
 
 	public List<EquipmentModel> getAllEquipment(int nowPage, int viewSolePage, String upperCategory, String lowerCategory, String propertyNumber) {
-		return equipmentRepository.selectAllEquipment(calculatePageToRow(nowPage, viewSolePage), viewSolePage, upperCategory, lowerCategory, propertyNumber);
+		List<EquipmentModel> result = equipmentRepository.selectAllEquipment(calculatePageToRow(nowPage, viewSolePage), viewSolePage, upperCategory, lowerCategory, propertyNumber);
+		
+		for(int index = 0; index < result.size(); index++){
+			MemberModel member = memberRepository.selectAMember(result.get(index).getUser());
+			if(member != null)
+				result.get(index).setUser(member.getMemberName() + "(" + member.getUpperDivision() + ")");
+		}
+		
+		return result;
 	}
 
 	public String exchangeCategoryCode(String inputCode) throws IOException {

@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tmoncorp.PropertyManager.model.MemberModel;
 import com.tmoncorp.PropertyManager.model.PropertyLogModel;
+import com.tmoncorp.PropertyManager.repository.MemberRepository;
 import com.tmoncorp.PropertyManager.repository.PropertyLogRepository;
 
 /**
@@ -19,6 +21,9 @@ import com.tmoncorp.PropertyManager.repository.PropertyLogRepository;
 public class PropertyLogService {
 	@Autowired
 	private PropertyLogRepository propertyLogRepository;
+
+	@Autowired
+	private MemberRepository memberRepository;
 
 	public void setPropertyLogRepository(PropertyLogRepository propertyLog) {
 		propertyLogRepository = propertyLog;
@@ -83,14 +88,16 @@ public class PropertyLogService {
 
 	public String getPropertyInfomation(String propertyNumber) {
 		PropertyLogModel mappedInfo = propertyLogRepository.getPropertyInfomation(propertyNumber);
-		
-		if(mappedInfo == null)
+
+		if (mappedInfo == null)
 			return "NO_EXIST";
 		else {
-			if(mappedInfo.getAdAccount() == null)
+			if (mappedInfo.getAdAccount() == null)
 				return "SUCCESS";
-			else
-				return mappedInfo.getAdAccount();
+			else {
+				MemberModel member = memberRepository.selectAMember(mappedInfo.getAdAccount());
+				return member.getMemberName() + "(" + member.getUpperDivision() + ")";
+			}
 		}
 	}
 
