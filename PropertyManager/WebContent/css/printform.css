@@ -1,0 +1,21 @@
+#propertiesTableHeadRow th {
+	background-color: #f79646;
+	text-align: center;
+}
+
+#greyCharacter {
+	color: #E0DFE6;
+}
+
+.printForm {
+	font-family: '맑은 고딕', 'Malgun Gothic', verdana;
+	font-size: 11px;
+}
+
+#propertiesTable tr {
+	height: 32px;
+}
+
+li {
+	padding-bottom: 5px;
+}

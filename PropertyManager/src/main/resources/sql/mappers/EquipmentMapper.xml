@@ -68,7 +68,7 @@
 					AND E.lower_category = #{lowerCategory}
 				</if>
 				<if test="propertyNumber != ''">
-					AND E.property_number = #{propertyNumber}
+					AND E.property_number LIKE '%${propertyNumber}%'
 				</if>
 		LIMIT
 			#{nowPage}, #{viewSolePage}
@@ -92,7 +92,7 @@
 					AND E.lower_category = #{lowerCategory}
 				</if>
 				<if test="propertyNumber != ''">
-					AND E.property_number = #{propertyNumber}
+					AND E.property_number LIKE '%${propertyNumber}%'
 				</if>
 	</select>
 	
@@ -114,7 +114,7 @@
 						AND E.lower_category = #{lowerCategory}
 					</if>
 					<if test="propertyNumber != ''">
-						AND E.property_number = #{propertyNumber}
+						AND E.property_number LIKE '%${propertyNumber}%'
 					</if>
 			LIMIT
 				#{nowPage}, #{viewSolePage}
@@ -138,7 +138,7 @@
 						AND E.lower_category = #{lowerCategory}
 					</if>
 					<if test="propertyNumber != ''">
-						AND E.property_number = #{propertyNumber}
+						AND E.property_number LIKE '%${propertyNumber}%'
 					</if>
 	</select>
 </mapper>

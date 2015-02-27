@@ -44,10 +44,10 @@
 				AND C2.category_name = #{lowerCategory}
 			</if>
 			<if test="adAccount != ''">
-				AND M.ad_account like #{adAccount}
+				AND M.ad_account LIKE '%${adAccount}%'
 			</if>
 			<if test="nameOfMember != ''">
-				AND M.member_name like #{nameOfMember}
+				AND M.member_name LIKE '%${nameOfMember}%'
 			</if>
 		LIMIT
 			#{page}, #{viewSolePage}
@@ -130,10 +130,10 @@
 					AND C2.category_name = #{lowerCategory}
 				</if>
 				<if test="adAccount != ''">
-					AND M.ad_account like #{adAccount}
+					AND M.ad_account LIKE '%${adAccount}%'
 				</if>
 				<if test="nameOfMember != ''">
-					AND M.member_name like #{nameOfMember}
+					AND M.member_name LIKE '%${nameOfMember}%'
 				</if>
 		ORDER BY
 			ad_account DESC
@@ -164,10 +164,10 @@
 				AND C2.category_name = #{lowerCategory}
 			</if>
 			<if test="adAccount != ''">
-				AND M.ad_account like #{adAccount}
+				AND M.ad_account LIKE '%${adAccount}%'
 			</if>
 			<if test="nameOfMember != ''">
-				AND M.member_name like #{nameOfMember}
+				AND M.member_name LIKE '%${nameOfMember}%'
 			</if>
 	</select>
 	
@@ -193,10 +193,10 @@
 				AND C2.category_name = #{lowerCategory}
 			</if>
 			<if test="adAccount != ''">
-				AND M.ad_account like #{adAccount}
+				AND M.ad_account LIKE '%${adAccount}%'
 			</if>
 			<if test="nameOfMember != ''">
-				AND M.member_name like #{nameOfMember}
+				AND M.member_name LIKE '%${nameOfMember}%'
 			</if>
 	</select>
 	

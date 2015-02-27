@@ -8,57 +8,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>전산 자산 지급 확인서</title>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="print" />
+<link rel="stylesheet" href="/css/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="/css/printform.css" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script src="/js/bootstrap.js"></script>
 <link href="/css/jquery-ui-1.10.4.css" rel="stylesheet">
 <link href="/css/bootstrap.css" rel="stylesheet">
-<style type="text/css">
-	#propertiesTableHeadRow th {
-		background-color: #f79646;
-		text-align: center;
-	}
-	
-	#greyCharacter {
-		color : #E0DFE6;
-	}
-	
-	.printForm {
-		font-family: '맑은 고딕', 'Malgun Gothic', verdana;
-		font-size: 11px;
-	}
-	
-	#propertiesTable tr {
-		height: 32px;		
-	}
-	
-	li {
-		padding-bottom: 5px;
-	}
-</style>
-<style type="text/css" media="print">
-	#propertiesTableHeadRow th {
-		background-color: #f79646 !important;
-		text-align: center;
-	}
-	
-	#greyCharacter {
-		color : #898484 !important;
-	}
-	
-	.printForm {
-		font-family: '맑은 고딕', 'Malgun Gothic', verdana;
-		font-size: 11px;
-	}
-	
-	#propertiesTable tr {
-		height: 32px;		
-	}
-	
-	li {
-		padding-bottom: 5px;
-	}
-</style>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var printIt = confirm("자산 인수서를 출력하시겠습니까?");
@@ -148,7 +104,7 @@
 	</div>
 	<div id="corp" align="right">
 		<p style="font-size:13px;"><strong>주식회사 티켓몬스터 귀중</strong></p>
-		<p><img src="../image/tmonlogo.png" width="100px;" height="25px;"></p>
+		<p><img src="/image/tmonlogo.png" width="100px;" height="25px;"></p>
 	</div>
 </div>
 </body>
