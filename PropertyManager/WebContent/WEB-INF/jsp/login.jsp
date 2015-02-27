@@ -15,6 +15,11 @@
 
 <decorator:head />
 <title>로그인</title>
+<style type="text/css">
+body {
+	font-family: '맑은 고딕', 'Malgun Gothic', verdana;
+}
+</style>
 </head>
 <script type="text/javascript">
 	function doLogin() {

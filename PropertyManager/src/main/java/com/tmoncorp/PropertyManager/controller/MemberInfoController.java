@@ -46,8 +46,11 @@ public class MemberInfoController {
 		MemberModel member = memberService.selectAMember(request.getParameter("adAccount"));
 		List<EquipmentModel> properties = equipmentService.selectPropertyOnMember(request.getParameter("adAccount"));
 
-		for (int index = 0; index < properties.size(); index++)
+		for (int index = 0; index < properties.size(); index++) {
 			properties.get(index).setUrgentDate(propertyLogService.getPropertyUrgentDateNow(properties.get(index).getPropertyNumber(), request.getParameter("adAccount")));
+			properties.get(index).setUpperCategory(equipmentService.exchangeCodeToKoreanCategoryName(properties.get(index).getUpperCategory()));
+			properties.get(index).setLowerCategory(equipmentService.exchangeCodeToKoreanCategoryName(properties.get(index).getLowerCategory()));
+		}
 
 		memberInfoModelAndView.addObject("memberInfo", member);
 		memberInfoModelAndView.addObject("propertyInfo", properties);
@@ -66,8 +69,11 @@ public class MemberInfoController {
 		MemberModel loginedUser = memberService.selectAMember(adAccount);
 		List<EquipmentModel> properties = equipmentService.selectPropertyOnMember(adAccount);
 
-		for (int index = 0; index < properties.size(); index++)
+		for (int index = 0; index < properties.size(); index++) {
 			properties.get(index).setUrgentDate(propertyLogService.getPropertyUrgentDateNow(properties.get(index).getPropertyNumber(), adAccount));
+			properties.get(index).setUpperCategory(equipmentService.exchangeCodeToKoreanCategoryName(properties.get(index).getUpperCategory()));
+			properties.get(index).setLowerCategory(equipmentService.exchangeCodeToKoreanCategoryName(properties.get(index).getLowerCategory()));
+		}
 
 		indexModelAndView.addObject("memberInfo", loginedUser);
 		indexModelAndView.addObject("propertyInfo", properties);

@@ -43,9 +43,12 @@ public class CsvReaderService {
 
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private SecurityService securityService;
+
+	@Autowired
+	private EquipmentService equipmentService;
 
 	public int multipleMemberInsert(File csvFile) throws IOException {
 		List<String[]> membersList = csvReaderRepository.parsingCsv(csvFile);
@@ -148,12 +151,12 @@ public class CsvReaderService {
 		return isNotNull;
 	}
 
-	private EquipmentModel genearateEquipmentModel(String[] property) throws ParseException {
+	private EquipmentModel genearateEquipmentModel(String[] property) throws ParseException, IOException {
 		EquipmentModel equipmentModel = new EquipmentModel();
 		ExchangeDateBetweenString exchangeDateBetweenString = new ExchangeDateBetweenString();
 		equipmentModel.setPropertyNumber(property[0]);
-		equipmentModel.setUpperCategory(property[1]);
-		equipmentModel.setLowerCategory(property[2]);
+		equipmentModel.setUpperCategory(equipmentService.exchangeCategoryCode(property[1]));
+		equipmentModel.setLowerCategory(equipmentService.exchangeCategoryCode(property[2]));
 		equipmentModel.setName(property[3]);
 		equipmentModel.setInfomation1(property[4]);
 		equipmentModel.setInfomation2(property[5]);
@@ -181,9 +184,9 @@ public class CsvReaderService {
 		memberModel.setUpperDivision(csvParsedString[1]);
 		memberModel.setLowerDivision(csvParsedString[2]);
 		memberModel.setAdAccount(csvParsedString[3]);
-		if(csvParsedString[4] == "")
+		if (csvParsedString[4] == "")
 			memberModel.setOfficePhoneNumber(0);
-		else 
+		else
 			memberModel.setOfficePhoneNumber(Integer.parseInt(csvParsedString[4]));
 
 		memberModel = setDivisionCode(memberModel);

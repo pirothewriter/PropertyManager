@@ -144,12 +144,16 @@ public class PagenationService {
 		if (contentType.compareTo("ownerless") == 0) {
 			List<EquipmentModel> ownerlessEquipment = equipmentService.getOwnerlessEquipment(nowPage, viewSolePage, upperCategory, lowerCategory, propertyNumber);
 			maximumPage = equipmentService.getMaximumPageOfOwnerless(viewSolePage, upperCategory, lowerCategory, propertyNumber);
+			ownerlessEquipment = exchangeCodeToCategoryName(ownerlessEquipment);
+			
 			modelAndView.addObject("ownerlessEquipment", ownerlessEquipment);
 		}
 
 		else if (contentType.compareTo("all") == 0) {
 			List<EquipmentModel> properties = equipmentService.getAllEquipment(nowPage, viewSolePage, upperCategory, lowerCategory, propertyNumber);
 			maximumPage = equipmentService.getMaximumPage(viewSolePage, upperCategory, lowerCategory, propertyNumber);
+			properties = exchangeCodeToCategoryName(properties);
+			
 			modelAndView.addObject("properties", properties);
 		}
 
@@ -168,5 +172,14 @@ public class PagenationService {
 		modelAndView.addObject("viewSolePage", viewSolePage);
 
 		return modelAndView;
+	}
+
+	private List<EquipmentModel> exchangeCodeToCategoryName(List<EquipmentModel> equipments) {
+		for(int index = 0; index < equipments.size(); index++) {
+			equipments.get(index).setUpperCategory(equipmentService.exchangeCodeToKoreanCategoryName(equipments.get(index).getUpperCategory()));
+			equipments.get(index).setLowerCategory(equipmentService.exchangeCodeToKoreanCategoryName(equipments.get(index).getLowerCategory()));
+		}
+		
+		return equipments;
 	}
 }

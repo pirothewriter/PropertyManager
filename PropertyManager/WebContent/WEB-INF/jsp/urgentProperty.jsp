@@ -104,7 +104,7 @@
 	}
 	
 	$(document).ready(function(){
-		$("#mappingForm").on("submit", function(event){
+		$("#mappingForm").submit(function(event){
 			var urgentIt = confirm("해당 자산들을 추가하시겠습니까?");
 			if(urgentIt == true) {
 				event.preventDefault();
@@ -145,10 +145,10 @@
 			document.location.href="urgentProperty.tmon?adAccount=${adAccount }";
 		});
 		
-		$("#searcherSubmit").click(function(event){
+		$("#propertySearcher").submit(function(event){
 			event.preventDefault();
 			var url = "/urgentProperty.tmon";
-			var params = "?adAccount=${adAccount}&";
+			var params = "?adAccount=" + encodeURI(encodeURIComponent($("#adAccount").val())) + "&";
 			
 			if($("#selectUpper").val() != "")
 				params += "upperCategory=" + encodeURI(encodeURIComponent($("#selectUpper").val())) + "&";
@@ -182,13 +182,13 @@
 				<option value=''>분류(小)</option>
 				</select>
 				<label>자산번호</label><input type="text" id="propertyNumber" name="propertyNumber" class="form-control" />
-				<button type="button" class="btn btn-default" id="searcherSubmit">검색</button>
+				<button type="submit" class="btn btn-default" id="searcherSubmit">검색</button>
 				<button type="button" class="btn btn-danger" id="initializer">초기화</button>
 			</form>
 		</div>
 		<form method="post" id="mappingForm" name="mappingForm" role="form" class="form-inline">
 			<div id="ownerlessProperties">
-				<input type="text" name="adAccount" value="${adAccount }" style="visibility:hidden; ">
+				<input type="hidden" id="adAccount" name="adAccount" value="${adAccount }" style="visibility:hidden; ">
 				<table class="table">
 					<tbody>
 					<tr>

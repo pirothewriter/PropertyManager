@@ -17,12 +17,14 @@
 <link href="/css/bootstrap.css" rel="stylesheet">
 <script type="text/javascript">
 	$(document).ready(function(){
-		var printIt = confirm("자산 인수서를 출력하시겠습니까?");
-		if(printIt == true){
-			window.print();
-		}
-		
-		window.close();
+		$("#logo").load(function(){
+			var printIt = confirm("자산 인수서를 출력하시겠습니까?");
+			if(printIt == true){
+				window.print();
+			}
+
+			window.close();
+		});
 	});
 </script>
 </head>
@@ -90,7 +92,7 @@
 				</c:forEach>
 				<c:forEach varStatus="status" var="index" begin="${numberOfProperties }" end="7" step="1">
 				<tr>
-					<td> </td>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -104,7 +106,7 @@
 	</div>
 	<div id="corp" align="right">
 		<p style="font-size:13px;"><strong>주식회사 티켓몬스터 귀중</strong></p>
-		<p><img src="../image/tmonlogo.png" width="100px;" height="25px;"></p>
+		<p><img id="logo" src="../image/tmonlogo.png" width="100px;" height="25px;"></p>
 	</div>
 </div>
 </body>

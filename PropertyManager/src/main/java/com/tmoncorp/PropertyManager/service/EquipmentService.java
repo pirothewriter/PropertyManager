@@ -59,6 +59,48 @@ public class EquipmentService {
 		return insertSuccess;
 	}
 
+	public int getMaximumPage(int viewSolePage, String upperCategory, String lowerCategory, String propertyNumber) {
+		return ((equipmentRepository.selectAllEquipment(upperCategory, lowerCategory, propertyNumber) - 1) / viewSolePage) + 1;
+	}
+
+	public int getMaximumPageOfOwnerless(int viewSolePage, String upperCategory, String lowerCategory, String propertyNumber) {
+		return ((equipmentRepository.selectAllOwnerlessEquipment(upperCategory, lowerCategory, propertyNumber) - 1) / viewSolePage) + 1;
+	}
+
+	public List<EquipmentModel> getAllEquipment(int nowPage, int viewSolePage, String upperCategory, String lowerCategory, String propertyNumber) {
+		return equipmentRepository.selectAllEquipment(calculatePageToRow(nowPage, viewSolePage), viewSolePage, upperCategory, lowerCategory, propertyNumber);
+	}
+
+	public String exchangeCategoryCode(String inputCode) throws IOException {
+		String outputCode = null;
+		ExchangeCharacterSet exchangeCharacterSet = new ExchangeCharacterSet();
+		inputCode = exchangeCharacterSet.convert(inputCode, "UTF-8");
+
+		String[] originalInput = { "모니터", "데스크탑", "노트북", "네트워크장비", "서버장비", "전화기", "기타장비", "업무용", "서브용", "사무용", "개발용", "디자인용", "기타", "IPT", "SIP", "망분리" };
+		String[] returnCodes = { "monitor", "desktop", "notebook", "network", "server", "phone", "etc", "work", "sub", "office", "develop", "design", "etc", "IPT", "SIP", "SPR" };
+
+		for (int index = 0; index < originalInput.length; index++) {
+			if (inputCode.compareTo(originalInput[index]) == 0)
+				outputCode = returnCodes[index];
+		}
+
+		return outputCode;
+	}
+
+	public String exchangeCodeToKoreanCategoryName(String code) {
+		String categoryName = "";
+
+		String[] codes = { "monitor", "desktop", "notebook", "network", "server", "phone", "etc", "work", "sub", "office", "develop", "design", "etc", "IPT", "SIP", "SPR" };
+		String[] names = { "모니터", "데스크탑", "노트북", "네트워크장비", "서버장비", "전화기", "기타장비", "업무용", "서브용", "사무용", "개발용", "디자인용", "기타", "IPT", "SIP", "망분리" };
+
+		for (int index = 0; index < codes.length; index++) {
+			if (code.compareTo(codes[index]) == 0)
+				categoryName = names[index];
+		}
+
+		return categoryName;
+	}
+
 	private EquipmentModel parsingInsertionParameters(HttpServletRequest request) throws ParseException {
 		EquipmentModel dataForInsert = new EquipmentModel();
 		ExchangeDateBetweenString exchangeDateBetweenString = new ExchangeDateBetweenString();
@@ -97,20 +139,8 @@ public class EquipmentService {
 		equipment.setUser("티켓몬스터");
 		return equipment;
 	}
-	
-	public int getMaximumPage(int viewSolePage, String upperCategory, String lowerCategory, String propertyNumber) {
-		return ((equipmentRepository.selectAllEquipment(upperCategory, lowerCategory, propertyNumber) - 1) / viewSolePage) + 1;
-	}
-
-	public int getMaximumPageOfOwnerless(int viewSolePage, String upperCategory, String lowerCategory, String propertyNumber) {
-		return ((equipmentRepository.selectAllOwnerlessEquipment(upperCategory, lowerCategory, propertyNumber) - 1) / viewSolePage) + 1;
-	}
 
 	private int calculatePageToRow(int page, int viewSolePage) {
 		return (page - 1) * viewSolePage;
-	}
-
-	public List<EquipmentModel> getAllEquipment(int nowPage, int viewSolePage, String upperCategory, String lowerCategory, String propertyNumber) {
-		return equipmentRepository.selectAllEquipment(calculatePageToRow(nowPage, viewSolePage), viewSolePage, upperCategory, lowerCategory, propertyNumber);
 	}
 }

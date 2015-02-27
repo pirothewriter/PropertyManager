@@ -19,8 +19,7 @@
 
 <script type="text/javascript">
 	function getPropertyHeadNumber(upperCategory, lowerCategory) {
-		if (upperCategory == 'monitor' || upperCategory == 'desktop'
-				|| upperCategory == 'notebook')
+		if (upperCategory == 'monitor' || upperCategory == 'desktop' || upperCategory == 'notebook')
 			$("input[name='propertyHeadNumber']").val('PCM');
 		else if (upperCategory == 'network')
 			$("input[name='propertyHeadNumber']").val('NET');
@@ -38,333 +37,237 @@
 	function getLowerCategory(val) {
 		if (val == "monitor") {
 			$("select[name='propertyLowerCategory'] option").remove();
-			$("select[name=propertyLowerCategory]").append(
-					"<option value=''>소분류</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='work'>업무용</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='sub'>서브용</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='office'>사무용</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='develop'>개발용</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='design'>디자인용</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='etc'>기타</option>");
+			$("select[name=propertyLowerCategory]").append("<option value=''>소분류</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='work'>업무용</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='sub'>서브용</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='office'>사무용</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='develop'>개발용</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='design'>디자인용</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='etc'>기타</option>");
 			$("select[name=propertyLowerCategory]").attr("readonly", false);
 			$("select[name=propertyLowerCategory]").attr("disabled", false);
 		}
 
 		else if (val == "desktop") {
 			$("select[name='propertyLowerCategory'] option").remove();
-			$("select[name=propertyLowerCategory]").append(
-					"<option value=''>소분류</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='office'>사무용</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='design'>디자인용</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='develop'>개발용</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='etc'>기타</option>");
+			$("select[name=propertyLowerCategory]").append("<option value=''>소분류</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='office'>사무용</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='design'>디자인용</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='develop'>개발용</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='etc'>기타</option>");
 			$("select[name=propertyLowerCategory]").attr("readonly", false);
 			$("select[name=propertyLowerCategory]").attr("disabled", false);
 		}
 
 		else if (val == "phone") {
 			$("select[name='propertyLowerCategory'] option").remove();
-			$("select[name=propertyLowerCategory]").append(
-					"<option value=''>소분류</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='IPT'>IPT</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='IPT'>IPT_IPCC</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='SIP'>SIP</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='etc'>기타</option>");
+			$("select[name=propertyLowerCategory]").append("<option value=''>소분류</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='IPT'>IPT</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='IPT'>IPT_IPCC</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='SIP'>SIP</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='etc'>기타</option>");
 			$("select[name=propertyLowerCategory]").attr("readonly", false);
 			$("select[name=propertyLowerCategory]").attr("disabled", false);
 		}
 
 		else if (val == "notebook") {
 			$("select[name='propertyLowerCategory'] option").remove();
-			$("select[name=propertyLowerCategory]").append(
-					"<option value=''>소분류</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='SPR'>망분리</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='office'>업무용</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='etc'>기타</option>");
+			$("select[name=propertyLowerCategory]").append("<option value=''>소분류</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='SPR'>망분리</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='office'>업무용</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='etc'>기타</option>");
 			$("select[name=propertyLowerCategory]").attr("readonly", false);
 			$("select[name=propertyLowerCategory]").attr("disabled", false);
 		}
 
 		else if (val == "") {
 			$("select[name='propertyLowerCategory'] option").remove();
-			$("select[name=propertyLowerCategory]").append(
-					"<option value=''>소분류</option>");
+			$("select[name=propertyLowerCategory]").append("<option value=''>소분류</option>");
 			$("select[name=propertyLowerCategory]").attr("readonly", false);
 			$("select[name=propertyLowerCategory]").attr("disabled", false);
 		}
 
 		else {
 			$("select[name='propertyLowerCategory'] option").remove();
-			$("select[name=propertyLowerCategory]").append(
-					"<option value=''>소분류</option>");
-			$("select[name=propertyLowerCategory]").append(
-					"<option value='etc'>기타</option>");
+			$("select[name=propertyLowerCategory]").append("<option value=''>소분류</option>");
+			$("select[name=propertyLowerCategory]").append("<option value='etc'>기타</option>");
 			$("select[name=propertyLowerCategory]").attr("disabled", false);
 			$("select[name=propertyLowerCategory]").attr("readonly", false);
 		}
 	}
 
-	$(document)
-			.ready(
-					function() {
-						$("select[name='propertyUpperCategory']")
-								.change(
-										function() {
-											getLowerCategory($(
-													"select[name='propertyUpperCategory']")
-													.val());
-											getPropertyHeadNumber(
-													$(
-															"select[name='propertyUpperCategory']")
-															.val(),
-													$(
-															"select[name='propertyLowerCategory']")
-															.val())
-										});
-						$("select[name='propertyLowerCategory']")
-								.change(
-										function() {
-											getPropertyHeadNumber(
-													$(
-															"select[name='propertyUpperCategory']")
-															.val(),
-													$(
-															"select[name='propertyLowerCategory']")
-															.val())
-										});
+	$(document).ready(function() {
+		$("select[name='propertyUpperCategory']").change(function() {
+			getLowerCategory($("select[name='propertyUpperCategory']").val());
+			getPropertyHeadNumber(
+				$("select[name='propertyUpperCategory']").val(),
+				$("select[name='propertyLowerCategory']").val())
+			});
+		$("select[name='propertyLowerCategory']").change(function() {
+			getPropertyHeadNumber($("select[name='propertyUpperCategory']").val(), $("select[name='propertyLowerCategory']").val())
+			});
 
-						$("#datepicker_it")
-								.glDatePicker(
-										{
-											cssName : 'flatwhite',
-											dateFormat : 'yy-mm-dd',
-											allowMonthSelect : true,
-											allowYearSelect : true,
-											onClick : function(target, cell,
-													date, data) {
-												var month = date.getMonth() + 1;
-												target.val(date.getFullYear()
-														+ '-' + month + '-'
-														+ date.getDate());
-												if (data != null) {
-													alert(data.message + '\n'
-															+ date);
-												}
-											}
-										});
+		$("#datepicker_it").glDatePicker({
+			cssName : 'flatwhite',
+			dateFormat : 'yy-mm-dd',
+			allowMonthSelect : true,
+			allowYearSelect : true,
+			onClick : function(target, cell, date, data) {
+			var month = date.getMonth() + 1;
+			target.val(date.getFullYear() + '-' + month + '-' + date.getDate());
+			if (data != null) {
+				alert(data.message + '\n' + date);
+				}
+			}
+		});
 
-						$("#datepicker_finance")
-								.glDatePicker(
-										{
-											cssName : 'flatwhite',
-											dateFormat : 'yy-mm-dd',
-											allowMonthSelect : true,
-											allowYearSelect : true,
-											onClick : function(target, cell,
-													date, data) {
-												var month = date.getMonth() + 1;
-												target.val(date.getFullYear()
-														+ '-' + month + '-'
-														+ date.getDate());
-												if (data != null) {
-													alert(data.message + '\n'
-															+ date);
-												}
-											}
-										});
+		$("#datepicker_finance").glDatePicker({
+			cssName : 'flatwhite',
+			dateFormat : 'yy-mm-dd',
+			allowMonthSelect : true,
+			allowYearSelect : true,
+			onClick : function(target, cell, date, data) {
+				var month = date.getMonth() + 1;
+				target.val(date.getFullYear() + '-' + month + '-' + date.getDate());
+				if (data != null) {
+					alert(data.message + '\n' + date);
+					}
+				}
+		});
 
-						$("#inputForm")
-								.submit(
-										function(event) {
-											var num_regx = /^[0-9]+$/;
+		$("#inputForm").submit(function(event) {
+			var num_regx = /^[0-9]+$/;
+			
+			if ($("#propertyNumber").val() == '') {
+				alert("자산번호를 입력해주세요!");
+				focus($("#propertyNumber"));
+				return false;
+			}
+							
+			else if ($("#propertyName").val() == '') {
+				alert("자산이름을 입력해주세요!");
+				focus($("#propertyName"));
+				return false;
+			}
+							
+			else if ($("#propertyInfomation1").val() == '') {
+				alert("자산정보1을 입력해주세요!");
+				focus($("#propertyInfomation1"));
+				return false;
+			}
+					
+			else if ($("#propertyInfomation2").val() == '') {
+				alert("자산정보2를 입력해주세요!");
+				focus($("#propertyInfomation2"));
+				return false;
+			}
 
-											if ($("#propertyNumber").val() == '') {
-												alert("자산번호를 입력해주세요!");
-												focus($("#propertyNumber"));
-												return false;
-											}
+			else if ($("#datepicker_it").val() == '') {
+				alert("자산 입고일을 입력해주세요!");
+				focus($("#datepicker_it"));
+				return false;
+			}
 
-											else if ($("#propertyName").val() == '') {
-												alert("자산이름을 입력해주세요!");
-												focus($("#propertyName"));
-												return false;
-											}
+			else if ($("#datepicker_finance").val() == '') {
+				alert("자산 입고일을 입력해주세요!");
+				focus($("#datepicker_finance"));
+				return false;
+			}
+							
+			else if ($("#propertyProducted").val() == '') {
+				alert("자산제조사를 입력해주세요!");
+				focus($("#propertyProducted"));
+				return false;
+			}
 
-											else if ($("#propertyInfomation1")
-													.val() == '') {
-												alert("자산정보1을 입력해주세요!");
-												focus($("#propertyInfomation1"));
-												return false;
-											}
+			else if ($("#propertySeller").val() == '') {
+				alert("자산판매사를 입력해주세요!");
+				focus($("#propertySeller"));
+				return false;
+			}
 
-											else if ($("#propertyInfomation2")
-													.val() == '') {
-												alert("자산정보2를 입력해주세요!");
-												focus($("#propertyInfomation2"));
-												return false;
-											}
+			else if ($("#propertyPrice").val() == '') {
+				alert("자산단가를 입력해주세요!");
+				focus($("#propertyPrice"));
+				return false;
+			}
 
-											else if ($("#datepicker_it").val() == '') {
-												alert("자산 입고일을 입력해주세요!");
-												focus($("#datepicker_it"));
-												return false;
-											}
+			else if ($("#propertyUpperCategory").val() == '') {
+				alert("자산구분을 선택해주세요!");
+				focus($("#propertyUpperCategory"));
+				return false;
+			}
 
-											else if ($("#datepicker_finance")
-													.val() == '') {
-												alert("자산 입고일을 입력해주세요!");
-												focus($("#datepicker_finance"));
-												return false;
-											}
+			else if ($("#propertyLowerCategory").val() == '') {
+				alert("자산구분을 선택해주세요!");
+				focus($("#propertyLowerCategory"));
+				return false;
+			}
+							
+			else if (!num_regx.test($("#propertyNumber").val())) {
+				var propertyCode = $("#propertyNumber").val().substr(0, 3);
+				if (propertyCode == 'PCM' || propertyCode == 'SVR' || propertyCode == 'NET' || propertyCode == 'SIP' || propertyCode == 'IPT' || propertyCode == 'ETC') {
+					event.preventDefault();
+					$("#propertyHeadNumber").val(propertyCode);
+					$("#propertyNumber").val($("#propertyNumber").val().substr(3, $("#propertyNumber").val().length));
+					insertProperty();
+					} else {
+						alert("자산번호 뒷자리는 숫자만 들어갈 수 있습니다!");
+						return false;
+					}
+				}
+							
+				else if (!num_regx.test($("#propertyPrice").val())) {
+					alert("자산단가는 숫자만 들어갈 수 있습니다!");
+					return false;
+				}
 
-											else if ($("#propertyProducted")
-													.val() == '') {
-												alert("자산제조사를 입력해주세요!");
-												focus($("#propertyProducted"));
-												return false;
-											}
+				else {
+					event.preventDefault();
+					insertProperty();
+				}
+			});
 
-											else if ($("#propertySeller").val() == '') {
-												alert("자산판매사를 입력해주세요!");
-												focus($("#propertySeller"));
-												return false;
-											}
+		$('#btn_submit').click(function() {
+			var data = new FormData();
+			$.each($('#attachFile')[0].files, function(i, file) {
+				data.append('file-' + i, file);
+				});
 
-											else if ($("#propertyPrice").val() == '') {
-												alert("자산단가를 입력해주세요!");
-												focus($("#propertyPrice"));
-												return false;
-											}
+			$.ajax({
+				url : '/uploadProperty.tmon',
+				type : "post",
+				dataType : "text",
+				data : data,
+				processData : false,
+				contentType : false,
+				success : function(msg, textStatus, jqXHR) {
+					if (msg == 'NOT CSV') {
+						alert("csv파일만 업로드 가능합니다!");
+						return false;
+					} else if (msg == 'NO FILE') {
+						alert("파일을 선택해주세요!");
+						return false;
+					} else if (msg == "INCORRECT FORM") {
+						alert("잘못된 양식의 csv파일입니다!");
+						location.reload(true);
+					} else if (msg == 'SUCCESS') {
+						alert("등록 성공!");
+						location.reload(true);
+					} else {
+						alert("서버 에러");
+						location.reload(true);
+					}},
+					error : function(jqXHR, textStatus, errorThrown) {
+					}
+				});
+			});
 
-											else if ($("#propertyUpperCategory")
-													.val() == '') {
-												alert("자산구분을 선택해주세요!");
-												focus($("#propertyUpperCategory"));
-												return false;
-											}
-
-											else if ($("#propertyLowerCategory")
-													.val() == '') {
-												alert("자산구분을 선택해주세요!");
-												focus($("#propertyLowerCategory"));
-												return false;
-											}
-
-											else if (!num_regx.test($(
-													"#propertyNumber").val())) {
-												var propertyCode = $(
-														"#propertyNumber")
-														.val().substr(0, 3);
-												if (propertyCode == 'PCM'
-														|| propertyCode == 'SVR'
-														|| propertyCode == 'NET'
-														|| propertyCode == 'SIP'
-														|| propertyCode == 'IPT'
-														|| propertyCode == 'ETC') {
-													event.preventDefault();
-													$("#propertyHeadNumber")
-															.val(propertyCode);
-													$("#propertyNumber")
-															.val(
-																	$(
-																			"#propertyNumber")
-																			.val()
-																			.substr(
-																					3,
-																					$(
-																							"#propertyNumber")
-																							.val().length));
-													insertProperty();
-												} else {
-													alert("자산번호 뒷자리는 숫자만 들어갈 수 있습니다!");
-													return false;
-												}
-											}
-
-											else if (!num_regx.test($(
-													"#propertyPrice").val())) {
-												alert("자산단가는 숫자만 들어갈 수 있습니다!");
-												return false;
-											}
-
-											else {
-												event.preventDefault();
-												insertProperty();
-											}
-										});
-
-						$('#btn_submit')
-								.on(
-										"click",
-										function() {
-											var data = new FormData();
-											$.each($('#attachFile')[0].files,
-													function(i, file) {
-														data.append(
-																'file-' + i,
-																file);
-													});
-
-											$
-													.ajax({
-														url : '/uploadProperty.tmon',
-														type : "post",
-														dataType : "text",
-														data : data,
-														processData : false,
-														contentType : false,
-														success : function(msg,
-																textStatus,
-																jqXHR) {
-															if (msg == 'NOT CSV') {
-																alert("csv파일만 업로드 가능합니다!");
-																return false;
-															} else if (msg == 'NO FILE') {
-																alert("파일을 선택해주세요!");
-																return false;
-															} else if (msg == "INCORRECT FORM") {
-																alert("잘못된 양식의 csv파일입니다!");
-																location
-																		.reload(true);
-															} else if (msg == 'SUCCESS') {
-																alert("등록 성공!");
-																location
-																		.reload(true);
-															} else {
-																alert("서버 에러");
-																location
-																		.reload(true);
-															}
-														},
-														error : function(jqXHR,
-																textStatus,
-																errorThrown) {
-														}
-													});
-										});
-
-						$("#btn_download_form").click(function(event) {
-							event.preventDefault();
-							window.location.href = "csv/propertyinsert.csv";
-						});
-					})
+		$("#btn_download_form").click(function(event) {
+			event.preventDefault();
+			window.location.href = "csv/propertyinsert.csv";
+		});
+	})
 
 	function insertProperty() {
 		$.ajax({

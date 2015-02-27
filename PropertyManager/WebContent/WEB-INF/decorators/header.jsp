@@ -27,6 +27,11 @@
 <link href="/css/jquery-ui-1.10.4.css" rel="stylesheet">
 <!-- Bootstrap core CSS -->
 <link href="/css/bootstrap.css" rel="stylesheet">
+<style type="text/css">
+body {
+	font-family: '맑은 고딕', 'Malgun Gothic', verdana;
+}
+</style>
 </head>
 
 <body>

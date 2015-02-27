@@ -57,7 +57,6 @@
 			<table class="table">
 				<tbody>
 				<tr>
-					<th>선택</th>
 					<th>자산번호</th>
 					<th>자산명</th>
 					<th>대분류</th>
@@ -74,7 +73,6 @@
 				</tr>
 				<c:forEach var="property" items="${propertyInfo}" varStatus="status">
 				<tr>
-					<td><input type="checkbox" name="propertyNumber" value="${property.propertyNumber }"></td>
 					<td>${property.propertyNumber }</td>
 					<td>${property.name }</td>
 					<td>${property.upperCategory }</td>
@@ -93,6 +91,9 @@
 				</tbody>
 			</table>
 		</form>
+	</div>
+	<div align="right">
+	<button class="btn btn-success" type="button" id="personalLog">개인장비 이력보기</button>
 	</div>
 </div>
 </body>

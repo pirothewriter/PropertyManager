@@ -65,6 +65,7 @@
 	}
 	
 	function callPropertyInfo(propertyNumber){
+		event.preventDefault();
 		$.ajax({
 			cache:false,
 			data : {propertyNumber : propertyNumber},
