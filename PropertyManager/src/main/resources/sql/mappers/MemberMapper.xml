@@ -35,6 +35,10 @@
 			category C2
 				ON
 					(C2.category_code = M.lower_division)
+		JOIN
+			authorities A
+				ON
+					(M.ad_account = A.username AND A.authority != 'ROLE_CREATER')
 		WHERE
 			1=1
 			<if test="upperCategory != ''">

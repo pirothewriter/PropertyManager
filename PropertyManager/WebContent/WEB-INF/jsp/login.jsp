@@ -13,7 +13,6 @@
 <!-- Bootstrap core CSS -->
 <link href="/css/bootstrap.css" rel="stylesheet">
 
-<decorator:head />
 <title>로그인</title>
 <style type="text/css">
 body {
