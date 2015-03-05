@@ -33,4 +33,6 @@ public interface PropertyLogMapper {
 	List<PropertyLogModel> selectPersonalLog(String adAccount);
 
 	List<PropertyLogModel> getPropertyInfomation(String propertyNumber);
+
+	PropertyLogModel getMappedInfomation(String propertyNumber);
 }

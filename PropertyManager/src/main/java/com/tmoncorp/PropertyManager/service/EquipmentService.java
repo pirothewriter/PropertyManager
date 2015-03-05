@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.tmoncorp.PropertyManager.model.EquipmentModel;
 import com.tmoncorp.PropertyManager.model.MemberModel;
+import com.tmoncorp.PropertyManager.model.PropertyLogModel;
 import com.tmoncorp.PropertyManager.repository.CsvReaderRepository;
 import com.tmoncorp.PropertyManager.repository.EquipmentRepository;
 import com.tmoncorp.PropertyManager.repository.MemberRepository;
@@ -157,4 +158,9 @@ public class EquipmentService {
 	private int calculatePageToRow(int page, int viewSolePage) {
 		return (page - 1) * viewSolePage;
 	}
+
+	public EquipmentModel getPropertyInfomation(String propertyNumber) {
+		return equipmentRepository.getPropertyInfomation(propertyNumber);
+	}
+
 }

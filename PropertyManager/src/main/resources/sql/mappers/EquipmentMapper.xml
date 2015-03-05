@@ -122,7 +122,7 @@
 	
 	<select id="selectCountAllEquipment" resultType = "Integer">
 		SELECT 
-			COUNT(E.property_number)
+			COUNT(*)
 		FROM
 				equipment E
 			LEFT JOIN 
@@ -140,5 +140,14 @@
 					<if test="propertyNumber != ''">
 						AND E.property_number LIKE '%${propertyNumber}%'
 					</if>
+	</select>
+	
+	<select id ="getPropertyInfomation" resultType="EquipmentModel">
+		SELECT
+			*
+		FROM
+			equipment
+		WHERE
+			property_number = #{propertyNumber}
 	</select>
 </mapper>

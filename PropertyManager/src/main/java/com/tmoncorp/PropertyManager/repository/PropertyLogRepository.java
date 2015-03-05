@@ -75,4 +75,9 @@ public class PropertyLogRepository {
 			return null;
 	}
 
+	public PropertyLogModel getMappedInfomation(String propertyNumber) {
+		PropertyLogMapper propertyLogMapper = sqlSession.getMapper(PropertyLogMapper.class);
+		return propertyLogMapper.getMappedInfomation(propertyNumber);
+	}
+
 }

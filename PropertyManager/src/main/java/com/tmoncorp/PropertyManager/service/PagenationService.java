@@ -7,24 +7,18 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tmoncorp.PropertyManager.model.EquipmentModel;
+import com.tmoncorp.PropertyManager.model.InspectionModel;
 import com.tmoncorp.PropertyManager.model.MemberModel;
 
 @Service
 public class PagenationService {
 	private static final int DEFAULT_SOLE_PAGE = 20;
 
-	@Autowired
-	private MemberService memberService;
-
-	@Autowired
-	private EquipmentService equipmentService;
-
-	public ModelAndView doMemberPagenation(HttpServletRequest request, ModelAndView modelAndView, String contentType) throws UnsupportedEncodingException {
+	public ModelAndView doMemberPagenation(HttpServletRequest request, ModelAndView modelAndView, String contentType, MemberService memberService) throws UnsupportedEncodingException {
 		int nowPage;
 		int startPage;
 		int endPage;
@@ -100,7 +94,7 @@ public class PagenationService {
 		return modelAndView;
 	}
 
-	public ModelAndView doEquipmentPagenation(HttpServletRequest request, ModelAndView modelAndView, String contentType) throws UnsupportedEncodingException {
+	public ModelAndView doEquipmentPagenation(HttpServletRequest request, ModelAndView modelAndView, String contentType, EquipmentService equipmentService) throws UnsupportedEncodingException {
 		int nowPage;
 		int startPage;
 		int endPage;
@@ -144,16 +138,16 @@ public class PagenationService {
 		if (contentType.compareTo("ownerless") == 0) {
 			List<EquipmentModel> ownerlessEquipment = equipmentService.getOwnerlessEquipment(nowPage, viewSolePage, upperCategory, lowerCategory, propertyNumber);
 			maximumPage = equipmentService.getMaximumPageOfOwnerless(viewSolePage, upperCategory, lowerCategory, propertyNumber);
-			ownerlessEquipment = exchangeCodeToCategoryName(ownerlessEquipment);
-			
+			ownerlessEquipment = exchangeCodeToCategoryName(ownerlessEquipment, equipmentService);
+
 			modelAndView.addObject("ownerlessEquipment", ownerlessEquipment);
 		}
 
 		else if (contentType.compareTo("all") == 0) {
 			List<EquipmentModel> properties = equipmentService.getAllEquipment(nowPage, viewSolePage, upperCategory, lowerCategory, propertyNumber);
 			maximumPage = equipmentService.getMaximumPage(viewSolePage, upperCategory, lowerCategory, propertyNumber);
-			properties = exchangeCodeToCategoryName(properties);
-			
+			properties = exchangeCodeToCategoryName(properties, equipmentService);
+
 			modelAndView.addObject("properties", properties);
 		}
 
@@ -174,12 +168,83 @@ public class PagenationService {
 		return modelAndView;
 	}
 
-	private List<EquipmentModel> exchangeCodeToCategoryName(List<EquipmentModel> equipments) {
-		for(int index = 0; index < equipments.size(); index++) {
+	public ModelAndView doInspectionPagenation(HttpServletRequest request, ModelAndView modelAndView, InspectionService inspectionService) throws UnsupportedEncodingException {
+		int nowPage;
+		int startPage;
+		int endPage;
+		int viewSolePage;
+		int nth;
+		int maximumPage = 0;
+
+		String adAccount = "";
+		String memberName = "";
+		char flagDifference = 'N';
+
+		HttpSession session = request.getSession();
+
+		if (request.getParameter("page") == null)
+			nowPage = 1;
+		else
+			nowPage = Integer.parseInt(request.getParameter("page"));
+
+		if (request.getParameter("viewSolePage") != null)
+			session.setAttribute("viewSolePage", request.getParameter("viewSolePage"));
+
+		if (session.getAttribute("viewSolePage") == null || session.getAttribute("viewSolePage") == "")
+			viewSolePage = DEFAULT_SOLE_PAGE;
+		else
+			viewSolePage = Integer.parseInt((String) session.getAttribute("viewSolePage"));
+
+		if (request.getParameter("nth") != null)
+			session.setAttribute("nth", request.getParameter("nth"));
+
+		if (session.getAttribute("nth") == null || session.getAttribute("nth") == "")
+			nth = 1;
+		else
+			nth = Integer.parseInt((String) session.getAttribute("nth"));
+
+		if (request.getParameter("adAccount") != null) {
+			if (request.getParameter("adAccount").compareTo("") != 0)
+				adAccount = URLDecoder.decode(request.getParameter("adAccount"), "UTF-8");
+		}
+
+		if (request.getParameter("memberName") != null) {
+			if (request.getParameter("memberName").compareTo("") != 0)
+				memberName = URLDecoder.decode(request.getParameter("memberName"), "UTF-8");
+		}
+
+		if (request.getParameter("flagDifference") != null) {
+			if (request.getParameter("flagDifference").compareTo("Y") == 0)
+				flagDifference = 'Y';
+		}
+
+		List<InspectionModel> inspections = inspectionService.selectInspections(nowPage, viewSolePage, nth, adAccount, memberName, flagDifference);
+		maximumPage = inspectionService.getMaximumPage(viewSolePage, nth, adAccount, memberName, flagDifference);
+		modelAndView.addObject("inspections", inspections);
+
+		if (maximumPage > nowPage + 5)
+			endPage = nowPage + 5;
+		else
+			endPage = maximumPage;
+
+		if (nowPage - 5 > 0)
+			startPage = nowPage - 5;
+		else
+			startPage = 1;
+
+		modelAndView.addObject("startPage", startPage);
+		modelAndView.addObject("endPage", endPage);
+		modelAndView.addObject("viewSolePage", viewSolePage);
+
+		return modelAndView;
+	}
+
+	private List<EquipmentModel> exchangeCodeToCategoryName(List<EquipmentModel> equipments, EquipmentService equipmentService) {
+		for (int index = 0; index < equipments.size(); index++) {
 			equipments.get(index).setUpperCategory(equipmentService.exchangeCodeToKoreanCategoryName(equipments.get(index).getUpperCategory()));
 			equipments.get(index).setLowerCategory(equipmentService.exchangeCodeToKoreanCategoryName(equipments.get(index).getLowerCategory()));
 		}
-		
+
 		return equipments;
 	}
 }

@@ -105,4 +105,13 @@
 		WHERE
 			E.property_number = #{propertyNumber}
 	</select>
+	
+	<select id="getMappedInfomation" resultMap="PropertyLogResult">
+		SELECT
+			property_number, ad_account
+		FROM
+			equipment_map_person
+		WHERE
+			property_number = #{propertyNumber}
+	</select>
 </mapper>

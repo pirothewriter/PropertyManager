@@ -27,6 +27,8 @@ import com.tmoncorp.PropertyManager.service.PropertyLogService;
 
 @Controller
 public class MappingController {
+	private static final String OWNERLESS = "ownerless";
+
 	@Autowired
 	private MemberService memberService;
 
@@ -43,7 +45,7 @@ public class MappingController {
 	public ModelAndView urgentProperty(HttpServletRequest request) throws UnsupportedEncodingException, ParseException {
 		ModelAndView urgentingModelAndView = new ModelAndView();
 
-		urgentingModelAndView = pagenation.doEquipmentPagenation(request, urgentingModelAndView, "ownerless");
+		urgentingModelAndView = pagenation.doEquipmentPagenation(request, urgentingModelAndView, OWNERLESS, equipmentService);
 		urgentingModelAndView.addObject("adAccount", request.getParameter("adAccount"));
 		urgentingModelAndView.setViewName("urgentProperty");
 		return urgentingModelAndView;

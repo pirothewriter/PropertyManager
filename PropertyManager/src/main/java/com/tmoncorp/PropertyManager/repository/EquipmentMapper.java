@@ -25,4 +25,6 @@ public interface EquipmentMapper {
 	
 	public int selectCountAllEquipment(@Param("upperCategory") String upperCategory, @Param("lowerCategory") String lowerCategory, @Param("propertyNumber") String propertyNumber);
 
+	public EquipmentModel getPropertyInfomation(String propertyNumber);
+
 }

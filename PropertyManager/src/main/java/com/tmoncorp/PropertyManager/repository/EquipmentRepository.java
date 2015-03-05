@@ -2,7 +2,6 @@ package com.tmoncorp.PropertyManager.repository;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -49,6 +48,11 @@ public class EquipmentRepository {
 	public int selectAllEquipment(String upperCategory, String lowerCategory, String propertyNumber) {
 		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
 		return equipmentMapper.selectCountAllEquipment(upperCategory, lowerCategory, propertyNumber);
+	}
+
+	public EquipmentModel getPropertyInfomation(String propertyNumber) {
+		EquipmentMapper equipmentMapper = sqlSession.getMapper(EquipmentMapper.class);
+		return equipmentMapper.getPropertyInfomation(propertyNumber);
 	}
 
 }

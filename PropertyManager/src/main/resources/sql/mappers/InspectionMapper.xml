@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmoncorp.PropertyManager.repository.InspectionMapper">
+	<resultMap type="InspectionModel" id="InspectionResult">
+	<result property="nth" column="nth" />
+	<result property="propertyNumber" column="property_number" />
+	<result property="propertyName" column="property_name" />
+	<result property="memberName" column="member_name" />
+	<result property="adAccount" column="ad_account" />
+	<result property="realMemberName" column="real_member_name" />
+	<result property="realAdAccount" column="real_ad_account" />
+	<result property="inspectionDate" column="inspection_date" />
+	</resultMap>
+	
+	<select id="selectInspectedData" resultMap="InspectionResult">
+		SELECT
+			nth, property_number, property_name, member_name, ad_account, real_member_name, real_ad_account, inspection_date
+		FROM
+			inspection
+		WHERE
+			nth = #{nth}
+		<if test="adAccount != ''">
+			AND ad_account LIKE '%${adAccount}%'
+		</if>
+		<if test="memberName != ''">
+			AND member_name LIKE '%${memberName}%'
+		</if>
+		<if test="flagDifference == 'Y'">
+			AND ad_account != real_ad_account
+		</if>
+		ORDER BY
+			inspection_date DESC
+		LIMIT
+			#{page}, #{viewSolePage}
+	</select>
+	
+	<insert id="insertInspection" parameterType="InspectionModel">
+		INSERT INTO
+			inspection(nth, property_number, property_name, member_name, ad_account, real_member_name, real_ad_account, inspection_date)
+		VALUES
+			(#{nth}, #{propertyNumber}, #{propertyName}, #{memberName}, #{adAccount}, #{realMemberName}, #{realAdAccount}, NOW()) 
+	</insert>
+	
+	<delete id="deleteInspectedData">
+		DELETE FROM
+			inspection
+		WHERE	
+			nth = #{nth} AND ad_account = #{adAccount} AND property_number = #{propertyNumber}
+	</delete>
+	
+	<select id="getMaximumPage" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			inspection
+		WHERE
+			nth = #{nth}
+		<if test="adAccount != ''">
+			AND ad_account LIKE '%${adAccount}%'
+		</if>
+		<if test="memberName != ''">
+			AND member_name LIKE '%${memberName}%'
+		</if>
+		<if test="flagDifference == 'Y'">
+			AND ad_account != real_ad_account
+		</if>
+	</select>
+	
+	<select id="getThisNthPropertyInspectedData" resultMap="InspectionResult">
+		SELECT
+			*
+		FROM
+			inspection
+		WHERE
+			nth = #{nth}
+			AND
+				property_number= #{propertyNumber}
+	</select>
+</mapper>

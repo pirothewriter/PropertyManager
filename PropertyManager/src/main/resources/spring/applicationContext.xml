@@ -36,7 +36,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations" value="classpath:sql/mappers/*.xml"></property>
-		<property name="typeAliases" value="com.tmoncorp.PropertyManager.model.EquipmentModel, com.tmoncorp.PropertyManager.model.MemberModel, com.tmoncorp.PropertyManager.model.PropertyLogModel, com.tmoncorp.PropertyManager.model.CategoryModel"></property>
+		<property name="typeAliases" value="com.tmoncorp.PropertyManager.model.EquipmentModel, com.tmoncorp.PropertyManager.model.MemberModel, com.tmoncorp.PropertyManager.model.PropertyLogModel, com.tmoncorp.PropertyManager.model.CategoryModel, com.tmoncorp.PropertyManager.model.InspectionModel, com.tmoncorp.PropertyManager.model.InspectionLogModel, com.tmoncorp.PropertyManager.model.InspectionNthModel"></property>
 		<property name="typeAliasesPackage" value="com.tmoncorp.PropertyManager.model"></property>
 	</bean>
 
@@ -61,6 +61,21 @@
 	
 	<bean id="CategoryMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.tmoncorp.PropertyManager.repository.CategoryMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="InspectionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.tmoncorp.PropertyManager.repository.InspectionMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="InspectionLogMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.tmoncorp.PropertyManager.repository.InspectionLogMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="InspectionNthMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.tmoncorp.PropertyManager.repository.InspectionNthMapper" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 

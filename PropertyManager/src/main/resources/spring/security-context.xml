@@ -13,6 +13,7 @@
 		<intercept-url pattern="/loginFail.tmon" access="permitAll" />
 		<intercept-url pattern="/login.tmon" access="permitAll" />
 		<intercept-url pattern="/getPropertyInfomation.tmon" access="permitAll" />
+		<intercept-url pattern="/getMemberByMemberName.tmon" access="permitAll" />
 		<intercept-url pattern="/checkIsMember.tmon" access="permitAll" />
 		<intercept-url pattern="/showMembers.tmon" access="hasAnyRole('ROLE_CREATER', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/insert.tmon" access="hasAnyRole('ROLE_CREATER', 'ROLE_ADMIN')" />

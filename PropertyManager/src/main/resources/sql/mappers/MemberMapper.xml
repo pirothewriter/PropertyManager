@@ -229,4 +229,13 @@
 									ON
 										(C2.category_code = M.lower_division)
 	</select>
+	
+	<select id="getMembersByMemberName" resultMap="MembertResult">
+		SELECT
+			member_name, ad_account, upper_division
+		FROM
+			member
+		WHERE
+			is_served = 'Y' AND member_name = #{memberName}
+	</select>
 </mapper>

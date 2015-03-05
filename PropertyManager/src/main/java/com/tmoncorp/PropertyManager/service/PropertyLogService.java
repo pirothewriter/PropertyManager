@@ -101,4 +101,8 @@ public class PropertyLogService {
 		}
 	}
 
+	public PropertyLogModel getMappedInfo(String propertyNumber) {
+		return propertyLogRepository.getMappedInfomation(propertyNumber);
+	}
+
 }

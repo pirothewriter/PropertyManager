@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmoncorp.PropertyManager.repository.InspectionLogMapper">
+	<resultMap type="InspectionLogModel" id="InspectionLogResult">
+	<result property="nth" column="nth" />
+	<result property="adAccount" column="ad_account" />
+	<result property="propertyNumber" column="property_number" />
+	<result property="inspectedDate" column="inspected_date" />
+	</resultMap>
+	
+	<insert id="insertLog" parameterType="InspectionLogModel">
+		INSERT INTO
+			inspection_log(nth, ad_account, property_number, inspected_date)
+		VALUES
+			(#{nth}, #{adAccount}, #{propertyNumber}, #{inspectedDate})
+	</insert>
+	
+	<select id="selectInspectedDataOnMember" resultMap="InspectionLogResult">
+		SELECT
+			nth, ad_account, property_number, inspected_date
+		FROM
+			inspection_log
+		WHERE
+			ad_account = #{adAccount} AND nth = #{nth}
+	</select>
+	
+	<delete id="deleteInspectedDataOnMember">
+		DELETE FROM
+			inspection_log
+		WHERE
+			ad_account = #{adAccount} AND nth = #{nth}
+	</delete>
+	
+	<select id="selectInspedtedDataOfProperty" resultType="String">
+		SELECT
+			ad_account
+		FROM
+			inspection_log
+		WHERE
+			nth = #{nth} AND property_number = #{propertyNumber}
+	</select>
+</mapper>

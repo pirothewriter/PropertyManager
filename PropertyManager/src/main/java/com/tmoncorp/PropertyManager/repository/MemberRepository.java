@@ -80,4 +80,9 @@ public class MemberRepository {
 		return memberMapper.getAdmins();
 	}
 
+	public List<MemberModel> getMembersByMemberName(String memberName) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.getMembersByMemberName(memberName);
+	}
+
 }

@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.tmoncorp.PropertyManager.model.EquipmentModel;
+import com.tmoncorp.PropertyManager.model.InspectionModel;
+import com.tmoncorp.PropertyManager.model.MemberModel;
 
 /**
  * 
@@ -22,6 +24,16 @@ public class JsonEncoding {
 		Gson gson = new Gson();
 
 		return gson.toJson(equipmentModel);
+	}
+
+	public String encodingJsonForInspect(InspectionModel inspectionModel) {
+		Gson gson = new Gson();
+		return gson.toJson(inspectionModel);
+	}
+
+	public String encodingJsonByMemberList(List<MemberModel> members) {
+		Gson gson = new Gson();
+		return gson.toJson(members);
 	}
 
 }

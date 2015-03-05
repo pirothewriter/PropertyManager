@@ -23,6 +23,8 @@ import com.tmoncorp.PropertyManager.service.PagenationService;
 
 @Controller
 public class PropertiesController {
+	private static final String ALL = "all";
+
 	@Autowired
 	private EquipmentService equipmentService;
 	
@@ -32,7 +34,7 @@ public class PropertiesController {
 	@RequestMapping(value = "showAllProperties", method = RequestMethod.GET)
 	public ModelAndView showAllProperties(HttpServletRequest request) throws UnsupportedEncodingException {
 		ModelAndView propertiesModelAndView = new ModelAndView();
-		propertiesModelAndView = pagenation.doEquipmentPagenation(request, propertiesModelAndView, "all");
+		propertiesModelAndView = pagenation.doEquipmentPagenation(request, propertiesModelAndView, ALL, equipmentService);
 		propertiesModelAndView.setViewName("showAllProperties");
 		return propertiesModelAndView;
 	}

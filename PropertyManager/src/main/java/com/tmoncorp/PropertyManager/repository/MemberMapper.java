@@ -41,4 +41,6 @@ public interface MemberMapper {
 
 	List<MemberModel> getAdmins();
 
+	List<MemberModel> getMembersByMemberName(@Param("memberName") String memberName);
+
 }

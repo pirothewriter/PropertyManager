@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmoncorp.PropertyManager.repository.InspectionNthMapper">
+	<resultMap type="InspectionNthModel" id="InspectionNthResult">
+	<result property="nth" column="nth" />
+	<result property="startDate" column="start_date" />
+	<result property="endDate" column="end_date" />
+	</resultMap>
+	
+	<select id="selectAllNth" resultMap="InspectionNthResult">
+		SELECT
+			nth, start_date, end_date
+		FROM
+			inspection_nth
+	</select>
+	
+	<select id="selectLastestNth" resultMap="InspectionNthResult">
+		SELECT
+			nth, start_date, end_date
+		FROM
+			inspection_nth
+		ORDER BY
+			nth DESC
+		LIMIT
+			0, 1
+	</select>
+	
+	<insert id="insertNewNth" parameterType="int">
+		INSERT INTO
+			inspection_nth(nth, start_date)
+		VALUES
+			(#{nextNth}, NOW())
+	</insert>
+	
+	<update id="endNth" parameterType="int">
+		UPDATE
+			inspection_nth
+		SET
+			end_date = NOW()
+		WHERE
+			nth = #{nth}
+	</update>
+</mapper>

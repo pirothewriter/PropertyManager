@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.tmoncorp.PropertyManager.model.CategoryModel;
 import com.tmoncorp.PropertyManager.model.MemberModel;
 import com.tmoncorp.PropertyManager.repository.MemberRepository;
+import com.tmoncorp.PropertyManager.util.JsonEncoding;
 
 /**
  * 
@@ -142,5 +143,16 @@ public class MemberService {
 
 	public List<MemberModel> getAdmins() {
 		return memberRepository.getAdmins();
+	}
+
+	public String getMemberByMemberName(String memberName) {
+		List<MemberModel> result = memberRepository.getMembersByMemberName(memberName);
+		
+		if(result.size() == 0) {
+			return "NO_MEMBER";
+		} else {
+			JsonEncoding jsonEncoding = new JsonEncoding();
+			return jsonEncoding.encodingJsonByMemberList(result);
+		}
 	}
 }

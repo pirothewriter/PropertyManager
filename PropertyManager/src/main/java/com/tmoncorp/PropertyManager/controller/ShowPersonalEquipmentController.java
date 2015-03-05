@@ -27,12 +27,15 @@ import com.tmoncorp.PropertyManager.util.JsonEncoding;
 
 @Controller
 public class ShowPersonalEquipmentController {
+	private static final String RETIRED = "retired";
+	private static final String MEMBER = "member";
+
 	@Autowired
 	private MemberService memberService;
 
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private PagenationService pagenation;
 
@@ -44,7 +47,7 @@ public class ShowPersonalEquipmentController {
 		showMembersModelAndView.addObject("upperDivisions", upperDivisions);
 		showMembersModelAndView.setViewName("showMembers");
 
-		showMembersModelAndView = pagenation.doMemberPagenation(request, showMembersModelAndView, "member");
+		showMembersModelAndView = pagenation.doMemberPagenation(request, showMembersModelAndView, MEMBER, memberService);
 		return showMembersModelAndView;
 	}
 
@@ -62,11 +65,11 @@ public class ShowPersonalEquipmentController {
 	@RequestMapping("/retired")
 	public ModelAndView showRetired(HttpServletRequest request) throws UnsupportedEncodingException {
 		ModelAndView showRetiredMembersModelAndView = new ModelAndView();
-		
+
 		List<CategoryModel> upperDivisions = categoryService.getAllUpperCategory();
 		showRetiredMembersModelAndView.addObject("upperDivisions", upperDivisions);
-		showRetiredMembersModelAndView = pagenation.doMemberPagenation(request, showRetiredMembersModelAndView, "retired");
-		showRetiredMembersModelAndView.setViewName("retired");
+		showRetiredMembersModelAndView = pagenation.doMemberPagenation(request, showRetiredMembersModelAndView, RETIRED, memberService);
+		showRetiredMembersModelAndView.setViewName(RETIRED);
 
 		return showRetiredMembersModelAndView;
 	}
