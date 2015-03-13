@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tmoncorp.PropertyManager.model.CategoryModel;
 import com.tmoncorp.PropertyManager.model.InspectionNthModel;
+import com.tmoncorp.PropertyManager.model.MemberModel;
 import com.tmoncorp.PropertyManager.service.CategoryService;
 import com.tmoncorp.PropertyManager.service.InspectionService;
 import com.tmoncorp.PropertyManager.service.MemberService;
@@ -33,7 +34,7 @@ public class InspectionController {
 
 	@Autowired
 	private PagenationService pagenationService;
-	
+
 	@Autowired
 	private MemberService memberService;
 
@@ -46,7 +47,7 @@ public class InspectionController {
 		List<CategoryModel> upperDivisions = categoryService.getAllUpperCategory();
 		List<InspectionNthModel> nthList = inspectionService.getNthList();
 		int lastestNth = inspectionService.getLastestNth();
-		
+
 		inspectionModelAndView.addObject("upperDivisions", upperDivisions);
 		inspectionModelAndView.addObject("nthList", nthList);
 		inspectionModelAndView.addObject("lastestNth", lastestNth);
@@ -54,8 +55,8 @@ public class InspectionController {
 		inspectionModelAndView.setViewName("inspection");
 		return inspectionModelAndView;
 	}
-	
-	@RequestMapping(value="/inspectionInsert")
+
+	@RequestMapping(value = "/inspectionInsert")
 	public ModelAndView inspectionInsertion(HttpServletRequest request) {
 		ModelAndView inspectionInsertModelAndView = new ModelAndView();
 		int lastestNth = inspectionService.getLastestNth();
@@ -63,24 +64,40 @@ public class InspectionController {
 		inspectionInsertModelAndView.setViewName("inspectionInsert");
 		return inspectionInsertModelAndView;
 	}
-	
+
 	@RequestMapping(value = "/getPropertyInfomationForInspection", method = RequestMethod.GET)
 	public @ResponseBody String getPropertyInfomation(HttpServletRequest request) {
 		String result = inspectionService.getPropertyInfomation(Integer.parseInt(request.getParameter("nth")), request.getParameter("propertyNumber"));
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/endNth", method = RequestMethod.GET)
-	public @ResponseBody String endNth(HttpServletRequest request){
+	public @ResponseBody String endNth(HttpServletRequest request) {
 		int result = inspectionService.endNth(Integer.parseInt(request.getParameter("nth")));
-		if(result > 0)
+		if (result > 0)
 			return "SUCCESS";
 		else
 			return "ERROR";
 	}
-	
-	@RequestMapping(value="/getMemberByMemberName", method = RequestMethod.GET)
-	public @ResponseBody String getMemberByMemberName(HttpServletRequest request) throws UnsupportedEncodingException {
-		return memberService.getMemberByMemberName(URLDecoder.decode(request.getParameter("memberName"),"UTF-8"));
+
+	@RequestMapping(value = "/getMemberByMemberName", method = RequestMethod.GET)
+	public ModelAndView getMemberByMemberName(HttpServletRequest request) throws UnsupportedEncodingException {
+		ModelAndView chooseMemberModelAndView = new ModelAndView();
+		List<MemberModel> members = memberService.getMemberByMemberName(URLDecoder.decode(request.getParameter("memberName"), "UTF-8"));
+
+		chooseMemberModelAndView.setViewName("chooseMember");
+		chooseMemberModelAndView.addObject("members", members);
+
+		return chooseMemberModelAndView;
+	}
+
+	@RequestMapping(value = "/saveInspectedData", method = RequestMethod.POST)
+	public @ResponseBody String insertInspectedData(HttpServletRequest request) {
+		int result = inspectionService.insertInspectedData(request);
+
+		if (result > 0)
+			return "SUCCESS";
+		else
+			return "ERROR";
 	}
 }

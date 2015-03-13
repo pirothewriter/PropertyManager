@@ -232,9 +232,17 @@
 	
 	<select id="getMembersByMemberName" resultMap="MembertResult">
 		SELECT
-			member_name, ad_account, upper_division
+			M.member_name, M.ad_account, C.category_name AS upper_division
 		FROM
-			member
+			member M
+		LEFT JOIN
+			category C
+		ON
+			(M.upper_division = C.category_code)
+		JOIN
+			authorities A
+		ON
+			(M.ad_account = A.username AND A.authority != 'ROLE_CREATER')
 		WHERE
 			is_served = 'Y' AND member_name = #{memberName}
 	</select>

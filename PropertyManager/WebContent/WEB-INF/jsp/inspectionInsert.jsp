@@ -34,29 +34,33 @@
 			} else {
 				var memberName = $("#searchMemberName").val();
 				memberName = encodeURI(memberName);
-				$.ajax({
-					cache : false,
-					type : "GET",
-					url : 'getMemberByMemberName.tmon',
-					data : {memberName : memberName},
-					success : function(msg){
-						if(msg == "NO_MEMBER"){
-							alert("해당 이름을 가진 사원이 없습니다!");
-							return false;
-						} else {
-							var result = jQuery.parseJSON(msg);
-						}
-					}, error : function(msg){
-						alert("서버 오류입니다!");
-						return false;
-					}
-				});
+				var popupUrl = "/getMemberByMemberName.tmon?memberName="+encodeURI(memberName);
+				var popupOption = "width=400, height=400, toolbar=no, location=no, status=no, menubar=no, resizable=no";
+				window.open(popupUrl, "", popupOption);
 			}
 		});
 		
 		$("#insertInspectionForm").submit(function(){
 			var isSave = confirm("해당 자산들의 실사내용을 저장하시겠습니까?");
 			if(isSave == true) {
+				$.ajax({
+					type : "POST",
+					cache : false,
+					url : 'saveInspectedData.tmon',
+					data : $(this).serialize(),
+					success : function(msg){
+						if(msg == 'SUCCESSS'){
+							alert("성공했습니다!");
+							location.reload(true);
+						} else {
+							alert("예기치 못한 오류입니다!");
+							return false;
+						}
+					}, error : function(){
+						alert("서버 오류입니다!");
+						return false;
+					}
+				});
 			}
 		});
 	});
@@ -96,9 +100,17 @@
 					}
 					
 					if(isAlreadyChecked == false)
-						$("#inspectTable tbody").append("<tr><td><input type='checkbox' name='checked' checked value="+ propertyNumber + "></td><td><input type='text' name='propertyNumber' value='" + propertyNumber + "' class='form-control' readonly></td><td><input type='text' name='propertyName' value='" + inspectData.propertyName + "' class='form-control' readonly></td><td><input type='text' name='memberName' value='" + inspectData.memberName + "' class='form-control' readonly></td><td><input type='text' name='adAccount' value='"+ inspectData.adAccount +"' class='form-control' readonly></td></tr>");
+						$("#inspectTable tbody").append("<tr><td><input type='checkbox' name='checked' checked value="+ propertyNumber + "></td><td><input type='text' name='propertyNumber[]' value='" + propertyNumber + "' class='form-control' readonly></td><td><input type='text' name='propertyName[]' value='" + inspectData.propertyName + "' class='form-control' readonly></td><td><input type='text' name='memberName[]' value='" + inspectData.memberName + "' class='form-control' readonly></td><td><input type='text' name='adAccount[]' value='"+ inspectData.adAccount +"' class='form-control' readonly></td></tr>");
 					
 					$("#barcode").val('');
+					
+					if($("input[name=adAccount]:last").val() != $("#targetMemberAccount").val()){
+						$("input[name=propertyNumber]:last").css("color", "red");
+						$("input[name=propertyName]:last").css("color", "red");
+						$("input[name=memberName]:last").css("color", "red");
+						$("input[name=adAccount]:last").css("color", "red");
+					}
+					
 					window.stop();
 					return false;
 				}
@@ -108,55 +120,7 @@
 			}
 		});
 	}
-	
-	function layer_open(el){
-
-		var temp = $('#' + el);
-		var bg = temp.prev().hasClass('bg');	//dimmed 레이어를 감지하기 위한 boolean 변수
-
-		if(bg){
-			$('.layer').fadeIn();	//'bg' 클래스가 존재하면 레이어가 나타나고 배경은 dimmed 된다. 
-		}else{
-			temp.fadeIn();
-		}
-
-		// 화면의 중앙에 레이어를 띄운다.
-		if (temp.outerHeight() < $(document).height() ) temp.css('margin-top', '-'+temp.outerHeight()/2+'px');
-		else temp.css('top', '0px');
-		if (temp.outerWidth() < $(document).width() ) temp.css('margin-left', '-'+temp.outerWidth()/2+'px');
-		else temp.css('left', '0px');
-
-		temp.find('a.cbtn').click(function(e){
-			if(bg){
-				$('.layer').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
-			}else{
-				temp.fadeOut();
-			}
-			e.preventDefault();
-		});
-
-		$('.layer .bg').click(function(e){	//배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
-			$('.layer').fadeOut();
-			e.preventDefault();
-		});
-
-	}				
 </script>
-
-<style type="text/css">
-	.layer {display:none; position:fixed; _position:absolute; top:0; left:0; width:100%; height:100%; z-index:100;}
-		.layer .bg {position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);}
-		.layer .pop-layer {display:block;}
-
-	.pop-layer {display:none; position: absolute; top: 50%; left: 50%; width: 410px; height:auto;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;}	
-	.pop-layer .pop-container {padding: 20px 25px;}
-	.pop-layer p.ctxt {color: #666; line-height: 25px;}
-	.pop-layer .btn-r {width: 100%; margin:10px 0 20px; padding-top: 10px; border-top: 1px solid #DDD; text-align:right;}
-
-	a.cbtn {display:inline-block; height:25px; padding:0 14px 0; border:1px solid #304a8a; background-color:#3f5a9d; font-size:13px; color:#fff; line-height:25px;}	
-	a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
-</style>
-
 </head>
 <body>
 	<div id="searchTargetMember" style="width:50%; padding-bottom:75px; float:left">
@@ -202,28 +166,6 @@
 			</table>
 			<button class="btn btn-primary" type="submit">저장</button>
 		</form>
-	</div>
-	<a href="#" class="btn-example" onclick="layer_open('layer2');return false;">예제-2 보기</a>
-	<div class="layer">
-		<div class="bg"></div>
-		<div id="layer2" class="pop-layer">
-			<div class="pop-container">
-				<div class="pop-conts">
-					<!--content //-->
-					<table class="table" id="selectMember">
-						<tbody>
-							<tr>
-								<th>선택</th>
-								<th>사원명</th>
-								<th>AD계정</th>
-								<th>부서명(大)</th>
-							</tr>
-						</tbody>
-					</table>
-					<!--// content-->
-				</div>
-			</div>
-		</div>
 	</div>
 </body>
 </html>

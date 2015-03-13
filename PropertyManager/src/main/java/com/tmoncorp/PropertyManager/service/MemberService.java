@@ -145,14 +145,8 @@ public class MemberService {
 		return memberRepository.getAdmins();
 	}
 
-	public String getMemberByMemberName(String memberName) {
+	public List<MemberModel> getMemberByMemberName(String memberName) {
 		List<MemberModel> result = memberRepository.getMembersByMemberName(memberName);
-		
-		if(result.size() == 0) {
-			return "NO_MEMBER";
-		} else {
-			JsonEncoding jsonEncoding = new JsonEncoding();
-			return jsonEncoding.encodingJsonByMemberList(result);
-		}
+		return result;
 	}
 }

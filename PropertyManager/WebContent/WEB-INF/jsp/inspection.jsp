@@ -102,15 +102,15 @@
 					<th>실소유자 AD계정</th>
 					<th>자산실사일</th>
 				</tr>
-				 <c:forEach var="inspections" items="${inspection}" varStatus="status">
+				 <c:forEach var="inspection" items="${inspections}" varStatus="status">
 				 <tr>
 				    <td>${inspection.nth}차</td>
 				    <td>${inspection.propertyNumber}</td>
 				    <td>${inspection.propertyName}</td>
 				    <td>${inspection.memberName}</td>
 				    <td>${inspection.adAccount}</td>
-				    <td>${inspection.reamMemberName}</td>
-				    <td>${inspection.realADAccount}</td>
+				    <td>${inspection.realMemberName}</td>
+				    <td>${inspection.realAdAccount}</td>
 				    <td>${inspection.inspectionDate}</td>
 				</tr>
 				</c:forEach>

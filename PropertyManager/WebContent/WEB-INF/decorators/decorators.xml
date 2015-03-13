@@ -4,6 +4,7 @@
 	<excludes>
 		<pattern>/login.tmon</pattern>
 		<pattern>/equipmentLog.tmon*</pattern>
+		<pattern>/getMemberByMemberName.tmon*</pattern>
 		<pattern>/personalLog.tmon*</pattern>
 		<pattern>/barcodeInput.tmon*</pattern>
 		<pattern>/loginFail.tmon*</pattern>
