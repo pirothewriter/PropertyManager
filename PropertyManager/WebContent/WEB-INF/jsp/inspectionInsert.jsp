@@ -41,26 +41,34 @@
 		});
 		
 		$("#insertInspectionForm").submit(function(){
-			var isSave = confirm("해당 자산들의 실사내용을 저장하시겠습니까?");
-			if(isSave == true) {
-				$.ajax({
-					type : "POST",
-					cache : false,
-					url : 'saveInspectedData.tmon',
-					data : $(this).serialize(),
-					success : function(msg){
-						if(msg == 'SUCCESSS'){
-							alert("성공했습니다!");
-							location.reload(true);
-						} else {
-							alert("예기치 못한 오류입니다!");
+			if($("#searchMemberName").val() != "" && $("#inspectTable tbody tr").length >= 2){
+				event.preventDefault();
+				var isSave = confirm("해당 자산들의 실사내용을 저장하시겠습니까?");
+				if(isSave == true) {
+					$.ajax({
+						type : "POST",
+						cache : false,
+						url : 'saveInspectedData.tmon',
+						data : $(this).serialize(),
+						success : function(msg){
+							if(msg == 'SUCCESS'){
+								alert("성공했습니다!");
+								location.reload(true);
+							} else {
+								alert("예기치 못한 오류입니다!");
+								return false;
+							}
+						}, error : function(){
+							alert("서버 오류입니다!");
 							return false;
 						}
-					}, error : function(){
-						alert("서버 오류입니다!");
-						return false;
-					}
-				});
+					});
+				}
+			}
+			
+			else {
+				alert("대상 사원과 최소 1종목의 자산을 입력해주세요!");
+				return false;
 			}
 		});
 	});

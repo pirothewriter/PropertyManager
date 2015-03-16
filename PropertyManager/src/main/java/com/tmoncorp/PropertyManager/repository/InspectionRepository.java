@@ -39,7 +39,7 @@ public class InspectionRepository {
 
 	public int getMaximumPage(int viewSolePage, int nth, String adAccount, String memberName, char flagDifference) {
 		InspectionMapper inspectionMapper = sqlSession.getMapper(InspectionMapper.class);
-		return inspectionMapper.getMaximumPage(nth, adAccount, memberName, flagDifference) / viewSolePage;
+		return (inspectionMapper.getMaximumPage(nth, adAccount, memberName, flagDifference) / viewSolePage) + 1;
 	}
 
 	public InspectionModel selectInspectedData(int nth, String propertyNumber) {
