@@ -46,4 +46,9 @@ public class InspectionRepository {
 		InspectionMapper inspectionMapper = sqlSession.getMapper(InspectionMapper.class);
 		return inspectionMapper.getThisNthPropertyInspectedData(nth, propertyNumber);
 	}
+	
+	public List<InspectionModel> generateCsvFile(int nth, String adAccount, String memberName, String flagDifference){
+		InspectionMapper inspectionMapper = sqlSession.getMapper(InspectionMapper.class);
+		return inspectionMapper.getAllInspectionListOnCondition(nth, adAccount, memberName, flagDifference);
+	}
 }

@@ -79,4 +79,24 @@
 			AND
 				property_number= #{propertyNumber}
 	</select>
+	
+	<select id="getAllInspectionListOnCondition" resultMap="InspectionResult">
+		SELECT
+			nth, property_number, property_name, member_name, ad_account, real_member_name, real_ad_account, inspection_date
+		FROM
+			inspection
+		WHERE
+			nth = #{nth}
+		<if test="adAccount != ''">
+			AND ad_account LIKE '%${adAccount}%'
+		</if>
+		<if test="memberName != ''">
+			AND member_name LIKE '%${memberName}%'
+		</if>
+		<if test="flagDifference == 'Y'">
+			AND ad_account != real_ad_account
+		</if>
+		ORDER BY
+			inspection_date DESC
+	</select>
 </mapper>

@@ -22,4 +22,6 @@ public interface InspectionMapper {
 	public int getMaximumPage(@Param("nth") int nth, @Param("adAccount") String adAccount, @Param("memberName") String memberName, @Param("flagDifference") char flagDifference);
 
 	public InspectionModel getThisNthPropertyInspectedData(@Param("nth") int nth, @Param("propertyNumber") String propertyNumber);
+	
+	public List<InspectionModel> getAllInspectionListOnCondition(@Param("nth") int nth, @Param("adAccount") String adAccount, @Param("memberName") String memberName, @Param("flagDifference") String flagDifference);
 }

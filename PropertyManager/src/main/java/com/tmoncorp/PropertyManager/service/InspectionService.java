@@ -119,7 +119,7 @@ public class InspectionService {
 
 		return result;
 	}
-
+	
 	private int insertInspectedData(HttpServletRequest request, String[] propertyNumbers, String[] propertyNames, String[] adAccounts, String[] memberNames, int index) {
 		int result = 0;
 		InspectionModel model = generateInspectionModel(request, propertyNumbers, propertyNames, adAccounts, memberNames, index);

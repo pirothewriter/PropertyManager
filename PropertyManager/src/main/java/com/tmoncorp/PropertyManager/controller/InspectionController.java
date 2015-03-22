@@ -47,6 +47,10 @@ public class InspectionController {
 		List<CategoryModel> upperDivisions = categoryService.getAllUpperCategory();
 		List<InspectionNthModel> nthList = inspectionService.getNthList();
 		int lastestNth = inspectionService.getLastestNth();
+		
+		if(request.getParameter("flagDifference") != null){
+			inspectionModelAndView.addObject("flagDifference", request.getParameter("flagDifference"));
+		}
 
 		inspectionModelAndView.addObject("upperDivisions", upperDivisions);
 		inspectionModelAndView.addObject("nthList", nthList);

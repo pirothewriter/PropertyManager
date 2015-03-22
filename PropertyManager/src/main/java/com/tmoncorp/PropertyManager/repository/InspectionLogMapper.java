@@ -20,4 +20,5 @@ public interface InspectionLogMapper {
 	public int deleteInspectedDataOnMember(@Param("nth") int nth, @Param("adAccount") String adAccount);
 
 	public String selectInspedtedDataOfProperty(@Param("nth") int nth, @Param("propertyNumber") String propertyNumber);
+
 }

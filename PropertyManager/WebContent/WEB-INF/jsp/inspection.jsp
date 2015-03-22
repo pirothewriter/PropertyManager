@@ -62,6 +62,23 @@
 				});
 			}
 		});
+		
+		$("#viewDifference").click(function(){
+			document.location.href="/inspection.tmon?flagDifference=Y";
+		});
+		
+		$("#viewAll").click(function(){
+			document.location.href="/inspection.tmon";
+		})
+		
+		$("#getCsv").click(function(){
+			var uri = location.href;
+			var conditions = uri.split("?")[1];
+			if(conditions == undefined)
+				document.location.href="/generateResult.tmon";
+			else
+				document.location.href="/generateResult.tmon?" + conditions;
+		})
 	});
 </script>
 </head>
@@ -86,7 +103,22 @@
 			<button type="button" class="btn btn-primary" id="insertInspection">실사결과 입력</button>
 		</div>
 		</div>
-		<div align="left" style="float:left"><span class="label label-success" style="font-size: 18px;">${lastestNth}차 실사</span></div>
+		<div align="left" style="float:left">
+			<span class="label label-success" style="font-size: 18px;">${lastestNth}차 실사</span>
+			<span>
+				<c:choose>
+					<c:when test="${flagDifference == 'Y'}">
+						<button type="button" id="viewAll" class="btn btn-warning">전체 실시데이터 보기</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button" id="viewDifference" class="btn btn-warning">불일치 실시데이터 보기</button>
+					</c:otherwise>
+				</c:choose>
+			</span>
+			<span>
+				<button type="button" id="getCsv" class="btn btn-success">CSV 파일로 저장</button>
+			</span>
+		</div>
 		<div align="right"><button type="button" id="endNth" class="btn btn-danger">${lastestNth}차 실사 종료</button></div>
 		<div id="list">
 		<form action="/memberInfo.tmon" method="get" name="members">

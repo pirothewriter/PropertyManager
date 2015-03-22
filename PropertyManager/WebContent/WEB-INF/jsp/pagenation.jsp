@@ -39,7 +39,7 @@
 					var nowLocation = document.location.href;
 					nowLocation = nowLocation.split('?')[0];
 					var url = nowLocation + "?viewSolePage=" + viewSolePage;
-					document.location.href= url;
+					document.location.href= url + '&' + nowLocation.split('?')[1];
 				}
 			})
 		});
