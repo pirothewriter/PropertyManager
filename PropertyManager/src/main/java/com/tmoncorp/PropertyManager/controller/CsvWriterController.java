@@ -1,6 +1,5 @@
 package com.tmoncorp.PropertyManager.controller;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +29,7 @@ public class CsvWriterController {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/generateResult", method = RequestMethod.GET)
-	public @ResponseBody File generateResult(HttpServletRequest request) throws IOException {
+	public @ResponseBody String generateResult(HttpServletRequest request) throws IOException {
 		int nth;
 		String adAccount;
 		String memberName;
@@ -56,7 +55,7 @@ public class CsvWriterController {
 		else
 			flagDifference = null;
 
-		File result = csvWriterService.generateCsvFile(nth, adAccount, memberName, flagDifference);
+		String result = csvWriterService.generateCsvFile(nth, adAccount, memberName, flagDifference);
 
 		return result;
 	}

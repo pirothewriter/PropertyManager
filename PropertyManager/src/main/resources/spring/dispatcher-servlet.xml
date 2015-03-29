@@ -9,6 +9,8 @@
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	
+	<mvc:annotation-driven /> 
+	
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
 	   <property name="messageConverters">
 	      <list>
@@ -22,6 +24,18 @@
 	      </list>
 	   </property>
 	</bean>
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+   <property name="messageConverters">
+       <list>
+          <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+              <property name="supportedMediaTypes">
+                  <value>text/plain;charset=UTF-8</value>
+              </property>
+          </bean>
+       </list>
+   </property>
+</bean>
 
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</bean>

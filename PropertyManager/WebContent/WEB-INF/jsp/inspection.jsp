@@ -74,10 +74,19 @@
 		$("#getCsv").click(function(){
 			var uri = location.href;
 			var conditions = uri.split("?")[1];
-			if(conditions == undefined)
-				document.location.href="/generateResult.tmon";
-			else
-				document.location.href="/generateResult.tmon?" + conditions;
+			
+			event.preventDefault();
+			$.ajax({
+				cache : false,
+				url : "/generateResult.tmon?" + conditions,
+				type : "GET",
+				success : function() {
+					window.location.href = "csv/inspection_result.csv";
+				}, error : function() {
+					alert("데이터 생성에 실패했습니다!");
+					return false;
+				}
+			});
 		})
 	});
 </script>
